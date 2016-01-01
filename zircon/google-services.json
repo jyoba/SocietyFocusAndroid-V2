@@ -1,0 +1,50 @@
+{
+  "project_info": {
+    "project_number": "431406209508",
+    "firebase_url": "https://society-focus.firebaseio.com",
+    "project_id": "society-focus",
+    "storage_bucket": "society-focus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431406209508:android:e0b38744543e6fd1",
+        "android_client_info": {
+          "package_name": "com.zircon.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431406209508-nu99e0o31uf75v4somoqvkdf8fem1pkh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zircon.app",
+            "certificate_hash": "e8d386f54f43f5a6c91f419e5a2b61290e6112b6"
+          }
+        },
+        {
+          "client_id": "431406209508-l5tohemg9if2ovd30tk0rbqjmmoq3sga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyvIC2Kt5CazMdSDwR1YLazWkcdSFzRIo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

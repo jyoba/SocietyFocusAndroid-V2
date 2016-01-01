@@ -7,9 +7,10 @@ android {
         applicationId "com.zircon.app"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 170514001
+        versionName "2.0.0 (170514001)"
         vectorDrawables.useSupportLibrary = true
+        resConfigs "en"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -61,8 +62,14 @@ android {
             debuggable true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
+        }
 
+        android.applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def file = output.outputFile
+                output.outputFile = new File(file.parent, file.name.replace(".apk", "-" + android.defaultConfig.versionCode + ".apk"))
 
+            }
         }
     }
 }
@@ -93,7 +100,17 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.google.firebase:firebase-config:10.0.1'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
+    compile 'com.google.android.gms:play-services-auth:10.0.1'
     testCompile 'junit:junit:4.12'
+
 }
 
 //apply plugin: 'com.google.gms.google-services'
+
+
+
+
+
+apply plugin: 'com.google.gms.google-services'

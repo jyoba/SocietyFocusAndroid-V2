@@ -12,6 +12,7 @@ import com.zircon.app.ui.common.fragment.BaseDrawerActivity;
 import com.zircon.app.ui.widget.ToolsWidget;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.NavigationUtils;
+import com.zircon.app.utils.ui.ForceUpdateHelper;
 
 public class HomeActivity extends BaseDrawerActivity {
 
@@ -25,11 +26,13 @@ public class HomeActivity extends BaseDrawerActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        ForceUpdateHelper.checkForUpdates(HomeActivity.this);
+
         setupToolbar();
         setTitle(AccountManager.getInstance().getloggedInSociety().name);
         ToolsWidget.setupToolsWidget(this);
         setupDrawer(R.id.nav_home);
-        NoticeBoardHelper.setupNoticeBoard(findViewById(R.id.cv_nb));
+//        NoticeBoardHelper.setupNoticeBoard(findViewById(R.id.cv_nb));
 
         String bgUrl = AccountManager.getInstance().getloggedInSociety().societypic;
         Picasso.with(this).load(bgUrl).into((ImageView) findViewById(R.id.society_bg));
