@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_300"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_notice_container" />
+
+        <com.zircon.app.utils.ui.AspectRatioCardView
+            style="@style/CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            app:ratio="0.2">
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/label_pay_rwa_fees" />
+        </com.zircon.app.utils.ui.AspectRatioCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_normal"
+            android:layout_marginRight="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.zircon.app.utils.ui.AspectRatioCardView
+                style="@style/CardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/spacing_normal"
+                android:layout_weight="1" />
+
+            <com.zircon.app.utils.ui.AspectRatioCardView
+                style="@style/CardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+
+        <com.zircon.app.utils.ui.AspectRatioCardView
+            app:ratio="0.2"
+            android:layout_marginTop="@dimen/spacing_normal"
+            style="@style/CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>
+

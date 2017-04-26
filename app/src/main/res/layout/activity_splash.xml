@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zircon.app.ui.login.SplashActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_logo_black"
+        app:layout_constraintBottom_toTopOf="@+id/tv_header"
+        app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
+        app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="17dp"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
+        app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.84000003"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+    <TextView
+        android:id="@+id/tv_header"
+        style="@style/TextView.SplashTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Society Focus"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
+        app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.557"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
+
+    <TextView
+        android:id="@+id/tv_sub_header"
+        style="@style/TextView.SplashSubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:text="Bringing societies closer."
+        app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
+        app:layout_constraintRight_toRightOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/tv_header"
+        tools:layout_constraintTop_creator="1" />
+</android.support.constraint.ConstraintLayout>

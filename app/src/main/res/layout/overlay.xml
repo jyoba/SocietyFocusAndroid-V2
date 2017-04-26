@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zircon.app.utils.ui.Overlay
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/overlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark">
+
+        <CheckBox
+            android:id="@+id/chk_dont_show_again"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:gravity="center_vertical"
+            android:text="Don't show again"
+            android:textColor="@color/textColorPrimaryInverse" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="OK! Got it!" >
+            <requestFocus/>
+        </Button>
+    </RelativeLayout>
+
+</com.zircon.app.utils.ui.Overlay>
+

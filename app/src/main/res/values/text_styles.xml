@@ -1,0 +1,31 @@
+<resources>
+
+    <style name="TextView" >
+
+    </style>
+
+
+    <style name="TextView.SplashTitle" >
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+    </style>
+
+    <style name="TextView.SplashSubTitle" >
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
+
+
+
+    <style name="TextView.Header" >
+
+    </style>
+
+    <style name="TextView.Content" >
+
+    </style>
+
+
+</resources>
