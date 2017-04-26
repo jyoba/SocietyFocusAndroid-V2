@@ -1,30 +1,52 @@
 <resources>
 
-    <style name="TextView" >
+    <style name="TextView">
 
     </style>
 
 
-    <style name="TextView.SplashTitle" >
+    <style name="TextView.SplashTitle">
         <item name="android:textColor">?android:textColorPrimaryInverse</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_xlarge</item>
     </style>
 
-    <style name="TextView.SplashSubTitle" >
+    <style name="TextView.SplashSubTitle">
         <item name="android:textColor">?android:textColorPrimaryInverse</item>
         <item name="android:textStyle">italic</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
 
-
-
-    <style name="TextView.Header" >
-
+    <style name="TextView.Header">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
     </style>
 
-    <style name="TextView.Content" >
+    <style name="TextView.SubHeader">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
 
+    <style name="TextView.Content">
+        <item name="android:textColor">@color/grey_500</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
+
+
+    <style name="TextView.SubHeader.Grey">
+        <item name="android:textColor">@color/grey_500</item>
+    </style>
+
+    <style name="TextView.Header.Grey">
+        <item name="android:textColor">@color/grey_500</item>
+    </style>
+
+    <style name="TextView.Header.Clickable">
+        <item name="android:clickable">true</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
 

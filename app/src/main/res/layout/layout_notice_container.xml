@@ -1,53 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/rl_nb"
+    android:id="@+id/cv_nb"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/spacing_normal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:contentPaddingBottom="@dimen/spacing_small"
+    app:contentPaddingTop="@dimen/spacing_small">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cv_nb"
-        style="@style/CardView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_normal"
-        >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
 
         <TextView
+            android:id="@+id/tv_nb_head"
+            style="@style/TextView.SubHeader.Grey"
             android:layout_width="wrap_content"
-            android:layout_height="?actionBarSize"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
             android:gravity="center_vertical"
             android:text="@string/label_notice" />
 
-        <Button
-            android:id="@+id/btn_see_all"
+        <FrameLayout
+            android:id="@+id/fl_vp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_nb_head"
+            android:layout_marginTop="@dimen/spacing_small">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_notice"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:clipToPadding="false" />
+
+            <com.zircon.app.ui.widget.BubbleViewPagerIndicator
+                android:id="@+id/pager_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="@dimen/spacing_normal" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_see_all"
+            style="@style/TextView.Content"
             android:layout_width="wrap_content"
-            android:layout_height="?actionBarSize"
-            android:layout_gravity="right"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fl_vp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/spacing_small"
             android:text="@string/label_see_all" />
 
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_notice"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@id/cv_nb"
-        android:layout_marginTop="@dimen/spacing_normal"
-        android:clipToPadding="false" />
+    </RelativeLayout>
 
 
-    <com.zircon.app.ui.widget.BubbleViewPagerIndicator
-        android:id="@+id/pager_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom|center_horizontal"
-        android:paddingBottom="10dp" />
-
-</RelativeLayout>
+</android.support.v7.widget.CardView>

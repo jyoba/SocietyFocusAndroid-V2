@@ -54,8 +54,7 @@ public class HomeActivity extends BaseDrawerActivity {
         setTitle(AccountManager.getInstance().getloggedInSociety().name);
         ToolsWidget.setupToolsWidget(this);
         setupDrawer();
-        NoticeBoardHelper.setupNoticeBoard(findViewById(R.id.rl_nb));
-
+        NoticeBoardHelper.setupNoticeBoard(findViewById(R.id.cv_nb));
 
         String bgUrl = AccountManager.getInstance().getloggedInSociety().societypic;
 

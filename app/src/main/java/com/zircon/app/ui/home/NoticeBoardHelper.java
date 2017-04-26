@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.zircon.app.R;
 import com.zircon.app.model.NoticeBoard;
@@ -37,7 +38,7 @@ class NoticeBoardHelper {
 
         final BubbleViewPagerIndicator pageIndicator = (BubbleViewPagerIndicator) container.findViewById(R.id.pager_indicator);
 
-        final Button seeAllButton = (Button) container.findViewById(R.id.btn_see_all);
+        final TextView seeAllView = (TextView) container.findViewById(R.id.tv_see_all);
 
         noticeViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -67,8 +68,8 @@ class NoticeBoardHelper {
 
                 if (response.body().body.size() > 8){
 
-                    seeAllButton.setVisibility(View.VISIBLE);
-                    seeAllButton.setOnClickListener(new View.OnClickListener() {
+                    seeAllView.setVisibility(View.VISIBLE);
+                    seeAllView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
@@ -79,7 +80,7 @@ class NoticeBoardHelper {
                         nbs.add(response.body().body.get(i));
                     }
                 }else{
-                    seeAllButton.setVisibility(View.GONE);
+                    seeAllView.setVisibility(View.GONE);
                     nbs = response.body().body;
                 }
 
@@ -90,6 +91,8 @@ class NoticeBoardHelper {
 
             @Override
             public void onFailure(Throwable t) {
+
+                container.setVisibility(View.GONE);
 
             }
         });

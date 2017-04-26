@@ -10,5 +10,12 @@
     <color name="lime_500">#CDDC39</color>
     <color name="cyan_500">#00BCD4</color>
     <color name="grey_500">#9E9E9E</color>
+    <color name="orange_500">#FF9800</color>
+    <color name="purple_500">#9CB720</color>
+
     <color name="grey_300">#E0E0E0</color>
+
+
+    <color name="white_transparent">#80ffffff</color>
+
 </resources>
