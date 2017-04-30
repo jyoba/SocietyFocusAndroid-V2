@@ -25,7 +25,6 @@
             app:contentPaddingRight="@dimen/spacing_normal"
             app:ratio="0.2">
 
-
             <TextView
                 style="@style/TextView.Header.Clickable"
                 android:layout_width="match_parent"
@@ -56,6 +55,7 @@
                 app:contentPadding="@dimen/spacing_normal">
 
                 <TextView
+                    android:id="@+id/tv_residents"
                     style="@style/TextView.Header.Clickable"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -75,6 +75,7 @@
                 app:contentPadding="@dimen/spacing_normal">
 
                 <TextView
+                    android:id="@+id/tv_rwa"
                     style="@style/TextView.Header.Clickable"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -137,6 +138,48 @@
             </com.zircon.app.utils.ui.AspectRatioCardView>
 
         </LinearLayout>
+
+
+        <com.zircon.app.utils.ui.AspectRatioCardView
+            style="@style/CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:contentPaddingLeft="@dimen/spacing_normal"
+            app:contentPaddingRight="@dimen/spacing_normal"
+            app:ratio="0.2">
+
+            <TextView
+                style="@style/TextView.Header.Clickable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_car_white_transparent_72dp"
+                android:gravity="center"
+                android:text="@string/label_car_search" />
+        </com.zircon.app.utils.ui.AspectRatioCardView>
+
+
+        <!--<com.zircon.app.utils.ui.AspectRatioCardView-->
+            <!--style="@style/CardView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/spacing_normal"-->
+            <!--app:cardBackgroundColor="@color/orange_500"-->
+            <!--app:contentPaddingLeft="@dimen/spacing_normal"-->
+            <!--app:contentPaddingRight="@dimen/spacing_normal"-->
+            <!--app:ratio="0.2">-->
+
+            <!--<TextView-->
+                <!--style="@style/TextView.Header.Clickable"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:drawableLeft="@drawable/ic_book_white_transparent_72dp"-->
+                <!--android:gravity="center"-->
+                <!--android:text="@string/label_society_assets" />-->
+        <!--</com.zircon.app.utils.ui.AspectRatioCardView>-->
 
     </LinearLayout>
 

@@ -21,6 +21,9 @@
     <string name="label_residents">Residents</string>
     <string name="label_complaint">Complaints</string>
     <string name="label_services">Services</string>
+    <string name="label_car_search">Car Search</string>
+    <string name="label_society_assets">Book society asset</string>
+    <string name="title_search">Search</string>
 </resources>
 
 

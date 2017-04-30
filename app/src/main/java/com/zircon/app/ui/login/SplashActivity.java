@@ -48,11 +48,13 @@ public class SplashActivity extends AppCompatActivity implements LoginHelper.ILo
     @Override
     public void onLoginSuccess(boolean isSocietyLogin, LoginResponse response) {
         startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 
     @Override
     public void onLoginFail(boolean isSocietyLogin, Throwable t) {
         startActivity(new Intent(this, LoginActivity.class));
+        finish();
 
     }
 }

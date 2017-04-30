@@ -28,11 +28,13 @@ import com.zircon.app.model.NoticeBoard;
 import com.zircon.app.model.response.NoticeBoardResponse;
 import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.ui.common.fragment.BaseDrawerActivity;
+import com.zircon.app.ui.usr.UsersActivity;
 import com.zircon.app.ui.widget.BubbleViewPagerIndicator;
 import com.zircon.app.ui.widget.ToolsWidget;
 import com.zircon.app.utils.API;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.HTTP;
+import com.zircon.app.utils.NavigationUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,8 +44,8 @@ import retrofit2.Response;
 
 public class HomeActivity extends BaseDrawerActivity {
 
-
-    private BubbleViewPagerIndicator pageIndicator;
+    private View rwaView;
+    private View residentsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +55,29 @@ public class HomeActivity extends BaseDrawerActivity {
         setupToolbar();
         setTitle(AccountManager.getInstance().getloggedInSociety().name);
         ToolsWidget.setupToolsWidget(this);
-        setupDrawer();
+        setupDrawer(R.id.nav_manage);
         NoticeBoardHelper.setupNoticeBoard(findViewById(R.id.cv_nb));
 
         String bgUrl = AccountManager.getInstance().getloggedInSociety().societypic;
-
         Picasso.with(this).setIndicatorsEnabled(false);
         Picasso.with(this).load(bgUrl).into((ImageView) findViewById(R.id.society_bg));
+
+        rwaView = findViewById(R.id.tv_rwa);
+        residentsView = findViewById(R.id.tv_residents);
+
+        rwaView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavigationUtils.navigateToUserPage(HomeActivity.this, UsersActivity.PAGE_TYPE_RWA);
+            }
+        });
+
+        residentsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavigationUtils.navigateToUserPage(HomeActivity.this, UsersActivity.PAGE_TYPE_RESIDENTS);
+            }
+        });
 
 
     }
@@ -82,29 +100,7 @@ public class HomeActivity extends BaseDrawerActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        closeDrawer();
-
-        return true;
-    }
 
 
 

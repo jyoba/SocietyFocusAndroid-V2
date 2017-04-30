@@ -23,9 +23,11 @@ import com.zircon.app.model.response.SocietyListResponse;
 import com.zircon.app.ui.common.fragment.AbsSearchListViewFragment;
 import com.zircon.app.utils.API;
 import com.zircon.app.utils.HTTP;
+import com.zircon.app.utils.ui.TextDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -173,7 +175,12 @@ public class SocietySelectionFragment extends AbsSearchListViewFragment {
 
                 societyAddressTextView.setText(society.address);
 
-                Picasso.with(getContext()).load(society.societypic).placeholder(R.drawable.ic_logo_black).into(societyImgView);
+                TextDrawable td = new TextDrawable(societyImgView.getContext());
+                td.setText(society.name.substring(0,1).toUpperCase());
+                Random rnd = new Random();
+                int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+                societyImgView.setBackgroundColor(color);
+                Picasso.with(getContext()).load(society.societypic).placeholder(td).fit().centerCrop().into(societyImgView);
                 key = society.societyId;
             }
         }

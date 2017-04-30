@@ -1,6 +1,7 @@
 package com.zircon.app.utils;
 
 import com.zircon.app.model.response.LoginResponse;
+import com.zircon.app.model.response.MembersResponse;
 import com.zircon.app.model.response.NoticeBoardResponse;
 import com.zircon.app.model.response.SocietyListResponse;
 
@@ -70,8 +71,8 @@ public interface API {
 //    public Call<AddCommentResponse> getAddComment(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken,
 //                                                  @Path("Complaint_ID") String complaintID, @Path("MESSAGE") String message);
 //
-//    @GET(API_PATH_PATTERN + "user/getalluser")
-//    public Call<MembersResponse> getAllUsers(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
+    @GET(API_PATH_PATTERN + "user/getalluser")
+    public Call<MembersResponse> getAllUsers(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
 //
 //    @GET(API_PATH_PATTERN + "society/asset/getall")
 //    public Call<AssetsResponse> getAllSocietyAssets(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
