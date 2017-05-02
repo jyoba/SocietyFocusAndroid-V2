@@ -1,8 +1,6 @@
 package com.zircon.app.ui.login;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -23,11 +21,10 @@ import com.zircon.app.model.response.SocietyListResponse;
 import com.zircon.app.ui.common.fragment.AbsSearchListViewFragment;
 import com.zircon.app.utils.API;
 import com.zircon.app.utils.HTTP;
-import com.zircon.app.utils.ui.TextDrawable;
+import com.zircon.app.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -175,12 +172,8 @@ public class SocietySelectionFragment extends AbsSearchListViewFragment {
 
                 societyAddressTextView.setText(society.address);
 
-                TextDrawable td = new TextDrawable(societyImgView.getContext());
-                td.setText(society.name.substring(0,1).toUpperCase());
-                Random rnd = new Random();
-                int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-                societyImgView.setBackgroundColor(color);
-                Picasso.with(getContext()).load(society.societypic).placeholder(td).fit().centerCrop().into(societyImgView);
+                societyImgView.setBackgroundColor(Utils.getRandomMaterialColor(getContext(),"300"));
+                Picasso.with(getContext()).load(society.societypic).placeholder(Utils.getTextDrawable(getContext(),society.name)).fit().centerCrop().into(societyImgView);
                 key = society.societyId;
             }
         }

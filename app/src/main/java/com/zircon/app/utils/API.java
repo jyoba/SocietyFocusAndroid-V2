@@ -3,6 +3,7 @@ package com.zircon.app.utils;
 import com.zircon.app.model.response.LoginResponse;
 import com.zircon.app.model.response.MembersResponse;
 import com.zircon.app.model.response.NoticeBoardResponse;
+import com.zircon.app.model.response.PanelResponse;
 import com.zircon.app.model.response.SocietyListResponse;
 
 import retrofit2.Call;
@@ -76,9 +77,9 @@ public interface API {
 //
 //    @GET(API_PATH_PATTERN + "society/asset/getall")
 //    public Call<AssetsResponse> getAllSocietyAssets(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
-//
-//    @GET(API_PATH_PATTERN + "society/panel")
-//    public Call<PanelResponse> getSocietyPanel(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
+
+    @GET(API_PATH_PATTERN + "society/panel")
+    public Call<PanelResponse> getSocietyPanel(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
 
     @GET(API_PATH_PATTERN + "society")
     public Call<SocietyListResponse> getSocietyList();

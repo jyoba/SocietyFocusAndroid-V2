@@ -158,8 +158,13 @@ class NoticeBoardHelper {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View layout = LayoutInflater.from(container.getContext()).inflate(R.layout.layout_notice_board, container, false);
+            setupView(layout,list.get(position));
             container.addView(layout);
             return layout;
+        }
+
+        private void setupView(View layout, NoticeBoard noticeBoard) {
+
         }
 
         @Override

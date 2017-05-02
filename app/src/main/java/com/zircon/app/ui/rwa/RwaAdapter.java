@@ -1,4 +1,4 @@
-package com.zircon.app.ui.usr;
+package com.zircon.app.ui.rwa;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -18,8 +18,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.zircon.app.R;
+import com.zircon.app.model.Panel;
 import com.zircon.app.model.User;
 import com.zircon.app.ui.common.fragment.BaseActivity;
+import com.zircon.app.ui.usr.UserDetailFragment;
 import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.Utils;
 import com.zircon.app.utils.ui.AbsSearchListAdapter;
@@ -30,32 +32,29 @@ import java.util.ArrayList;
  * Created by jikoobaruah on 30/04/17.
  */
 
-public class UsersAdapter extends AbsSearchListAdapter<User,UsersAdapter.ViewHolder> {
+public class RwaAdapter extends AbsSearchListAdapter<Panel, RwaAdapter.ViewHolder> {
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_user, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item_user, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setUser(getItem(position));
+        holder.setPanel(getItem(position));
     }
 
     @Override
-    protected ArrayList<User> getFilteredList(String query) {
-        ArrayList<User> filteredList = new ArrayList<>();
+    protected ArrayList<Panel> getFilteredList(String query) {
+        ArrayList<Panel> filteredList = new ArrayList<>();
         if (query == null || query.trim().length() == 0)
             filteredList = masterItems;
         else {
-            String FirstName, LastName;
             int size = masterItems.size();
             for (int i = 0; i < size; i++) {
-                FirstName = masterItems.get(i).firstname;
-                LastName = (masterItems.get(i).lastname == null ? "" : masterItems.get(i).lastname);
-                if ((FirstName.toLowerCase().contains(query.toLowerCase())) || (LastName.toLowerCase().contains(query.toLowerCase()))) {
+                if (getItem(i).user.getFullName().toLowerCase().contains(query.toLowerCase()) || getItem(i).designation.toLowerCase().contains(query.toLowerCase())) {
                     filteredList.add(masterItems.get(i));
                 }
             }
@@ -67,6 +66,7 @@ public class UsersAdapter extends AbsSearchListAdapter<User,UsersAdapter.ViewHol
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView profileImageView;
+        ImageView infoImageView;
         TextView nameTextView;
         TextView descTextView;
         TextView emailTextView;
@@ -74,30 +74,33 @@ public class UsersAdapter extends AbsSearchListAdapter<User,UsersAdapter.ViewHol
         LinearLayout container;
 
 
-        public ViewHolder( View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
 
             profileImageView = (ImageView) itemView.findViewById(R.id.iv_profile);
+            infoImageView = (ImageView) itemView.findViewById(R.id.iv_more_info);
             nameTextView = (TextView) itemView.findViewById(R.id.tv_name);
             descTextView = (TextView) itemView.findViewById(R.id.tv_desc);
             emailTextView = (TextView) itemView.findViewById(R.id.tv_email);
             phoneTextView = (TextView) itemView.findViewById(R.id.tv_phone);
             container = (LinearLayout) itemView.findViewById(R.id.ll_content);
 
-            container.setOnClickListener(new View.OnClickListener() {
+            infoImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    NavigationUtils.navigateToUserDetailPage((BaseActivity) v.getContext(), ((ColorDrawable) profileImageView.getBackground()).getColor(), getItem(getAdapterPosition()));
+                    NavigationUtils.navigateToUserDetailPage((BaseActivity) v.getContext(), ((ColorDrawable) itemView.getBackground()).getColor(), getItem(getAdapterPosition()).user);
+
                 }
             });
 
         }
 
-        public void setUser(User user) {
+        public void setPanel(Panel panel) {
 
-            Picasso.with(profileImageView.getContext()).load(user.profilePic).placeholder(Utils.getTextDrawable(profileImageView.getContext(),user.firstname)).fit().into(profileImageView);
+            User user = panel.user;
+            Picasso.with(profileImageView.getContext()).load(user.profilePic).placeholder(Utils.getTextDrawable(profileImageView.getContext(), user.firstname)).fit().into(profileImageView);
 
-            profileImageView.setBackgroundColor(Utils.getRandomMaterialColor(profileImageView.getContext(),"300"));
+            itemView.setBackgroundColor(Utils.getRandomMaterialColor(itemView.getContext(), "300"));
 
             String name = user.getFullName();
 
@@ -114,7 +117,7 @@ public class UsersAdapter extends AbsSearchListAdapter<User,UsersAdapter.ViewHol
                 nameTextView.setText(name);
             }
 
-            descTextView.setText(user.description);
+            descTextView.setText(panel.designation);
             emailTextView.setText(user.email);
             phoneTextView.setText(user.contactNumber);
         }
