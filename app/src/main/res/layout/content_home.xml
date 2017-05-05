@@ -109,6 +109,7 @@
                 app:contentPadding="@dimen/spacing_normal">
 
                 <TextView
+                    android:id="@+id/tv_complaints"
                     style="@style/TextView.Header.Clickable"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

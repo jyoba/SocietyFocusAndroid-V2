@@ -1,5 +1,10 @@
 package com.zircon.app.utils;
 
+import com.zircon.app.model.Complaint;
+import com.zircon.app.model.response.AddCommentResponse;
+import com.zircon.app.model.response.ComplaintCommentResponse;
+import com.zircon.app.model.response.ComplaintListResponse;
+import com.zircon.app.model.response.ComplaintResponse;
 import com.zircon.app.model.response.LoginResponse;
 import com.zircon.app.model.response.MembersResponse;
 import com.zircon.app.model.response.NoticeBoardResponse;
@@ -67,11 +72,12 @@ public interface API {
 //
 //    @POST(API_PATH_PATTERN + "upload/image/base64")
 //    public Call<UploadImageResponse> uploadimage(@Body UploadImage uploadImage);
-//
-//    @GET(API_PATH_PATTERN + "v1/comment/add/complaint_{Complaint_ID}/{MESSAGE}")
-//    public Call<AddCommentResponse> getAddComment(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken,
-//                                                  @Path("Complaint_ID") String complaintID, @Path("MESSAGE") String message);
-//
+
+
+    @GET(API_PATH_PATTERN + "v1/comment/add/complaint_{Complaint_ID}/{MESSAGE}")
+    public Call<AddCommentResponse> getAddComment(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken,
+                                                  @Path("Complaint_ID") String complaintID, @Path("MESSAGE") String message);
+
     @GET(API_PATH_PATTERN + "user/getalluser")
     public Call<MembersResponse> getAllUsers(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
 //
@@ -83,15 +89,15 @@ public interface API {
 
     @GET(API_PATH_PATTERN + "society")
     public Call<SocietyListResponse> getSocietyList();
-
-//    @POST(API_PATH_PATTERN + "v1/complaint/save")
-//    public Call<ComplaintResponse> saveComplaint(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Body Complaint complaint);
 //
-//    @GET(API_PATH_PATTERN + "v1/complaint/getusercomplaint")
-//    public Call<ComplaintListResponse> getUserComplaints(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
+    @POST(API_PATH_PATTERN + "v1/complaint/save")
+    public Call<ComplaintResponse> saveComplaint(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Body Complaint complaint);
 //
-//    @GET(API_PATH_PATTERN + "v1/complaint/get/{id}")
-//    public Call<ComplaintCommentResponse> getComplaintDetails(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Path("id") String complaintID);
+    @GET(API_PATH_PATTERN + "v1/complaint/getusercomplaint")
+    public Call<ComplaintListResponse> getUserComplaints(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
+//
+    @GET(API_PATH_PATTERN + "v1/complaint/get/{id}")
+    public Call<ComplaintCommentResponse> getComplaintDetails(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Path("id") String complaintID);
 //
 //    @POST(API_PATH_PATTERN + "user/modifymyuser")
 //    public Call<UserResponse> modifyUser(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Body User user);

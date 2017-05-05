@@ -17,6 +17,7 @@ public class HomeActivity extends BaseDrawerActivity {
 
     private View rwaView;
     private View residentsView;
+    private View complaintsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +31,11 @@ public class HomeActivity extends BaseDrawerActivity {
         NoticeBoardHelper.setupNoticeBoard(findViewById(R.id.cv_nb));
 
         String bgUrl = AccountManager.getInstance().getloggedInSociety().societypic;
-        Picasso.with(this).setIndicatorsEnabled(false);
         Picasso.with(this).load(bgUrl).into((ImageView) findViewById(R.id.society_bg));
 
         rwaView = findViewById(R.id.tv_rwa);
         residentsView = findViewById(R.id.tv_residents);
+        complaintsView = findViewById(R.id.tv_complaints);
 
         residentsView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +48,13 @@ public class HomeActivity extends BaseDrawerActivity {
             @Override
             public void onClick(View v) {
                 NavigationUtils.navigateToRWAPage(HomeActivity.this);
+            }
+        });
+
+        complaintsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavigationUtils.navigateToComplaints(HomeActivity.this);
             }
         });
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey_300"
+    android:padding="@dimen/spacing_small"
+
+    >
+
+    <TextView
+        android:id="@+id/tv_author"
+        style="@style/TextView.SubHeader.White"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Myself" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        style="@style/TextView.Content.White.Italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="23 Dec,3098" />
+
+    <TextView
+        android:id="@+id/tv_comment"
+        style="@style/TextView.Content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_author"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:text="Any update in this?\nRwa please respond" />
+
+
+</RelativeLayout>

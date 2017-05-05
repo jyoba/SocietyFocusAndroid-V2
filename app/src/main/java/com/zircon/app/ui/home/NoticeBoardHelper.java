@@ -7,16 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.zircon.app.R;
 import com.zircon.app.model.NoticeBoard;
 import com.zircon.app.model.response.NoticeBoardResponse;
 import com.zircon.app.ui.widget.BubbleViewPagerIndicator;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.HTTP;
+import com.zircon.app.utils.NavigationUtils;
+import com.zircon.app.utils.Utils;
 
 import java.lang.ref.WeakReference;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,7 +33,7 @@ import retrofit2.Response;
  * Created by jikoobaruah on 26/04/17.
  */
 
-class NoticeBoardHelper {
+public class NoticeBoardHelper {
 
     public static void setupNoticeBoard(final View container){
 
@@ -63,7 +68,7 @@ class NoticeBoardHelper {
 
         HTTP.getAPI().getAllNotices(AccountManager.getInstance().getToken()).enqueue(new Callback<NoticeBoardResponse>() {
             @Override
-            public void onResponse(Response<NoticeBoardResponse> response) {
+            public void onResponse(final Response<NoticeBoardResponse> response) {
                 ArrayList<NoticeBoard> nbs = new ArrayList<NoticeBoard>();
 
                 if (response.body().body.size() > 8){
@@ -72,6 +77,7 @@ class NoticeBoardHelper {
                     seeAllView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            NavigationUtils.navigateToNotices(v.getContext(),response.body().body);
 
                         }
                     });
@@ -163,14 +169,30 @@ class NoticeBoardHelper {
             return layout;
         }
 
-        private void setupView(View layout, NoticeBoard noticeBoard) {
 
-        }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
         }
+
+    }
+
+
+    public static void setupView(View layout, NoticeBoard noticeBoard) {
+        TextView titleTextView = (TextView) layout.findViewById(R.id.tv_title);
+        TextView dateTextView = (TextView) layout.findViewById(R.id.tv_date);
+        TextView desTextView = (TextView) layout.findViewById(R.id.tv_desc);
+        ImageView picImageView = (ImageView) layout.findViewById(R.id.iv_pic);
+
+        titleTextView.setText(noticeBoard.title);
+        try {
+            dateTextView.setText(Utils.parseServerDate(noticeBoard.creationDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        desTextView.setText(noticeBoard.description);
+        Picasso.with(layout.getContext()).load(noticeBoard.imageUrl1).placeholder(Utils.getTextDrawable(layout.getContext(),noticeBoard.title)).fit().into(picImageView);
 
     }
 }

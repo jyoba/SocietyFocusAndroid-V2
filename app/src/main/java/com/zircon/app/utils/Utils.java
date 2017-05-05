@@ -6,6 +6,10 @@ import android.graphics.Color;
 
 import com.zircon.app.utils.ui.TextDrawable;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -34,4 +38,16 @@ public class Utils {
         td.setTextColor(Color.WHITE);
         return td;
     }
+
+    public static String parseServerDate(String serverDate) throws ParseException {
+        //2017-03-20T10:23:00 +0000
+        Date date = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss z").parse(serverDate);
+        return new SimpleDateFormat("dd MMM,yyyy").format(date);
+    }
+
+    public static String getNow() {
+        //2017-03-20T10:23:00 +0000
+        return new SimpleDateFormat("dd MMM,yyyy").format(new Date());
+    }
+
 }
