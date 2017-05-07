@@ -7,8 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zircon.app.R;
@@ -17,6 +20,7 @@ import com.zircon.app.model.Complaint;
 import com.zircon.app.model.response.ComplaintCommentResponse;
 import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.utils.AccountManager;
+import com.zircon.app.utils.AccountUtils;
 import com.zircon.app.utils.HTTP;
 import com.zircon.app.utils.Utils;
 import com.zircon.app.utils.ui.VerticalSeparator;
@@ -66,6 +70,26 @@ public class ComplaintDetailActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(ComplaintDetailActivity.this,LinearLayoutManager.VERTICAL,false));
         final CommentsAdapter commentsAdapter = new CommentsAdapter();
         recyclerView.setAdapter(commentsAdapter);
+
+
+        final EditText commentEditText = (EditText) findViewById(R.id.et_comment);
+        ImageView commentAddImageView = (ImageView) findViewById(R.id.iv_send);
+        commentAddImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String input = commentEditText.getText().toString();
+                if (TextUtils.isEmpty(input)){
+                    return;
+                }
+                Comment comment = new Comment();
+                comment.status = Comment.Status.SENDING_TO_SERVER;
+                comment.complaintid = complaint.complaintid;
+                comment.comment = input;
+                comment.user = AccountManager.getInstance().getloggedInUser();
+                commentsAdapter.addItem(comment,0);
+            }
+        });
+
 
 
         HTTP.getAPI().getComplaintDetails(AccountManager.getInstance().getToken(),complaint.complaintid).enqueue(new Callback<ComplaintCommentResponse>() {

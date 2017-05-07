@@ -18,6 +18,7 @@ public class HomeActivity extends BaseDrawerActivity {
     private View rwaView;
     private View residentsView;
     private View complaintsView;
+    private View carSearchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class HomeActivity extends BaseDrawerActivity {
         rwaView = findViewById(R.id.tv_rwa);
         residentsView = findViewById(R.id.tv_residents);
         complaintsView = findViewById(R.id.tv_complaints);
+        carSearchView = findViewById(R.id.tv_car_search);
 
         residentsView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +60,12 @@ public class HomeActivity extends BaseDrawerActivity {
             }
         });
 
+        carSearchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavigationUtils.navigateToCarSearch(HomeActivity.this);
+            }
+        });
 
     }
 

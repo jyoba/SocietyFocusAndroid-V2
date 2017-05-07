@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:padding="@dimen/spacing_small"
             android:scrollbars="vertical"
-            android:text="@string/large_text" />
+             />
 
 
 

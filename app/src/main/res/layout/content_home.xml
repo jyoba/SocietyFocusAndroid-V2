@@ -153,6 +153,7 @@
             app:ratio="0.2">
 
             <TextView
+                android:id="@+id/tv_car_search"
                 style="@style/TextView.Header.Clickable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

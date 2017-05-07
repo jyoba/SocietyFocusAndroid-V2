@@ -23,7 +23,7 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
 
     @Override
     public CommentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new CommentHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_comment,parent,false));
+        return new CommentHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_comment, parent, false));
     }
 
     @Override
@@ -33,35 +33,35 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
 
     @Override
     public int getItemCount() {
-        return comments==null?0:comments.size();
+        return comments == null ? 0 : comments.size();
     }
 
-    public void addItem(Comment comment){
+    public void addItem(Comment comment) {
         if (comments == null)
             comments = new ArrayList<>();
 
         comments.add(comment);
 
-        notifyItemInserted(comments.size()-1);
+        notifyItemInserted(comments.size() - 1);
 
     }
 
-    public void addItem(Comment comment,int position){
+    public void addItem(Comment comment, int position) {
         if (comment == null)
             return;
         if (comments == null)
             comments = new ArrayList<>();
 
-        if (position>comments.size()-1)
+        if (position > comments.size())
             throw new IndexOutOfBoundsException();
 
-        comments.add(position,comment);
+        comments.add(position, comment);
 
         notifyItemInserted(position);
 
     }
 
-    public void addItems(ArrayList<Comment> comments){
+    public void addItems(ArrayList<Comment> comments) {
         if (comments == null)
             return;
         if (this.comments == null)
@@ -70,11 +70,11 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
         int start = comments.size();
 
         this.comments.addAll(comments);
-        notifyItemRangeInserted(start,comments.size());
+        notifyItemRangeInserted(start, comments.size());
     }
 
 
-    public class CommentHolder extends RecyclerView.ViewHolder{
+    public class CommentHolder extends RecyclerView.ViewHolder {
 
         private TextView authorTextView;
         private TextView dateTextView;
@@ -87,11 +87,13 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
             commentTextView = (TextView) itemView.findViewById(R.id.tv_comment);
         }
 
-        public void setup(){
+        public void setup() {
             Comment comment = comments.get(getAdapterPosition());
             authorTextView.setText(comment.user.getFullName());
+
             try {
-                dateTextView.setText(Utils.parseServerDate(comment.creationdate));
+                if (comment.creationdate != null)
+                    dateTextView.setText(Utils.parseServerDate(comment.creationdate));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

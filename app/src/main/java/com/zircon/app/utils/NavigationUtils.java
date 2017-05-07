@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 
 import com.zircon.app.model.Complaint;
 import com.zircon.app.model.NoticeBoard;
 import com.zircon.app.model.User;
+import com.zircon.app.ui.carSearch.CarSearchFragment;
 import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.ui.complaint.ComplaintAddFragment;
 import com.zircon.app.ui.complaint.ComplaintDetailActivity;
@@ -74,5 +78,17 @@ public class NavigationUtils {
         Intent intent = new Intent(context, ComplaintDetailActivity.class);
         intent.putExtra(ComplaintDetailActivity.KEY_COMPLAINT,complaint);
         context.startActivity(intent);
+    }
+
+    public static void navigateToCarSearch(BaseActivity context) {
+        FragmentTransaction ft = context.getSupportFragmentManager().beginTransaction();
+        Fragment prev = context.getSupportFragmentManager().findFragmentByTag("cardialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        DialogFragment newFragment = new CarSearchFragment();
+        newFragment.show(ft, "cardialog");
     }
 }

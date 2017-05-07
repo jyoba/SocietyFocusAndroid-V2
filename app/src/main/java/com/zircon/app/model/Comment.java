@@ -9,6 +9,8 @@ import android.os.Parcelable;
 
 public class Comment implements Parcelable{
 
+    public Comment(){}
+
     protected Comment(Parcel in) {
         commentid = in.readString();
         user = in.readParcelable(User.class.getClassLoader());
