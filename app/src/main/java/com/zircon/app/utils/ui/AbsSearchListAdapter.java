@@ -70,7 +70,7 @@ public abstract class AbsSearchListAdapter<T,VH extends RecyclerView.ViewHolder>
         }
     }
 
-    public T removeItem(int position) {
+    private T removeItem(int position) {
         final T t = displayItems.remove(position);
         notifyItemRemoved(position);
         return t;
@@ -83,12 +83,18 @@ public abstract class AbsSearchListAdapter<T,VH extends RecyclerView.ViewHolder>
         notifyItemRangeInserted(i, models.size());
     }
 
-    public void addItem(int position, T model) {
+    public void addItemAtTop(T model) {
+        displayItems.add(0, model);
+        masterItems.add(0, model);
+        notifyItemInserted(0);
+    }
+
+    private void addItem(int position, T model) {
         displayItems.add(position, model);
         notifyItemInserted(position);
     }
 
-    public void moveItem(int fromPosition, int toPosition) {
+    private void moveItem(int fromPosition, int toPosition) {
         final T t = displayItems.remove(fromPosition);
         displayItems.add(toPosition, t);
         notifyItemMoved(fromPosition, toPosition);

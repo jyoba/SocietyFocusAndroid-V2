@@ -21,9 +21,13 @@ import com.zircon.app.utils.API;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.HTTP;
 import com.zircon.app.utils.NavigationUtils;
+import com.zircon.app.utils.Utils;
 import com.zircon.app.utils.ui.VerticalSeparator;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,7 +52,7 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
         setContentView(R.layout.activity_complaints);
         setupToolbar();
         setTitle("Complaints");
-        setupDrawer(R.id.nav_manage);
+        setupDrawer(R.id.nav_complaints);
 
         fab = (FloatingActionButton) findViewById(R.id.fab_add);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +76,7 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
         HTTP.getAPI().getUserComplaints(AccountManager.getInstance().getToken()).enqueue(new Callback<ComplaintListResponse>() {
             @Override
             public void onResponse(Response<ComplaintListResponse> response) {
+                Collections.sort(response.body().body, Complaint.getDescendingIdComparator());
                 complaintsAdapter.addAllItems(response.body().body);
             }
 
@@ -125,17 +130,16 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
     @Override
     public void onComplaintAdded(final Complaint complaint) {
 
-        complaintsAdapter.addItem(complaintsAdapter.getItemCount(),complaint);
+        complaintsAdapter.addItemAtTop(complaint);
+        recyclerView.smoothScrollToPosition(0);
         complaint.creationdate = null;
         isComplaintSyncing = true;
         HTTP.getAPI().saveComplaint(AccountManager.getInstance().getToken(), complaint).enqueue(new Callback<ComplaintResponse>() {
             @Override
             public void onResponse(Response<ComplaintResponse> response) {
                 isComplaintSyncing = false;
-                complaintsAdapter.removeItem(complaintsAdapter.getItemCount()-1);
-                ArrayList<Complaint> complaints = new ArrayList<Complaint>();
-                complaints.add(response.body().body);
-                complaintsAdapter.addAllItems(complaints);
+                complaintsAdapter.notifyItemChanged(0,response.body().body);
+
             }
 
             @Override

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.zircon.app.R;
 import com.zircon.app.model.Comment;
 import com.zircon.app.model.Complaint;
+import com.zircon.app.model.response.AddCommentResponse;
 import com.zircon.app.model.response.ComplaintCommentResponse;
 import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.utils.AccountManager;
@@ -35,6 +36,8 @@ import retrofit2.Response;
 public class ComplaintDetailActivity extends BaseActivity {
 
     private Complaint complaint;
+
+    private boolean isCommentSyncing = false;
 
     public static final String KEY_COMPLAINT = "complaint";
 
@@ -65,7 +68,7 @@ public class ComplaintDetailActivity extends BaseActivity {
         descTextView.setMovementMethod(new ScrollingMovementMethod());
         descTextView.setText(complaint.description);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_comments);
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_comments);
         recyclerView.addItemDecoration(new VerticalSeparator(2));
         recyclerView.setLayoutManager(new LinearLayoutManager(ComplaintDetailActivity.this,LinearLayoutManager.VERTICAL,false));
         final CommentsAdapter commentsAdapter = new CommentsAdapter();
@@ -77,6 +80,8 @@ public class ComplaintDetailActivity extends BaseActivity {
         commentAddImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isCommentSyncing)
+                    return;
                 String input = commentEditText.getText().toString();
                 if (TextUtils.isEmpty(input)){
                     return;
@@ -86,7 +91,22 @@ public class ComplaintDetailActivity extends BaseActivity {
                 comment.complaintid = complaint.complaintid;
                 comment.comment = input;
                 comment.user = AccountManager.getInstance().getloggedInUser();
-                commentsAdapter.addItem(comment,0);
+                commentEditText.setText("");
+                commentsAdapter.addItem(0,comment);
+                recyclerView.smoothScrollToPosition(0);
+                isCommentSyncing = true;
+
+                HTTP.getAPI().getAddComment(AccountManager.getInstance().getToken(),complaint.complaintid,input).enqueue(new Callback<AddCommentResponse>() {
+                    @Override
+                    public void onResponse(Response<AddCommentResponse> response) {
+                        commentsAdapter.notifyItemChanged(0,response.body().body);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+
+                    }
+                });
             }
         });
 

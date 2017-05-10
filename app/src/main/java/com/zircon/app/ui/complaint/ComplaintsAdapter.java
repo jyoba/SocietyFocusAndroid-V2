@@ -39,12 +39,11 @@ public class ComplaintsAdapter extends AbsSearchListAdapter<Complaint,Complaints
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
-        if (payloads == null || payloads.size() == 0){
-            holder.setComplaint(getItem(position));
-        }else {
-            holder.setComplaint((Complaint) payloads.get(0));
-
+        if (payloads != null && payloads.size() > 0){
+            getItem(position).setFromObject((Complaint)payloads.get(0));
         }
+        holder.setComplaint(getItem(position));
+
 
     }
 

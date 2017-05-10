@@ -50,13 +50,56 @@
         android:layout_height="wrap_content"
         android:background="@color/grey_300">
 
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/ll_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/pb_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/progress_car_search" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/ll_no_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextView.SubHeader.Grey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/car_search_no_result" />
+
+            <TextView
+                style="@style/TextView.Content.Grey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/car_search_no_result_complaint" />
+
+        </LinearLayout>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cv_result"
             style="@style/CardView.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_normal"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:contentPaddingBottom="@dimen/spacing_normal"
             app:contentPaddingTop="@dimen/spacing_normal">
 
@@ -182,26 +225,14 @@
 
         </android.support.v7.widget.CardView>
 
+        <TextView
+            android:id="@+id/tv_init"
+            android:layout_gravity="center"
+            style="@style/TextView.Header.Grey"
+            android:text="@string/search_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:id="@+id/ll_progress"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ProgressBar
-                android:id="@+id/pb_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:indeterminate="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/progress_car_search" />
-
-        </LinearLayout>
 
 
     </FrameLayout>

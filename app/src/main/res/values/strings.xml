@@ -28,6 +28,9 @@
     <string name="title_activity_complaint_detail_fragment">ComplaintDetailFragment</string>
 
     <string name="progress_car_search">Searching...</string>
+    <string name="car_search_no_result">No car matching your query was found.</string>
+    <string name="car_search_no_result_complaint">Looks like an unauthorized car has come inside. Do you  want to raise a complaint regarding this.</string>
+    <string name="search_car">Search for a car</string>
 </resources>
 
 

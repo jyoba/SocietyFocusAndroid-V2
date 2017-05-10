@@ -47,6 +47,17 @@ public class Comment implements Parcelable{
         dest.writeInt(status);
     }
 
+    public void setFromObject(Comment comment) {
+
+        this.commentid = comment.commentid;
+        this.user = comment.user;
+        this.comment = comment.comment;
+        this.complaintid = comment.complaintid;
+        this.creationdate = comment.creationdate;
+        this.status = comment.status;
+
+    }
+
     public interface Status{
         int FROM_SERVER = 0;
         int SENDING_TO_SERVER = 1;

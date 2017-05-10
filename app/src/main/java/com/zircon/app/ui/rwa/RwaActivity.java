@@ -48,7 +48,7 @@ public class RwaActivity extends BaseDrawerActivity {
 
         setTitle("RWA");
 
-        setupDrawer(R.id.nav_manage);
+        setupDrawer(R.id.nav_rwa);
 
         rwaAdapter = new RwaAdapter();
         recyclerView = (RecyclerView) findViewById(R.id.rv_user);

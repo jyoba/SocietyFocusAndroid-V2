@@ -12,6 +12,7 @@ import com.zircon.app.utils.Utils;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jikoobaruah on 05/05/17.
@@ -32,6 +33,14 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
     }
 
     @Override
+    public void onBindViewHolder(CommentHolder holder, int position, List<Object> payloads) {
+        if (payloads != null && payloads.size()>0){
+            comments.get(position).setFromObject((Comment) payloads.get(0));
+        }
+        holder.setup();
+    }
+
+    @Override
     public int getItemCount() {
         return comments == null ? 0 : comments.size();
     }
@@ -46,7 +55,7 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
 
     }
 
-    public void addItem(Comment comment, int position) {
+    public void addItem(int position,Comment comment) {
         if (comment == null)
             return;
         if (comments == null)

@@ -16,6 +16,7 @@ import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.ui.complaint.ComplaintAddFragment;
 import com.zircon.app.ui.complaint.ComplaintDetailActivity;
 import com.zircon.app.ui.complaint.ComplaintsActivity;
+import com.zircon.app.ui.home.HomeActivity;
 import com.zircon.app.ui.notice.NoticesActivity;
 import com.zircon.app.ui.rwa.RwaActivity;
 import com.zircon.app.ui.usr.UserDetailFragment;
@@ -31,11 +32,13 @@ public class NavigationUtils {
 
     public static void navigateToResidentsPage(Context context){
         Intent intent = new Intent(context, UsersActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 
     public static void navigateToRWAPage(Context context){
         Intent intent = new Intent(context, RwaActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 
@@ -60,12 +63,14 @@ public class NavigationUtils {
 
     public static void navigateToNotices(Context context, ArrayList<NoticeBoard> noticeBoards){
         Intent intent = new Intent(context, NoticesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putParcelableArrayListExtra(NoticesActivity.KEY_NOTICES,noticeBoards);
         context.startActivity(intent);
     }
 
     public static void navigateToComplaints(Context context){
         Intent intent = new Intent(context, ComplaintsActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 
@@ -76,6 +81,7 @@ public class NavigationUtils {
 
     public static void navigateToComplaintDetail(BaseActivity context, Complaint complaint) {
         Intent intent = new Intent(context, ComplaintDetailActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(ComplaintDetailActivity.KEY_COMPLAINT,complaint);
         context.startActivity(intent);
     }
@@ -90,5 +96,11 @@ public class NavigationUtils {
 
         DialogFragment newFragment = new CarSearchFragment();
         newFragment.show(ft, "cardialog");
+    }
+
+    public static void navigateToHome(BaseActivity context) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
     }
 }

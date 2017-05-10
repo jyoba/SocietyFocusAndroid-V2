@@ -19,6 +19,7 @@ import android.view.View;
 import com.zircon.app.R;
 import com.zircon.app.model.NoticeBoard;
 import com.zircon.app.model.response.MembersResponse;
+import com.zircon.app.model.response.NoticeBoardResponse;
 import com.zircon.app.ui.common.fragment.BaseDrawerActivity;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.HTTP;
@@ -52,7 +53,7 @@ public class NoticesActivity extends BaseDrawerActivity {
 
         setTitle("Notice Board");
 
-        setupDrawer(R.id.nav_manage);
+        setupDrawer(R.id.nav_notice);
 
         noticesAdapter = new NoticesAdapter();
         recyclerView = (RecyclerView) findViewById(R.id.rv_notice);
@@ -62,7 +63,21 @@ public class NoticesActivity extends BaseDrawerActivity {
                 TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.spacing_normal), getResources().getDisplayMetrics()
         )));
 
+        if (noticeBoards != null)
         noticesAdapter.addAllItems(noticeBoards);
+        else {
+            HTTP.getAPI().getAllNotices(AccountManager.getInstance().getToken()).enqueue(new Callback<NoticeBoardResponse>() {
+                @Override
+                public void onResponse(Response<NoticeBoardResponse> response) {
+                    noticesAdapter.addAllItems(response.body().body);
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+
+                }
+            });
+        }
 
 
     }

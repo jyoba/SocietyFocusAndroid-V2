@@ -47,7 +47,7 @@ public class UsersActivity extends BaseDrawerActivity {
 
         setTitle("Residents");
 
-        setupDrawer(R.id.nav_manage);
+        setupDrawer(R.id.nav_residents);
 
         usersAdapter = new UsersAdapter();
         recyclerView = (RecyclerView) findViewById(R.id.rv_user);

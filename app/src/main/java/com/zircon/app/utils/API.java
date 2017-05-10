@@ -2,6 +2,7 @@ package com.zircon.app.utils;
 
 import com.zircon.app.model.Complaint;
 import com.zircon.app.model.response.AddCommentResponse;
+import com.zircon.app.model.response.CarSearchResponse;
 import com.zircon.app.model.response.ComplaintCommentResponse;
 import com.zircon.app.model.response.ComplaintListResponse;
 import com.zircon.app.model.response.ComplaintResponse;
@@ -110,10 +111,10 @@ public interface API {
 //
 //    @POST(API_PATH_PATTERN + "society/asset/getassetbyuser")
 //    public Call<AssetbookingByUserResponse> getAssetBooking(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
-//
-//    @GET(API_PATH_PATTERN + "vehicle/getvehilcebynumber/{vehiclenumber}")
-//    public Call<CarSearchResponse> searchVehicleNumber(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Path("vehiclenumber") int vehiclenumber);
-//
+
+    @GET(API_PATH_PATTERN + "vehicle/getvehilcebynumber/{vehiclenumber}")
+    public Call<CarSearchResponse> searchVehicleNumber(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Path("vehiclenumber") String vehiclenumber);
+
     @GET(API_PATH_PATTERN + "society/noticeboard/getall")
     public Call<NoticeBoardResponse> getAllNotices(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
 //

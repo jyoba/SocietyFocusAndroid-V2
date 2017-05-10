@@ -3,6 +3,8 @@ package com.zircon.app.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Comparator;
+
 /**
  * Created by jikoobaruah on 03/05/17.
  */
@@ -13,11 +15,8 @@ public class Complaint implements Parcelable{
     public String societyId;
     public String title;
     public String description;
-
     public String creationdate;
-
     public String status;
-
     public boolean isSynced = true;
 
     public Complaint(){}
@@ -58,5 +57,26 @@ public class Complaint implements Parcelable{
         dest.writeString(creationdate);
         dest.writeString(status);
         dest.writeByte((byte) (isSynced ? 1 : 0));
+    }
+
+
+    public static Comparator getDescendingIdComparator(){
+        return new Comparator<Complaint>() {
+            @Override
+            public int compare(Complaint o1, Complaint o2) {
+                return Integer.parseInt(o1.complaintid)<Integer.parseInt(o2.complaintid) ? 1:-1;
+            }
+        };
+    }
+
+    public void setFromObject(Complaint complaint) {
+        this.complaintid = complaint.complaintid;
+        this.societyId= complaint.societyId;
+        this.title= complaint.title;
+        this.description= complaint.description;
+        this.creationdate= complaint.creationdate;
+        this.status= complaint.status;
+        this.isSynced= complaint.isSynced;
+
     }
 }
