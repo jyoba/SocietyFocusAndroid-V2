@@ -100,11 +100,12 @@ public class ComplaintDetailActivity extends BaseActivity {
                     @Override
                     public void onResponse(Response<AddCommentResponse> response) {
                         commentsAdapter.notifyItemChanged(0,response.body().body);
+                        isCommentSyncing = false;
                     }
 
                     @Override
                     public void onFailure(Throwable t) {
-
+                        isCommentSyncing = false;
                     }
                 });
             }

@@ -21,6 +21,8 @@ import com.zircon.app.utils.Utils;
 
 public class ComplaintAddFragment extends BottomSheetDialogFragment {
 
+    public static final String ARG_COMPLAINT = "arg_complaint";
+    public static final String ARG_TITLE = "arg_title";
     private  IComplaintAdd callback;
 
     private ImageView doneImageView;
@@ -32,10 +34,8 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (!(context instanceof IComplaintAdd))
-            throw new RuntimeException("Activity must implement callback");
-
-        callback = (IComplaintAdd) context;
+        if (context instanceof IComplaintAdd)
+            callback = (IComplaintAdd) context;
     }
 
     @Nullable
@@ -48,9 +48,20 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        description = getArguments().getString(ARG_COMPLAINT,null);
+        title = getArguments().getString(ARG_TITLE,null);
+
         doneImageView = (ImageView) view.findViewById(R.id.iv_done);
         titleEditText = (EditText) view.findViewById(R.id.et_title);
         descEditText = (EditText) view.findViewById(R.id.et_content);
+
+        if (!TextUtils.isEmpty(title)){
+            titleEditText.setText(title);
+        }
+
+        if (!TextUtils.isEmpty(description))
+            descEditText.setText(description);
 
         doneImageView.setOnClickListener(new View.OnClickListener() {
             @Override

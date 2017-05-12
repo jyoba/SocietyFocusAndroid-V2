@@ -10,16 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.zircon.app.R;
+import com.zircon.app.model.CarSearch;
 import com.zircon.app.model.response.CarSearchResponse;
+import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.HTTP;
+import com.zircon.app.utils.NavigationUtils;
+import com.zircon.app.utils.Utils;
 
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,10 +44,20 @@ public class CarSearchFragment extends DialogFragment {
     private LinearLayout noResultsLayout;
     private CardView resultView;
 
+    private TextView carNoTextView;
+    private TextView carMakeTextView;
+    private TextView carParkingTextView;
+    private ImageView profileImageView;
+    private TextView nameTextView;
+    private TextView addressTextView;
+
+    private Button complaintButton;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =  LayoutInflater.from(getContext()).inflate(R.layout.fragment_car_search,null,false);
+        View v = LayoutInflater.from(getContext()).inflate(R.layout.fragment_car_search, null, false);
         v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
 
@@ -65,12 +81,30 @@ public class CarSearchFragment extends DialogFragment {
         noResultsLayout.setVisibility(View.INVISIBLE);
         resultView.setVisibility(View.INVISIBLE);
 
-        searchImageView.setOnClickListener(new View.OnClickListener() {
+
+        carNoTextView = (TextView) view.findViewById(R.id.tv_car_no);
+        carMakeTextView = (TextView) view.findViewById(R.id.tv_car_make);
+        carParkingTextView = (TextView) view.findViewById(R.id.tv_car_parking);
+        profileImageView = (ImageView) view.findViewById(R.id.iv_profile);
+        nameTextView = (TextView) view.findViewById(R.id.tv_name);
+        addressTextView = (TextView) view.findViewById(R.id.tv_address);
+
+        complaintButton = (Button) view.findViewById(R.id.btn_complaint);
+        complaintButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String query = inputEditText.getText().toString().trim();
-                if (TextUtils.isEmpty(query)){
-                    Toast.makeText(getContext(),"Enter the registration number of the car you want to search",Toast.LENGTH_SHORT).show();
+                NavigationUtils.navigateToComplaintAdd((BaseActivity) getContext(), "Unregistered Car", "Unregistered Car with no : " + query + " has entered our soiety.");
+            }
+        });
+
+
+        searchImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String query = inputEditText.getText().toString().trim();
+                if (TextUtils.isEmpty(query)) {
+                    Toast.makeText(getContext(), "Enter the registration number of the car you want to search", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -80,7 +114,7 @@ public class CarSearchFragment extends DialogFragment {
                 noResultsLayout.setVisibility(View.INVISIBLE);
                 resultView.setVisibility(View.INVISIBLE);
 
-                HTTP.getAPI().searchVehicleNumber(AccountManager.getInstance().getToken(),query).enqueue(new Callback<CarSearchResponse>() {
+                HTTP.getAPI().searchVehicleNumber(AccountManager.getInstance().getToken(), query).enqueue(new Callback<CarSearchResponse>() {
                     @Override
                     public void onResponse(Response<CarSearchResponse> response) {
                         if (response.isSuccess()) {
@@ -88,7 +122,8 @@ public class CarSearchFragment extends DialogFragment {
                             progressLayout.setVisibility(View.INVISIBLE);
                             noResultsLayout.setVisibility(View.INVISIBLE);
                             resultView.setVisibility(View.VISIBLE);
-                        }else
+                            setupResultView(response.body().body);
+                        } else
                             onFailure(new Throwable(response.message()));
                     }
 
@@ -103,6 +138,25 @@ public class CarSearchFragment extends DialogFragment {
 
             }
         });
+    }
+
+    private void setupResultView(final CarSearch body) {
+
+        carNoTextView.setText(body.VehicleNumber);
+        carMakeTextView.setText("N/A");//body.Type);
+        carParkingTextView.setText(body.ParkingSlot);
+        nameTextView.setText(body.user.getFullName());
+        nameTextView.setClickable(true);
+        nameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavigationUtils.navigateToUserDetailPage((BaseActivity) getActivity(), Utils.getRandomMaterialColor(getContext(), "300"), body.user);
+            }
+        });
+        Picasso.with(getContext()).load(body.user.profilePic).placeholder(Utils.getTextDrawable(getContext(), body.user.firstname)).fit().centerCrop().into(profileImageView);
+
+        addressTextView.setText(body.user.address);
+
     }
 
 }

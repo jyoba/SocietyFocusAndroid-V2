@@ -3,6 +3,7 @@ package com.zircon.app.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -76,6 +77,15 @@ public class NavigationUtils {
 
     public static void navigateToComplaintAdd( BaseActivity context) {
         BottomSheetDialogFragment bottomSheetDialogFragment =  new ComplaintAddFragment();
+        bottomSheetDialogFragment.show(context.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+    }
+
+    public static void navigateToComplaintAdd( BaseActivity context,String title, String complaint) {
+        BottomSheetDialogFragment bottomSheetDialogFragment =  new ComplaintAddFragment();
+        Bundle args = new Bundle();
+        args.putString(ComplaintAddFragment.ARG_COMPLAINT,complaint);
+        args.putString(ComplaintAddFragment.ARG_TITLE,title);
+        bottomSheetDialogFragment.setArguments(args);
         bottomSheetDialogFragment.show(context.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
 
