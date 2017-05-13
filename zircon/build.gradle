@@ -12,10 +12,57 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("zircon.jks")
+            storePassword "zircon"
+            keyAlias "zircon"
+            keyPassword "zircon"
+        }
+
+        releaseDebug {
+            storeFile file("test.jks")
+            storePassword "password"
+            keyAlias "selfsigned"
+            keyPassword "password"
+        }
+
+        debug {
+            storeFile file("test.jks")
+            storePassword "password"
+            keyAlias "selfsigned"
+            keyPassword "password"
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+        }
+
+        releaseDebug {
+            minifyEnabled true
+            shrinkResources true
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseDebug
+
+
+        }
+
+        debug {
+            minifyEnabled false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+
+
         }
     }
 }

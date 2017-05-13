@@ -121,7 +121,7 @@ public class ComplaintDetailActivity extends BaseActivity {
 
                     @Override
                     public int compare(Comment o1, Comment o2) {
-                        return Integer.parseInt(o1.commentid)>Integer.parseInt(o2.comment) ? 1:0;
+                        return Integer.parseInt(o1.commentid)>Integer.parseInt(o2.commentid) ? -1:1;
                     }
                 });
                 commentsAdapter.addItems(response.body().body.comments);
