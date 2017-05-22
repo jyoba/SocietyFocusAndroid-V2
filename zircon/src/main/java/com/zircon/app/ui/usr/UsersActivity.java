@@ -22,6 +22,7 @@ import com.zircon.app.model.response.MembersResponse;
 import com.zircon.app.ui.common.fragment.BaseDrawerActivity;
 import com.zircon.app.ui.widget.ToolsWidget;
 import com.zircon.app.utils.AccountManager;
+import com.zircon.app.utils.AuthCallbackImpl;
 import com.zircon.app.utils.HTTP;
 import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.ui.VerticalSeparator;
@@ -115,20 +116,7 @@ public class UsersActivity extends BaseDrawerActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-
-        HTTP.getAPI().getAllUsers(AccountManager.getInstance().getToken()).enqueue(new Callback<MembersResponse>() {
-            @Override
-            public void onResponse(Response<MembersResponse> response) {
-                usersAdapter.addAllItems(response.body().body);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
-
-
+        load();
 
     }
 
@@ -154,19 +142,21 @@ public class UsersActivity extends BaseDrawerActivity {
         return true;
     }
 
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    protected void load() {
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        HTTP.getAPI().getAllUsers(AccountManager.getInstance().getToken()).enqueue(new AuthCallbackImpl<MembersResponse>(UsersActivity.this) {
+            @Override
+            public void apiSuccess(Response<MembersResponse> response) {
+                usersAdapter.addAllItems(response.body().body);
+            }
 
-        return super.onOptionsItemSelected(item);
+            @Override
+            public void apiFail(Throwable t) {
+
+            }
+        });
+
     }
-
-
-
-
-
 }

@@ -18,6 +18,7 @@ import com.zircon.app.ui.complaint.ComplaintAddFragment;
 import com.zircon.app.ui.complaint.ComplaintDetailActivity;
 import com.zircon.app.ui.complaint.ComplaintsActivity;
 import com.zircon.app.ui.home.HomeActivity;
+import com.zircon.app.ui.login.LoginActivity;
 import com.zircon.app.ui.notice.NoticesActivity;
 import com.zircon.app.ui.rwa.RwaActivity;
 import com.zircon.app.ui.usr.UserDetailFragment;
@@ -112,5 +113,11 @@ public class NavigationUtils {
         Intent intent = new Intent(context, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
+    }
+
+    public static void navigateToLoginForResult(BaseActivity context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivityForResult(intent,LoginActivity.AUTH_REQUEST);
     }
 }

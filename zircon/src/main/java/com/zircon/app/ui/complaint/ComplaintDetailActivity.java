@@ -22,6 +22,7 @@ import com.zircon.app.model.response.ComplaintCommentResponse;
 import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.AccountUtils;
+import com.zircon.app.utils.AuthCallbackImpl;
 import com.zircon.app.utils.HTTP;
 import com.zircon.app.utils.Utils;
 import com.zircon.app.utils.ui.VerticalSeparator;
@@ -36,6 +37,8 @@ import retrofit2.Response;
 public class ComplaintDetailActivity extends BaseActivity {
 
     private Complaint complaint;
+
+    private CommentsAdapter commentsAdapter;
 
     private boolean isCommentSyncing = false;
 
@@ -71,7 +74,7 @@ public class ComplaintDetailActivity extends BaseActivity {
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_comments);
         recyclerView.addItemDecoration(new VerticalSeparator(2));
         recyclerView.setLayoutManager(new LinearLayoutManager(ComplaintDetailActivity.this,LinearLayoutManager.VERTICAL,false));
-        final CommentsAdapter commentsAdapter = new CommentsAdapter();
+        commentsAdapter = new CommentsAdapter();
         recyclerView.setAdapter(commentsAdapter);
 
 
@@ -96,27 +99,33 @@ public class ComplaintDetailActivity extends BaseActivity {
                 recyclerView.smoothScrollToPosition(0);
                 isCommentSyncing = true;
 
-                HTTP.getAPI().getAddComment(AccountManager.getInstance().getToken(),complaint.complaintid,input).enqueue(new Callback<AddCommentResponse>() {
+                HTTP.getAPI().getAddComment(AccountManager.getInstance().getToken(),complaint.complaintid,input).enqueue(new AuthCallbackImpl<AddCommentResponse>(ComplaintDetailActivity.this) {
                     @Override
-                    public void onResponse(Response<AddCommentResponse> response) {
+                    public void apiSuccess(Response<AddCommentResponse> response) {
                         commentsAdapter.notifyItemChanged(0,response.body().body);
                         isCommentSyncing = false;
                     }
 
                     @Override
-                    public void onFailure(Throwable t) {
-                        isCommentSyncing = false;
+                    public void apiFail(Throwable t) {
+
                     }
                 });
             }
         });
 
+        load();
 
 
-        HTTP.getAPI().getComplaintDetails(AccountManager.getInstance().getToken(),complaint.complaintid).enqueue(new Callback<ComplaintCommentResponse>() {
+
+
+    }
+
+    @Override
+    protected void load() {
+        HTTP.getAPI().getComplaintDetails(AccountManager.getInstance().getToken(),complaint.complaintid).enqueue(new AuthCallbackImpl<ComplaintCommentResponse>(ComplaintDetailActivity.this) {
             @Override
-            public void onResponse(Response<ComplaintCommentResponse> response) {
-
+            public void apiSuccess(Response<ComplaintCommentResponse> response) {
                 Collections.sort(response.body().body.comments,new Comparator<Comment>() {
 
                     @Override
@@ -128,12 +137,9 @@ public class ComplaintDetailActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void apiFail(Throwable t) {
 
             }
         });
-
-
     }
-
 }

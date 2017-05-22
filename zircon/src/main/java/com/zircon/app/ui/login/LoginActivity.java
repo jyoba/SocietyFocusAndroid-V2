@@ -9,18 +9,29 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.zircon.app.R;
 import com.zircon.app.model.LoginCredentials;
 import com.zircon.app.model.response.LoginResponse;
+import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.ui.home.HomeActivity;
+import com.zircon.app.utils.AccountUtils;
 import com.zircon.app.utils.ui.Overlay;
 
-public class LoginActivity extends AppCompatActivity implements SocietySelectionFragment.ISocietySelectionListener, LoginHelper.ILoginHelper {
+public class LoginActivity extends BaseActivity implements SocietySelectionFragment.ISocietySelectionListener, LoginHelper.ILoginHelper {
+
+    public static final int AUTH_REQUEST = 8764;
 
     LoginHelper loginHelper;
 
-    private Overlay overlay;
+//    private Overlay overlay;
+
+    private LinearLayout loginLayout;
+
+    private ProgressBar progressBar;
 
     private EditText passwordEditText;
 
@@ -34,6 +45,8 @@ public class LoginActivity extends AppCompatActivity implements SocietySelection
     private String password;
     private String society;
 
+    private LoginCredentials credentials;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +54,6 @@ public class LoginActivity extends AppCompatActivity implements SocietySelection
         loginHelper = new LoginHelper(this);
 
         setContentView(R.layout.activity_login);
-
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-//        setSupportActionBar(myToolbar);
-
-
 
         passwordEditText = (EditText) findViewById(R.id.etPassword);
         usernameEditText = (EditText) findViewById(R.id.etUsername);
@@ -69,7 +77,11 @@ public class LoginActivity extends AppCompatActivity implements SocietySelection
             }
         });
 
-        overlay = (Overlay) findViewById(R.id.overlay);
+        progressBar = (ProgressBar) findViewById(R.id.progress);
+
+        loginLayout = (LinearLayout) findViewById(R.id.ll_login_form);
+
+//        overlay = (Overlay) findViewById(R.id.overlay);
 
 
 
@@ -78,13 +90,16 @@ public class LoginActivity extends AppCompatActivity implements SocietySelection
     @Override
     protected void onStart() {
         super.onStart();
-        overlay.drawOverlay();
+//        overlay.drawOverlay();
 
     }
 
     private void login() {
 
-        loginHelper.loginSociety(new LoginCredentials(society, username, password));
+        progressBar.setVisibility(View.VISIBLE);
+        loginLayout.setAlpha(0.4f);
+
+        loginHelper.loginSociety(LoginActivity.this, new LoginCredentials(society, username, password));
 
 
     }
@@ -133,6 +148,15 @@ public class LoginActivity extends AppCompatActivity implements SocietySelection
 
     @Override
     public void onLoginSuccess(boolean isSocietyLogin, LoginResponse response) {
+
+        progressBar.setVisibility(View.GONE);
+        loginLayout.setAlpha(1.0f);
+
+        if (getCallingActivity() != null){
+            setResult(RESULT_OK);
+            finish();
+            return;
+        }
         startActivity(new Intent(this, HomeActivity.class));
         finish();
 
@@ -140,6 +164,14 @@ public class LoginActivity extends AppCompatActivity implements SocietySelection
 
     @Override
     public void onLoginFail(boolean isSocietyLogin, Throwable t) {
+        progressBar.setVisibility(View.GONE);
+        loginLayout.setAlpha(1.0f);
+        Toast.makeText(LoginActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+    }
 
+
+    @Override
+    protected void load() {
+        //do nothing
     }
 }

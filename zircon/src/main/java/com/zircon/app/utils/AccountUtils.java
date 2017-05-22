@@ -7,6 +7,7 @@ import com.zircon.app.App;
 import com.zircon.app.model.LoginCredentials;
 import com.zircon.app.model.Society;
 import com.zircon.app.model.User;
+import com.zircon.app.utils.ks.KeyStoreUtils;
 
 import java.util.UUID;
 
@@ -49,7 +50,7 @@ public class AccountUtils {
 
     public static LoginCredentials getLoginCredentials(){
         SharedPreferences pref = App.appInstance.getSharedPreferences(ACCOUNT_PREF_FILE, Context.MODE_PRIVATE);
-        return new LoginCredentials(pref.getString(KEY_SOCIETY,null),pref.getString(KEY_USERNAME,null ),pref.getString(KEY_PASSWORD,null));
+        return new LoginCredentials(pref.getString(KEY_SOCIETY,null),pref.getString(KEY_USERNAME,null ),pref.getString(KEY_PASSWORD,null)).getDecrypted(KeyStoreUtils.getInstance(App.appInstance));
     }
 
     public static void saveLoggedInSociety(Society society) {
@@ -89,6 +90,13 @@ public class AccountUtils {
     public static String getToken() {
         SharedPreferences pref = App.appInstance.getSharedPreferences(ACCOUNT_PREF_FILE, Context.MODE_PRIVATE);
         return pref.getString(KEY_TOKEN,null);
+    }
+
+    public static void logout() {
+        SharedPreferences pref = App.appInstance.getSharedPreferences(ACCOUNT_PREF_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.apply();
     }
 }
 

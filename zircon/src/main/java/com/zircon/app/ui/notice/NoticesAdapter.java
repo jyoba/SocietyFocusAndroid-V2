@@ -25,6 +25,7 @@ import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.Utils;
 import com.zircon.app.utils.ui.AbsSearchListAdapter;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -64,12 +65,31 @@ public class NoticesAdapter extends AbsSearchListAdapter<NoticeBoard,NoticesAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        TextView titleTextView;
+        TextView dateTextView;
+        TextView desTextView;
+        ImageView picImageView;
+
         public ViewHolder( View itemView) {
             super(itemView);
+             titleTextView = (TextView) itemView.findViewById(R.id.tv_title);
+             dateTextView = (TextView) itemView.findViewById(R.id.tv_date);
+             desTextView = (TextView) itemView.findViewById(R.id.tv_desc);
+             picImageView = (ImageView) itemView.findViewById(R.id.iv_pic);
+
 
         }
-        public void setNoticeBoard(NoticeBoard item) {
-            NoticeBoardHelper.setupView(itemView,item);
+        public void setNoticeBoard(NoticeBoard noticeBoard) {
+
+            titleTextView.setText(noticeBoard.title);
+            try {
+                dateTextView.setText(Utils.parseServerDate(noticeBoard.creationDate));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            desTextView.setText(noticeBoard.description);
+            Picasso.with(picImageView.getContext()).load(noticeBoard.imageUrl1).placeholder(Utils.getTextDrawable(picImageView.getContext(), noticeBoard.title)).fit().into(picImageView);
+
         }
     }
 

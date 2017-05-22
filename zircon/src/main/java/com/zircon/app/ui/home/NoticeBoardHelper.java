@@ -16,6 +16,7 @@ import com.zircon.app.model.NoticeBoard;
 import com.zircon.app.model.response.NoticeBoardResponse;
 import com.zircon.app.ui.widget.BubbleViewPagerIndicator;
 import com.zircon.app.utils.AccountManager;
+import com.zircon.app.utils.AuthCallbackImpl;
 import com.zircon.app.utils.HTTP;
 import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.Utils;
@@ -35,11 +36,11 @@ import retrofit2.Response;
 
 public class NoticeBoardHelper {
 
-    public static void setupNoticeBoard(final View container){
+    public static void setupNoticeBoard(final View container) {
 
         final ViewPager noticeViewPager = (ViewPager) container.findViewById(R.id.vp_notice);
         noticeViewPager.setPageMargin(25);
-        noticeViewPager.setPadding(50,0,50,0);
+        noticeViewPager.setPadding(50, 0, 50, 0);
 
         final BubbleViewPagerIndicator pageIndicator = (BubbleViewPagerIndicator) container.findViewById(R.id.pager_indicator);
 
@@ -53,10 +54,9 @@ public class NoticeBoardHelper {
 
             @Override
             public void onPageSelected(int i) {
-                startAutoScroll(noticeViewPager);
                 pageIndicator.setBubbleActive(i);
+                startAutoScroll(noticeViewPager);
             }
-
 
 
             @Override
@@ -66,81 +66,79 @@ public class NoticeBoardHelper {
         });
 
 
-        HTTP.getAPI().getAllNotices(AccountManager.getInstance().getToken()).enqueue(new Callback<NoticeBoardResponse>() {
+        HTTP.getAPI().getAllNotices(AccountManager.getInstance().getToken()).enqueue(new AuthCallbackImpl<NoticeBoardResponse>(container.getContext()) {
             @Override
-            public void onResponse(final Response<NoticeBoardResponse> response) {
+            public void apiSuccess(final Response<NoticeBoardResponse> response) {
+
                 ArrayList<NoticeBoard> nbs = new ArrayList<NoticeBoard>();
 
-                if (response.body().body.size() > 8){
+                if (response.body().body.size() > 8) {
 
                     seeAllView.setVisibility(View.VISIBLE);
                     seeAllView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            NavigationUtils.navigateToNotices(v.getContext(),response.body().body);
+                            NavigationUtils.navigateToNotices(v.getContext(), response.body().body);
 
                         }
                     });
 
-                    for (int i = 0 ; i < 8 ; i++){
+                    for (int i = 0; i < 8; i++) {
                         nbs.add(response.body().body.get(i));
                     }
-                }else{
+                } else {
                     seeAllView.setVisibility(View.GONE);
                     nbs = response.body().body;
                 }
 
                 noticeViewPager.setAdapter(new NoticeAdapter(nbs));
+                noticeViewPager.setOffscreenPageLimit(nbs.size());
+                startAutoScroll(noticeViewPager);
                 pageIndicator.makeBubbles(R.drawable.bg_bubble_indicator, nbs.size());
                 pageIndicator.setBubbleActive(0);
             }
 
             @Override
-            public void onFailure(Throwable t) {
-
+            public void apiFail(Throwable t) {
                 container.setVisibility(View.GONE);
 
             }
         });
     }
 
-    private static void startAutoScroll(ViewPager noticeViewPager) {
-        new Timer().schedule(new AutoScrollTask(noticeViewPager),8*1000);
-    }
+    private static void startAutoScroll(final ViewPager noticeViewPager) {
 
-
-    private static class AutoScrollTask extends TimerTask {
-
-        private WeakReference<ViewPager> pager;
-
-        public AutoScrollTask(ViewPager vp){
-            pager = new WeakReference<ViewPager>(vp);
-        }
-
-        @Override
-        public void run() {
-
-            if (pager.get() != null){
-               if (pager.get().getContext() == null)
-                   return;
-
-
-                ((Activity)pager.get().getContext()).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (pager.get().getCurrentItem() < (pager.get().getChildCount() - 1))
-                            pager.get().setCurrentItem(pager.get().getCurrentItem() + 1, true);
-                        else
-                            pager.get().setCurrentItem(0, true);
-                    }
-                });
+        noticeViewPager.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (noticeViewPager.getCurrentItem() < (noticeViewPager.getChildCount() - 1))
+                    noticeViewPager.setCurrentItem(noticeViewPager.getCurrentItem() + 1, true);
+                else
+                    noticeViewPager.setCurrentItem(0, true);
             }
-
-
-
-        }
+        },3000);
     }
 
+
+//    private class AutoScrollTask extends TimerTask {
+//
+//        @Override
+//        public void run() {
+//
+//                ((Activity)pager.get().getContext()).runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (pager.get().getCurrentItem() < (pager.get().getChildCount() - 1))
+//                            pager.get().setCurrentItem(pager.get().getCurrentItem() + 1, true);
+//                        else
+//                            pager.get().setCurrentItem(0, true);
+//                    }
+//                });
+//
+//
+//
+//        }
+//    }
 
 
     private static class NoticeAdapter extends PagerAdapter {
@@ -149,7 +147,7 @@ public class NoticeBoardHelper {
             this.list = list;
         }
 
-        private ArrayList<NoticeBoard> list ;
+        private ArrayList<NoticeBoard> list;
 
         @Override
         public int getCount() {
@@ -164,11 +162,10 @@ public class NoticeBoardHelper {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View layout = LayoutInflater.from(container.getContext()).inflate(R.layout.layout_notice_board, container, false);
-            setupView(layout,list.get(position));
+            setupView(layout, list.get(position));
             container.addView(layout);
             return layout;
         }
-
 
 
         @Override
@@ -176,23 +173,25 @@ public class NoticeBoardHelper {
             container.removeView((View) object);
         }
 
-    }
+        private void setupView(View layout, NoticeBoard noticeBoard) {
+            TextView titleTextView = (TextView) layout.findViewById(R.id.tv_title);
+            TextView dateTextView = (TextView) layout.findViewById(R.id.tv_date);
+            TextView desTextView = (TextView) layout.findViewById(R.id.tv_desc);
+            ImageView picImageView = (ImageView) layout.findViewById(R.id.iv_pic);
 
+            titleTextView.setText(noticeBoard.title);
+            try {
+                dateTextView.setText(Utils.parseServerDate(noticeBoard.creationDate));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            desTextView.setText(noticeBoard.description);
+            Picasso.with(layout.getContext()).load(noticeBoard.imageUrl1).placeholder(Utils.getTextDrawable(layout.getContext(), noticeBoard.title)).fit().into(picImageView);
 
-    public static void setupView(View layout, NoticeBoard noticeBoard) {
-        TextView titleTextView = (TextView) layout.findViewById(R.id.tv_title);
-        TextView dateTextView = (TextView) layout.findViewById(R.id.tv_date);
-        TextView desTextView = (TextView) layout.findViewById(R.id.tv_desc);
-        ImageView picImageView = (ImageView) layout.findViewById(R.id.iv_pic);
-
-        titleTextView.setText(noticeBoard.title);
-        try {
-            dateTextView.setText(Utils.parseServerDate(noticeBoard.creationDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
-        desTextView.setText(noticeBoard.description);
-        Picasso.with(layout.getContext()).load(noticeBoard.imageUrl1).placeholder(Utils.getTextDrawable(layout.getContext(),noticeBoard.title)).fit().into(picImageView);
 
     }
+
+
+
 }

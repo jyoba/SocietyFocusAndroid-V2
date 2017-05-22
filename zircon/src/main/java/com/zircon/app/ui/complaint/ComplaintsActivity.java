@@ -19,8 +19,10 @@ import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.ui.common.fragment.BaseDrawerActivity;
 import com.zircon.app.utils.API;
 import com.zircon.app.utils.AccountManager;
+import com.zircon.app.utils.AuthCallbackImpl;
 import com.zircon.app.utils.HTTP;
 import com.zircon.app.utils.NavigationUtils;
+import com.zircon.app.utils.NotificationUtils;
 import com.zircon.app.utils.Utils;
 import com.zircon.app.utils.ui.VerticalSeparator;
 
@@ -73,18 +75,7 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
                 TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.spacing_normal), getResources().getDisplayMetrics()
         )));
 
-        HTTP.getAPI().getUserComplaints(AccountManager.getInstance().getToken()).enqueue(new Callback<ComplaintListResponse>() {
-            @Override
-            public void onResponse(Response<ComplaintListResponse> response) {
-                Collections.sort(response.body().body, Complaint.getDescendingIdComparator());
-                complaintsAdapter.addAllItems(response.body().body);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
+      load();
 
 
     }
@@ -115,17 +106,6 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     @Override
     public void onComplaintAdded(final Complaint complaint) {
@@ -134,17 +114,33 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
         recyclerView.smoothScrollToPosition(0);
         complaint.creationdate = null;
         isComplaintSyncing = true;
-        HTTP.getAPI().saveComplaint(AccountManager.getInstance().getToken(), complaint).enqueue(new Callback<ComplaintResponse>() {
+        HTTP.getAPI().saveComplaint(AccountManager.getInstance().getToken(), complaint).enqueue(new AuthCallbackImpl<ComplaintResponse>(ComplaintsActivity.this) {
             @Override
-            public void onResponse(Response<ComplaintResponse> response) {
+            public void apiSuccess(Response<ComplaintResponse> response) {
                 isComplaintSyncing = false;
                 complaintsAdapter.notifyItemChanged(0,response.body().body);
-
+                NotificationUtils.notifyComplaintRegistered(response.body().body);
             }
 
             @Override
-            public void onFailure(Throwable t) {
-                isComplaintSyncing = false;
+            public void apiFail(Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void load() {
+        HTTP.getAPI().getUserComplaints(AccountManager.getInstance().getToken()).enqueue(new AuthCallbackImpl<ComplaintListResponse>(ComplaintsActivity.this) {
+            @Override
+            public void apiSuccess(Response<ComplaintListResponse> response) {
+                Collections.sort(response.body().body, Complaint.getDescendingIdComparator());
+                complaintsAdapter.addAllItems(response.body().body);
+            }
+
+            @Override
+            public void apiFail(Throwable t) {
+
             }
         });
     }

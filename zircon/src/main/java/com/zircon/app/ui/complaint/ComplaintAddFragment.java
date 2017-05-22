@@ -13,7 +13,14 @@ import android.widget.ImageView;
 
 import com.zircon.app.R;
 import com.zircon.app.model.Complaint;
+import com.zircon.app.model.response.ComplaintResponse;
+import com.zircon.app.utils.AccountManager;
+import com.zircon.app.utils.AuthCallbackImpl;
+import com.zircon.app.utils.HTTP;
+import com.zircon.app.utils.NotificationUtils;
 import com.zircon.app.utils.Utils;
+
+import retrofit2.Response;
 
 /**
  * Created by jikoobaruah on 03/05/17.
@@ -23,7 +30,7 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
 
     public static final String ARG_COMPLAINT = "arg_complaint";
     public static final String ARG_TITLE = "arg_title";
-    private  IComplaintAdd callback;
+    private IComplaintAdd callback;
 
     private ImageView doneImageView;
     private EditText titleEditText;
@@ -41,7 +48,7 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_complaint_add,container,false);
+        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_complaint_add, container, false);
     }
 
 
@@ -49,14 +56,16 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        description = getArguments().getString(ARG_COMPLAINT,null);
-        title = getArguments().getString(ARG_TITLE,null);
+        if (getArguments() != null) {
+            description = getArguments().getString(ARG_COMPLAINT, null);
+            title = getArguments().getString(ARG_TITLE, null);
+        }
 
         doneImageView = (ImageView) view.findViewById(R.id.iv_done);
         titleEditText = (EditText) view.findViewById(R.id.et_title);
         descEditText = (EditText) view.findViewById(R.id.et_content);
 
-        if (!TextUtils.isEmpty(title)){
+        if (!TextUtils.isEmpty(title)) {
             titleEditText.setText(title);
         }
 
@@ -70,13 +79,26 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
                     return;
                 dismiss();
 
-                if (callback !=null) {
-                    Complaint complaint= new Complaint();
-                    complaint.title = title;
-                    complaint.description = description;
+                Complaint complaint = new Complaint();
+                complaint.title = title;
+                complaint.description = description;
+                complaint.isSynced = false;
+
+                if (callback != null) {
                     complaint.creationdate = Utils.getNow();
-                    complaint.isSynced = false;
                     callback.onComplaintAdded(complaint);
+                } else {
+                    HTTP.getAPI().saveComplaint(AccountManager.getInstance().getToken(), complaint).enqueue(new AuthCallbackImpl<ComplaintResponse>(getContext()) {
+                        @Override
+                        public void apiSuccess(Response<ComplaintResponse> response) {
+                            NotificationUtils.notifyComplaintRegistered(response.body().body);
+                        }
+
+                        @Override
+                        public void apiFail(Throwable t) {
+
+                        }
+                    });
                 }
 
             }
@@ -92,12 +114,12 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
 
     private boolean validate() {
         title = titleEditText.getText().toString().trim();
-        if (TextUtils.isEmpty(title)){
+        if (TextUtils.isEmpty(title)) {
             titleEditText.setError("Enter title");
             return false;
         }
         description = descEditText.getText().toString().trim();
-        if (TextUtils.isEmpty(description)){
+        if (TextUtils.isEmpty(description)) {
             descEditText.setError("Enter description");
             return false;
         }
@@ -105,7 +127,7 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
         return true;
     }
 
-    public interface IComplaintAdd{
+    public interface IComplaintAdd {
 
         void onComplaintAdded(Complaint complaint);
     }

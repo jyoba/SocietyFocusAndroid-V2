@@ -23,3 +23,33 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-optimizationpasses 5
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontpreverify
+-allowaccessmodification
+-repackageclasses
+-useuniqueclassmembernames
+
+
+# LK
+#===================================
+-keepclassmembers class com.zircon.app.model.** {
+    <fields>;
+}
+
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+
+
+-dontwarn com.squareup.okhttp.**
+
+
+-dontwarn okio.**

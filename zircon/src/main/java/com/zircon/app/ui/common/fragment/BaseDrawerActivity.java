@@ -47,11 +47,11 @@ public abstract class BaseDrawerActivity extends BaseActivity implements Navigat
         nameTextView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_name);
         emailTextView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_email);
 
-        Picasso.with(this).load(AccountManager.getInstance().getloggedInUser().profilePic).placeholder(Utils.getTextDrawable(this,AccountManager.getInstance().getloggedInUser().firstname)).fit().centerCrop().into(profileImageView);
-
-        nameTextView.setText(AccountManager.getInstance().getloggedInUser().firstname);
-
-        emailTextView.setText(AccountManager.getInstance().getloggedInUser().email);
+        if (AccountManager.getInstance().getloggedInUser() != null) {
+            Picasso.with(this).load(AccountManager.getInstance().getloggedInUser().profilePic).placeholder(Utils.getTextDrawable(this, AccountManager.getInstance().getloggedInUser().firstname)).fit().centerCrop().into(profileImageView);
+            nameTextView.setText(AccountManager.getInstance().getloggedInUser().firstname);
+            emailTextView.setText(AccountManager.getInstance().getloggedInUser().email);
+        }
 
     }
 
@@ -99,7 +99,7 @@ public abstract class BaseDrawerActivity extends BaseActivity implements Navigat
                 NavigationUtils.navigateToCarSearch(BaseDrawerActivity.this);
                 break;
             case R.id.nav_logout:
-
+                logoutUI();
                 break;
         }
 
@@ -107,4 +107,6 @@ public abstract class BaseDrawerActivity extends BaseActivity implements Navigat
 
         return true;
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.zircon.app.utils;
 
 import com.zircon.app.model.Complaint;
 import com.zircon.app.model.response.AddCommentResponse;
+import com.zircon.app.model.response.BasicResponse;
 import com.zircon.app.model.response.CarSearchResponse;
 import com.zircon.app.model.response.ComplaintCommentResponse;
 import com.zircon.app.model.response.ComplaintListResponse;
@@ -117,6 +118,10 @@ public interface API {
 
     @GET(API_PATH_PATTERN + "society/noticeboard/getall")
     public Call<NoticeBoardResponse> getAllNotices(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
+
+    @GET(API_PATH_PATTERN + "access/updatefiretoken")
+    public Call<BasicResponse> sendFcmToken(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Query("firebasetoken") String firebasetoken);
+
 //
 //    @POST(API_PATH_PATTERN + "society/noticeboard/add")
 //    public Call<AddNewNoticeResponse> addNewNotice(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Body AddNewNotice newNotice);

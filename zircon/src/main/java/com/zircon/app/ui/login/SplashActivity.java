@@ -1,9 +1,9 @@
 package com.zircon.app.ui.login;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.zircon.app.R;
 import com.zircon.app.model.response.LoginResponse;
@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity implements LoginHelper.ILo
 
         if (AccountUtils.isAutoLogin()){
             if (AccountUtils.isSocietyLogin()){
-                loginHelper.loginSociety(AccountUtils.getLoginCredentials());
+                loginHelper.loginSociety(SplashActivity.this, AccountUtils.getLoginCredentials());
             }
 
         }else {

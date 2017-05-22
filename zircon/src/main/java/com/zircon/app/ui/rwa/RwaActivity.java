@@ -22,6 +22,7 @@ import com.zircon.app.model.response.MembersResponse;
 import com.zircon.app.model.response.PanelResponse;
 import com.zircon.app.ui.common.fragment.BaseDrawerActivity;
 import com.zircon.app.utils.AccountManager;
+import com.zircon.app.utils.AuthCallbackImpl;
 import com.zircon.app.utils.HTTP;
 import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.ui.GridSeparator;
@@ -61,19 +62,8 @@ public class RwaActivity extends BaseDrawerActivity {
                 )
                 ,2));
 
-        HTTP.getAPI().getSocietyPanel(AccountManager.getInstance().getToken()).enqueue(new Callback<PanelResponse>() {
-            @Override
-            public void onResponse(Response<PanelResponse> response) {
-                for (int i = 0 ; i < 5; i++) {
-                    rwaAdapter.addAllItems(response.body().body);
-                }
-            }
+        load();
 
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
 
 
 
@@ -101,19 +91,20 @@ public class RwaActivity extends BaseDrawerActivity {
         return true;
     }
 
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    protected void load() {
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        HTTP.getAPI().getSocietyPanel(AccountManager.getInstance().getToken()).enqueue(new AuthCallbackImpl<PanelResponse>(RwaActivity.this) {
+            @Override
+            public void apiSuccess(Response<PanelResponse> response) {
+                rwaAdapter.addAllItems(response.body().body);
+            }
 
-        return super.onOptionsItemSelected(item);
+            @Override
+            public void apiFail(Throwable t) {
+
+            }
+        });
     }
-
-
-
-
-
 }

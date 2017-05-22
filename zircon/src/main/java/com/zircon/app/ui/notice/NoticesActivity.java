@@ -22,6 +22,7 @@ import com.zircon.app.model.response.MembersResponse;
 import com.zircon.app.model.response.NoticeBoardResponse;
 import com.zircon.app.ui.common.fragment.BaseDrawerActivity;
 import com.zircon.app.utils.AccountManager;
+import com.zircon.app.utils.AuthCallbackImpl;
 import com.zircon.app.utils.HTTP;
 import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.ui.VerticalSeparator;
@@ -66,17 +67,8 @@ public class NoticesActivity extends BaseDrawerActivity {
         if (noticeBoards != null)
         noticesAdapter.addAllItems(noticeBoards);
         else {
-            HTTP.getAPI().getAllNotices(AccountManager.getInstance().getToken()).enqueue(new Callback<NoticeBoardResponse>() {
-                @Override
-                public void onResponse(Response<NoticeBoardResponse> response) {
-                    noticesAdapter.addAllItems(response.body().body);
-                }
+            load();
 
-                @Override
-                public void onFailure(Throwable t) {
-
-                }
-            });
         }
 
 
@@ -104,19 +96,20 @@ public class NoticesActivity extends BaseDrawerActivity {
         return true;
     }
 
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    protected void load() {
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        HTTP.getAPI().getAllNotices(AccountManager.getInstance().getToken()).enqueue(new AuthCallbackImpl<NoticeBoardResponse>(NoticesActivity.this) {
+            @Override
+            public void apiSuccess(Response<NoticeBoardResponse> response) {
+                noticesAdapter.addAllItems(response.body().body);
+            }
 
-        return super.onOptionsItemSelected(item);
+            @Override
+            public void apiFail(Throwable t) {
+
+            }
+        });
     }
-
-
-
-
-
 }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.zircon.app.R;
@@ -29,13 +30,10 @@ public class HomeActivity extends BaseDrawerActivity {
         ForceUpdateHelper.checkForUpdates(HomeActivity.this);
 
         setupToolbar();
-        setTitle(AccountManager.getInstance().getloggedInSociety().name);
         ToolsWidget.setupToolsWidget(this);
         setupDrawer(R.id.nav_home);
-//        NoticeBoardHelper.setupNoticeBoard(findViewById(R.id.cv_nb));
 
-        String bgUrl = AccountManager.getInstance().getloggedInSociety().societypic;
-        Picasso.with(this).load(bgUrl).into((ImageView) findViewById(R.id.society_bg));
+        load();
 
         rwaView = findViewById(R.id.tv_rwa);
         residentsView = findViewById(R.id.tv_residents);
@@ -72,26 +70,13 @@ public class HomeActivity extends BaseDrawerActivity {
 
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home_main, menu);
-        return true;
-    }
+    protected void load() {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
+        if (AccountManager.getInstance().getloggedInUser() != null) {
+            setTitle(AccountManager.getInstance().getloggedInSociety().name);
+            NoticeBoardHelper.setupNoticeBoard(findViewById(R.id.cv_nb));
+            Picasso.with(this).load(AccountManager.getInstance().getloggedInSociety().societypic).into((ImageView) findViewById(R.id.society_bg));
         }
-
-        return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
 }

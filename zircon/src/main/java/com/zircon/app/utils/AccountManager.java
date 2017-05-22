@@ -11,36 +11,44 @@ public class AccountManager {
 
     private static AccountManager instance;
 
-    private AccountManager(){}
+    private AccountManager() {
+    }
 
     private User user;
     private Society society;
     private String token;
 
-    public static AccountManager getInstance(){
+    public static AccountManager getInstance() {
         if (instance == null)
-            instance =new AccountManager();
+            instance = new AccountManager();
         return instance;
     }
 
-    public  User getloggedInUser(){
-        if (user == null){
+    public User getloggedInUser() {
+        if (user == null) {
             user = AccountUtils.getLoggedInUser();
         }
         return user;
     }
 
-    public Society getloggedInSociety(){
-        if (society == null){
+    public Society getloggedInSociety() {
+        if (society == null) {
             society = AccountUtils.getLoggedInSociety();
         }
         return society;
     }
 
     public String getToken() {
-        if (token == null){
+        if (token == null) {
             token = AccountUtils.getToken();
         }
         return token;
+    }
+
+    public void logout() {
+        user = null;
+        society = null;
+        token = null;
+        AccountUtils.logout();
     }
 }

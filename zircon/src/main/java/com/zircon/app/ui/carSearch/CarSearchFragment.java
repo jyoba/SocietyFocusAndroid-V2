@@ -23,6 +23,7 @@ import com.zircon.app.model.CarSearch;
 import com.zircon.app.model.response.CarSearchResponse;
 import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.utils.AccountManager;
+import com.zircon.app.utils.AuthCallbackImpl;
 import com.zircon.app.utils.HTTP;
 import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.Utils;
@@ -114,21 +115,18 @@ public class CarSearchFragment extends DialogFragment {
                 noResultsLayout.setVisibility(View.INVISIBLE);
                 resultView.setVisibility(View.INVISIBLE);
 
-                HTTP.getAPI().searchVehicleNumber(AccountManager.getInstance().getToken(), query).enqueue(new Callback<CarSearchResponse>() {
+                HTTP.getAPI().searchVehicleNumber(AccountManager.getInstance().getToken(), query).enqueue(new AuthCallbackImpl<CarSearchResponse>(getContext()) {
                     @Override
-                    public void onResponse(Response<CarSearchResponse> response) {
-                        if (response.isSuccess()) {
-                            initLayout.setVisibility(View.INVISIBLE);
-                            progressLayout.setVisibility(View.INVISIBLE);
-                            noResultsLayout.setVisibility(View.INVISIBLE);
-                            resultView.setVisibility(View.VISIBLE);
-                            setupResultView(response.body().body);
-                        } else
-                            onFailure(new Throwable(response.message()));
+                    public void apiSuccess(Response<CarSearchResponse> response) {
+                        initLayout.setVisibility(View.INVISIBLE);
+                        progressLayout.setVisibility(View.INVISIBLE);
+                        noResultsLayout.setVisibility(View.INVISIBLE);
+                        resultView.setVisibility(View.VISIBLE);
+                        setupResultView(response.body().body);
                     }
 
                     @Override
-                    public void onFailure(Throwable t) {
+                    public void apiFail(Throwable t) {
                         initLayout.setVisibility(View.INVISIBLE);
                         progressLayout.setVisibility(View.INVISIBLE);
                         noResultsLayout.setVisibility(View.VISIBLE);

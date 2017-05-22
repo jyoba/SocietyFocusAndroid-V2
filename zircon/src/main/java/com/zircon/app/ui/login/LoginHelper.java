@@ -9,6 +9,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.zircon.app.App;
 import com.zircon.app.model.LoginCredentials;
 import com.zircon.app.model.response.LoginResponse;
@@ -16,6 +17,7 @@ import com.zircon.app.utils.API;
 import com.zircon.app.utils.AccountUtils;
 import com.zircon.app.utils.DeviceUtils;
 import com.zircon.app.utils.HTTP;
+import com.zircon.app.utils.ks.KeyStoreUtils;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -37,20 +39,20 @@ class LoginHelper {
         callbackWeakReference  = new WeakReference<ILoginHelper>(callback);
     }
 
-    public void loginSociety(final LoginCredentials loginCredentials) {
+    public void loginSociety(final Context context,final LoginCredentials loginCredentials) {
 
         API api = HTTP.getAPI();
         if (api == null)
             return;
 
-        Call<LoginResponse> response = api.login(loginCredentials.society, loginCredentials.username, loginCredentials.password, "", DeviceUtils.getUniqueDeviceID());
+        Call<LoginResponse> response = api.login(loginCredentials.society, loginCredentials.username, loginCredentials.password, FirebaseInstanceId.getInstance().getToken(), DeviceUtils.getUniqueDeviceID());
         response.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Response<LoginResponse> response) {
                 ILoginHelper callback = callbackWeakReference.get();
                 if (callback != null){
                     if (response.isSuccess()) {
-                        AccountUtils.saveSocietyLogin(loginCredentials);
+                        AccountUtils.saveSocietyLogin(loginCredentials.getEncrypted(KeyStoreUtils.getInstance(context)));
                         AccountUtils.saveLoggedInUser(response.body().body.userDetails.user);
                         AccountUtils.saveLoggedInSociety(response.body().body.society);
                         AccountUtils.saveAuthToken(response.body().body.token);

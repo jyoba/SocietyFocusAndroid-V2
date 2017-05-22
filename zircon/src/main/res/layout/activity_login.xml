@@ -25,7 +25,7 @@
 
             <include layout="@layout/contents_login" />
 
-            <include layout="@layout/overlay" />
+            <!--<include layout="@layout/overlay" />-->
 
 
         </RelativeLayout>
