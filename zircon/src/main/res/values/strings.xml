@@ -17,6 +17,7 @@
     <string name="label_notice">Notice Board</string>
     <string name="label_see_all">See All</string>
     <string name="label_pay_rwa_fees">Pay your RWA dues</string>
+    <string name="label_register_rwa"><b>Want to register with us?</b>\nFill the form and our team will get in touch with you asap</string>
     <string name="label_rwa">RWA</string>
     <string name="label_residents">Residents</string>
     <string name="label_complaint">Complaints</string>
@@ -31,6 +32,8 @@
     <string name="car_search_no_result">No car matching your query was found.</string>
     <string name="car_search_no_result_complaint">Looks like an unauthorized car has come inside. Do you  want to raise a complaint regarding this.</string>
     <string name="search_car">Search for a car</string>
+    <string name="msg_coming_soon">This feature is coming soon.</string>
+    <string name="msg_only_society_feature">This feature is available only for registered RWAs.\nYou can check how this feature works in the demo section.</string>
 </resources>
 
 

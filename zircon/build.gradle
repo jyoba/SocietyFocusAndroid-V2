@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -7,8 +13,8 @@ android {
         applicationId "com.zircon.app"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 170514001
-        versionName "2.0.0 (170514001)"
+        versionCode 170526001
+        versionName "2.0.0 (170526001)"
         vectorDrawables.useSupportLibrary = true
         resConfigs "en"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -98,6 +104,11 @@ dependencies {
 
     compile 'com.google.firebase:firebase-config:10.0.1'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
+
 
 //    compile 'com.google.android.gms:play-services-gcm:10.0.1'
 

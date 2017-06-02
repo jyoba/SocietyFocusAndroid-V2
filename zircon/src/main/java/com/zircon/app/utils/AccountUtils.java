@@ -27,7 +27,6 @@ public class AccountUtils {
     private static final String KEY_TOKEN = "token";
 
     public static void saveSocietyLogin(LoginCredentials loginCredentials) {
-
         SharedPreferences pref = App.appInstance.getSharedPreferences(ACCOUNT_PREF_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putBoolean(KEY_IS_AUTO_LOGIN, true);
@@ -35,6 +34,14 @@ public class AccountUtils {
         editor.putString(KEY_USERNAME, loginCredentials.username);
         editor.putString(KEY_PASSWORD, loginCredentials.password);
         editor.putString(KEY_SOCIETY, loginCredentials.society);
+        editor.apply();
+    }
+
+    public static void saveFbLogin() {
+        SharedPreferences pref = App.appInstance.getSharedPreferences(ACCOUNT_PREF_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(KEY_IS_AUTO_LOGIN, true);
+        editor.putBoolean(KEY_IS_SOCIETY_LOGIN, false);
         editor.apply();
     }
 

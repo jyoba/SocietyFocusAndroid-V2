@@ -1,6 +1,7 @@
 package com.zircon.app.ui.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.facebook.CallbackManager;
@@ -35,11 +36,16 @@ class LoginHelper {
 
     WeakReference<ILoginHelper> callbackWeakReference;
 
+    private CallbackManager callbackManager;
+
+
     public LoginHelper(ILoginHelper callback) {
-        callbackWeakReference  = new WeakReference<ILoginHelper>(callback);
+        callbackWeakReference = new WeakReference<ILoginHelper>(callback);
+        callbackManager = CallbackManager.Factory.create();
+
     }
 
-    public void loginSociety(final Context context,final LoginCredentials loginCredentials) {
+    public void loginSociety(final Context context, final LoginCredentials loginCredentials) {
 
         API api = HTTP.getAPI();
         if (api == null)
@@ -50,15 +56,14 @@ class LoginHelper {
             @Override
             public void onResponse(Response<LoginResponse> response) {
                 ILoginHelper callback = callbackWeakReference.get();
-                if (callback != null){
+                if (callback != null) {
                     if (response.isSuccess()) {
                         AccountUtils.saveSocietyLogin(loginCredentials.getEncrypted(KeyStoreUtils.getInstance(context)));
                         AccountUtils.saveLoggedInUser(response.body().body.userDetails.user);
                         AccountUtils.saveLoggedInSociety(response.body().body.society);
                         AccountUtils.saveAuthToken(response.body().body.token);
                         callback.onLoginSuccess(true, response.body());
-                    }
-                    else {
+                    } else {
                         try {
                             callback.onLoginFail(true, new Throwable(response.errorBody().string()));
                         } catch (IOException e) {
@@ -72,8 +77,8 @@ class LoginHelper {
             @Override
             public void onFailure(Throwable t) {
                 ILoginHelper callback = callbackWeakReference.get();
-                if (callback != null){
-                    callback.onLoginFail(true,t);
+                if (callback != null) {
+                    callback.onLoginFail(true, t);
                 }
             }
         });
@@ -81,10 +86,10 @@ class LoginHelper {
     }
 
 
-    public void setupFbLoginButton(LoginButton loginButton){
+    public void setupFbLoginButton(LoginButton loginButton) {
 
-        loginButton.setReadPermissions(Arrays.asList("public_profile","email"));
-        loginButton.registerCallback(CallbackManager.Factory.create(), new FacebookCallback<LoginResult>() {
+        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.e("Temp", "FB GrantedPermission " + loginResult.getRecentlyGrantedPermissions().toString() +
@@ -98,8 +103,8 @@ class LoginHelper {
                 Log.e("FaceBook", "FB login cancelled");
 
                 ILoginHelper callback = callbackWeakReference.get();
-                if (callback != null){
-                    callback.onLoginFail(true,new Throwable("FB login cancelled"));
+                if (callback != null) {
+                    callback.onLoginFail(true, new Throwable("FB login cancelled"));
                 }
 
             }
@@ -110,23 +115,56 @@ class LoginHelper {
                 Log.e("FaceBook", "FB login onError ");
 
                 ILoginHelper callback = callbackWeakReference.get();
-                if (callback != null){
-                    callback.onLoginFail(true,new Throwable(error));
+                if (callback != null) {
+                    callback.onLoginFail(true, new Throwable(error));
                 }
             }
         });
     }
 
-    private void fblogin(String token) {
+    public void fblogin(String token) {
         API api = HTTP.getAPI();
         if (api == null) {
             //TODO handle no inernet scenario;
             return;
         }
-//        mFBLoginCall = HTTP.getAPI().fblogin(FirebaseInstanceId.getInstance().getToken()
-//                , Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID)
-//                , FBAccessToken);
+
+        HTTP.getAPI().fblogin(FirebaseInstanceId.getInstance().getToken(), DeviceUtils.getUniqueDeviceID(), token).enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Response<LoginResponse> response) {
+                ILoginHelper callback = callbackWeakReference.get();
+                if (callback != null) {
+                    if (response.isSuccess()) {
+                        AccountUtils.saveFbLogin();
+                        AccountUtils.saveLoggedInUser(response.body().body.userDetails.user);
+                        AccountUtils.saveLoggedInSociety(response.body().body.society);
+                        AccountUtils.saveAuthToken(response.body().body.token);
+                        callback.onLoginSuccess(false, response.body());
+                    } else {
+                        try {
+                            callback.onLoginFail(false, new Throwable(response.errorBody().string()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                ILoginHelper callback = callbackWeakReference.get();
+                if (callback != null) {
+                    callback.onLoginFail(false, t);
+                }
+            }
+        });
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
 
     public interface ILoginHelper {
 

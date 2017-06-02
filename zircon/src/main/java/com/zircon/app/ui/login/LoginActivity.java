@@ -13,10 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.facebook.login.widget.LoginButton;
 import com.zircon.app.R;
 import com.zircon.app.model.LoginCredentials;
 import com.zircon.app.model.response.LoginResponse;
 import com.zircon.app.ui.common.fragment.BaseActivity;
+import com.zircon.app.ui.fb.FbHomeActivity;
 import com.zircon.app.ui.home.HomeActivity;
 import com.zircon.app.utils.AccountUtils;
 import com.zircon.app.utils.ui.Overlay;
@@ -46,6 +48,7 @@ public class LoginActivity extends BaseActivity implements SocietySelectionFragm
     private String society;
 
     private LoginCredentials credentials;
+    private LoginButton fbButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +62,7 @@ public class LoginActivity extends BaseActivity implements SocietySelectionFragm
         usernameEditText = (EditText) findViewById(R.id.etUsername);
         societyEditText = (EditText) findViewById(R.id.etSociety);
         loginButton = (Button) findViewById(R.id.btn_login);
-
+        fbButton = (LoginButton)findViewById(R.id.fb_login);
 
         societyEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +79,10 @@ public class LoginActivity extends BaseActivity implements SocietySelectionFragm
                 }
             }
         });
+
+        loginHelper.setupFbLoginButton(fbButton);
+
+
 
         progressBar = (ProgressBar) findViewById(R.id.progress);
 
@@ -152,13 +159,17 @@ public class LoginActivity extends BaseActivity implements SocietySelectionFragm
         progressBar.setVisibility(View.GONE);
         loginLayout.setAlpha(1.0f);
 
-        if (getCallingActivity() != null){
-            setResult(RESULT_OK);
+
+        if (isSocietyLogin) {
+            if (getCallingActivity() != null){
+                setResult(RESULT_OK);
+            }else {
+                startActivity(new Intent(this, HomeActivity.class));
+            }
             finish();
-            return;
+        }else {
+            startActivity(new Intent(this, FbHomeActivity.class));
         }
-        startActivity(new Intent(this, HomeActivity.class));
-        finish();
 
     }
 
@@ -173,5 +184,11 @@ public class LoginActivity extends BaseActivity implements SocietySelectionFragm
     @Override
     protected void load() {
         //do nothing
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        loginHelper.onActivityResult(requestCode, resultCode, data);
     }
 }

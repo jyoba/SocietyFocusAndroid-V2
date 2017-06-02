@@ -7,6 +7,7 @@ import com.zircon.app.model.response.CarSearchResponse;
 import com.zircon.app.model.response.ComplaintCommentResponse;
 import com.zircon.app.model.response.ComplaintListResponse;
 import com.zircon.app.model.response.ComplaintResponse;
+import com.zircon.app.model.response.GraphPhotoResponse;
 import com.zircon.app.model.response.LoginResponse;
 import com.zircon.app.model.response.MembersResponse;
 import com.zircon.app.model.response.NoticeBoardResponse;
@@ -55,15 +56,15 @@ public interface API {
         String YEAR = "year";
     }
 
-//    @GET(API_PATH_PATTERN + "social/fblogin")
-//    public Call<LoginResponse>
-//    fblogin(@Header(ILoginHeaderParams.DEVICE_ID) String deviceID,
-//            @Header(ILoginHeaderParams.DEVICE_IDOld) String deviceIDOld,
-//            @Query("accesstoken") String FBToken);
-//
-//    @GET
-//    public Call<GraphPhotoResponse> graphcall(@Url String url);
-//
+    @GET(API_PATH_PATTERN + "social/fblogin")
+    public Call<LoginResponse>
+    fblogin(@Header(ILoginHeaderParams.DEVICE_ID) String deviceID,
+            @Header(ILoginHeaderParams.DEVICE_IDOld) String deviceIDOld,
+            @Query("accesstoken") String FBToken);
+
+    @GET
+    public Call<GraphPhotoResponse> graphcall(@Url String url);
+
     @POST(API_PATH_PATTERN + "access/login")
     public Call<LoginResponse>
     login(@Header(ILoginHeaderParams.SOCIETY) String society,

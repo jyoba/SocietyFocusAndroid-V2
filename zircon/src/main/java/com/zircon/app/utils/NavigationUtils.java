@@ -120,4 +120,20 @@ public class NavigationUtils {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivityForResult(intent,LoginActivity.AUTH_REQUEST);
     }
+
+    public static void navigateToPlaystore(Context context) {
+        final String appPackageName = context.getPackageName();
+        try {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
+    }
+
+    public static void quitApp(Context context) {
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory( Intent.CATEGORY_HOME );
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(homeIntent);
+    }
 }
