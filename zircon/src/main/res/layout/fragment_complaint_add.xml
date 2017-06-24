@@ -64,7 +64,6 @@
                 android:gravity="start"
                 android:hint="Description( max 500 characters )"
                 android:maxLength="500"
-                android:maxLines="10"
                 android:minHeight="150dp"
                 android:textAlignment="textStart" />
         </android.support.design.widget.TextInputLayout>

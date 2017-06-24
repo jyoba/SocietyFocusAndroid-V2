@@ -92,13 +92,17 @@ public interface API {
 
     @GET(API_PATH_PATTERN + "society")
     public Call<SocietyListResponse> getSocietyList();
-//
+
     @POST(API_PATH_PATTERN + "v1/complaint/save")
     public Call<ComplaintResponse> saveComplaint(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Body Complaint complaint);
-//
+
+    @POST(API_PATH_PATTERN + "v1/complaint/modify")
+    public Call<ComplaintResponse> modifyComplaint(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Body Complaint complaint);
+
+
     @GET(API_PATH_PATTERN + "v1/complaint/getusercomplaint")
-    public Call<ComplaintListResponse> getUserComplaints(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
-//
+    public Call<ComplaintListResponse> getUserComplaints(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Query("status") String staus);
+
     @GET(API_PATH_PATTERN + "v1/complaint/get/{id}")
     public Call<ComplaintCommentResponse> getComplaintDetails(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Path("id") String complaintID);
 //

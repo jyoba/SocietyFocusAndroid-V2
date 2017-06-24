@@ -16,16 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <RelativeLayout
                 android:id="@+id/rv_title"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_gravity="bottom"
-                android:background="@color/colorPrimary"
-                android:padding="@dimen/spacing_small"
-                android:paddingTop="@dimen/spacing_xsmall"
+                android:layout_height="wrap_content"
                 app:layout_collapseMode="pin">
 
                 <TextView
@@ -34,19 +30,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
                     android:text="title" />
-
-
-                <TextView
-                    android:id="@+id/tv_author"
-                    style="@style/TextView.SubHeader.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:text="Jyotishman Baruah"
-                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/tv_date"
@@ -63,14 +48,101 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_complaint_detail" />
+    <LinearLayout
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|end"-->
-        <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_complaint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="180dp"
+            app:contentPadding="@dimen/spacing_small">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_complaint_id"
+                        style="@style/TextView.Header.Grey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Complaint id : 8" />
+
+                    <TextView
+                        android:id="@+id/tv_status"
+                        style="@style/TextView.Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/spacing_xsmall"
+                        android:text="Open" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_complaint"
+                    style="@style/TextView.Content.Grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:maxLines="10"
+                    />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:minHeight="?actionBarSize"
+            android:orientation="horizontal"
+            android:padding="@dimen/spacing_xsmall">
+
+            <EditText
+                android:id="@+id/et_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/iv_send"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:padding="@dimen/spacing_xsmall"
+                app:srcCompat="@drawable/ic_send_accent_24dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_dialog_email"
+        android:layout_marginRight="@dimen/spacing_normal"
+        app:layout_anchor="@id/cv_complaint"
+        app:layout_anchorGravity="right|bottom" />
+
 
 </android.support.design.widget.CoordinatorLayout>

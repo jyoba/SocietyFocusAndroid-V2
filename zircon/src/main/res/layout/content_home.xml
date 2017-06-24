@@ -26,7 +26,7 @@
             app:contentPaddingRight="@dimen/spacing_normal"
             app:ratio="0.2">
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 style="@style/TextView.Header.Clickable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

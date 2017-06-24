@@ -61,7 +61,7 @@ public class Comment implements Parcelable{
     public interface Status{
         int FROM_SERVER = 0;
         int SENDING_TO_SERVER = 1;
-        int SENTSERVER = 2;
+        int SENDING_TO_SERVER_FAIL = 2;
     }
 
     public String commentid;

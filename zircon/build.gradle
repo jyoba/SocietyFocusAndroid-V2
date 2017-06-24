@@ -13,8 +13,8 @@ android {
         applicationId "com.zircon.app"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 170526001
-        versionName "2.0.0 (170526001)"
+        versionName "2.0.0 (" + getDate() + "001"
+        versionCode Integer.valueOf(getDate() + "001")
         vectorDrawables.useSupportLibrary = true
         resConfigs "en"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -117,6 +117,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+}
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyMMdd')
+    return formattedDate
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -1,12 +1,15 @@
 package com.zircon.app.ui.complaint;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.zircon.app.R;
+import com.zircon.app.model.Comment;
 import com.zircon.app.model.Complaint;
 import com.zircon.app.model.NoticeBoard;
 import com.zircon.app.ui.common.fragment.BaseActivity;
@@ -14,6 +17,7 @@ import com.zircon.app.ui.home.NoticeBoardHelper;
 import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.Utils;
 import com.zircon.app.utils.ui.AbsSearchListAdapter;
+import com.zircon.app.utils.ui.DisplayUtils;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -26,6 +30,12 @@ import java.util.List;
 public class ComplaintsAdapter extends AbsSearchListAdapter<Complaint,ComplaintsAdapter.ViewHolder> {
 
 
+    private IComplaintsAdapter callback;
+
+    public ComplaintsAdapter(IComplaintsAdapter callback){
+        this.callback = callback;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_complaint, parent, false);
@@ -34,7 +44,7 @@ public class ComplaintsAdapter extends AbsSearchListAdapter<Complaint,Complaints
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setComplaint(getItem(position));
+        holder.setComplaint();
     }
 
     @Override
@@ -42,7 +52,7 @@ public class ComplaintsAdapter extends AbsSearchListAdapter<Complaint,Complaints
         if (payloads != null && payloads.size() > 0){
             getItem(position).setFromObject((Complaint)payloads.get(0));
         }
-        holder.setComplaint(getItem(position));
+        holder.setComplaint();
 
 
     }
@@ -63,6 +73,11 @@ public class ComplaintsAdapter extends AbsSearchListAdapter<Complaint,Complaints
         return filteredList;
     }
 
+    public void clear() {
+        masterItems.clear();
+        notifyDataSetChanged();
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -71,6 +86,7 @@ public class ComplaintsAdapter extends AbsSearchListAdapter<Complaint,Complaints
         TextView titleTextView;
         TextView dateTextView;
         TextView descTextView;
+        TextView statusTextView;
 
         public ViewHolder( View itemView) {
             super(itemView);
@@ -78,13 +94,15 @@ public class ComplaintsAdapter extends AbsSearchListAdapter<Complaint,Complaints
             titleTextView = (TextView) itemView.findViewById(R.id.tv_title);
             dateTextView = (TextView) itemView.findViewById(R.id.tv_date);
             descTextView = (TextView) itemView.findViewById(R.id.tv_desc);
+            statusTextView = (TextView) itemView.findViewById(R.id.tv_status);
 
         }
 
-        public void setComplaint(Complaint item) {
+        public void setComplaint() {
+            final Complaint item = getItem(getAdapterPosition());
             idTextView.setText(item.complaintid);
             titleTextView.setText(item.title);
-            if (item.isSynced) {
+            if (item.isSynced && !item.isSyncFail) {
                 try {
                     dateTextView.setText(Utils.parseServerDate(item.creationdate));
                 } catch (ParseException e) {
@@ -94,6 +112,26 @@ public class ComplaintsAdapter extends AbsSearchListAdapter<Complaint,Complaints
                 dateTextView.setText(item.creationdate);
             }
             descTextView.setText(item.description);
+
+            statusTextView.setBackgroundColor(statusTextView.getContext().getResources().getColor(android.R.color.transparent));
+            statusTextView.setVisibility(View.VISIBLE);
+            statusTextView.setClickable(false);
+            statusTextView.setOnClickListener(null);
+            if (!item.isSynced){
+                statusTextView.setText("Sending to server...");
+            }else  if (item.isSyncFail) {
+                statusTextView.setText("Sending to server failed. Try again.");
+                statusTextView.setClickable(true);
+                statusTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (callback != null)
+                            callback.onTryAgain(item,getAdapterPosition());
+                    }
+                });
+            }else{
+                DisplayUtils.setComplaintStatus(statusTextView,item.status);
+            }
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +144,10 @@ public class ComplaintsAdapter extends AbsSearchListAdapter<Complaint,Complaints
 
 
         }
+    }
+
+    public interface IComplaintsAdapter {
+        void onTryAgain(Complaint complaint,int position);
     }
 
 }

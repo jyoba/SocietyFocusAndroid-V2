@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Zircon_new</string>
+    <string name="app_name">Society Focus</string>
     <string name="desc_sf_login">Login to your society.\nYou can login only if your society is\nalready registered with us.</string>
     <string name="desc_sf_fb_login">Is your society not yet registered with\nsociety focus? You can login with facebook\nand explore the app.</string>
 
@@ -34,6 +34,7 @@
     <string name="search_car">Search for a car</string>
     <string name="msg_coming_soon">This feature is coming soon.</string>
     <string name="msg_only_society_feature">This feature is available only for registered RWAs.\nYou can check how this feature works in the demo section.</string>
+    <string name="title_filter">Filter</string>
 </resources>
 
 

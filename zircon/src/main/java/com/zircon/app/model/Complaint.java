@@ -16,8 +16,9 @@ public class Complaint implements Parcelable{
     public String title;
     public String description;
     public String creationdate;
-    public String status;
+    public int status;
     public boolean isSynced = true;
+    public boolean isSyncFail = false;
 
     public Complaint(){}
 
@@ -27,8 +28,9 @@ public class Complaint implements Parcelable{
         title = in.readString();
         description = in.readString();
         creationdate = in.readString();
-        status = in.readString();
+        status = in.readInt();
         isSynced = in.readByte() != 0;
+        isSyncFail = in.readByte() != 0;
     }
 
     public static final Creator<Complaint> CREATOR = new Creator<Complaint>() {
@@ -55,8 +57,9 @@ public class Complaint implements Parcelable{
         dest.writeString(title);
         dest.writeString(description);
         dest.writeString(creationdate);
-        dest.writeString(status);
+        dest.writeInt(status);
         dest.writeByte((byte) (isSynced ? 1 : 0));
+        dest.writeByte((byte) (isSyncFail ? 1 : 0));
     }
 
 
@@ -77,6 +80,13 @@ public class Complaint implements Parcelable{
         this.creationdate= complaint.creationdate;
         this.status= complaint.status;
         this.isSynced= complaint.isSynced;
+        this.isSyncFail= complaint.isSyncFail;
+    }
 
+    public interface Status {
+        int NEW = 1;
+        int COMPLETED = 2;
+        int IN_PROGRESS = 3;
+        int REJECTED = 4;
     }
 }

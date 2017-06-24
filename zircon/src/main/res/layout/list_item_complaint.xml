@@ -20,49 +20,49 @@
             >
 
             <TextView
-                android:layout_alignParentLeft="true"
                 android:id="@+id/tv_id"
                 style="@style/TextView.Header.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:text="13" />
 
             <TextView
-                android:layout_below="@id/tv_id"
-                android:layout_alignParentLeft="true"
                 android:id="@+id/tv_title"
                 style="@style/TextView.SubHeader.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/tv_id"
                 android:text="Title" />
 
             <TextView
-                android:text="5,Dec 2076"
-                android:layout_alignParentRight="true"
                 android:id="@+id/tv_date"
                 style="@style/TextView.Content.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                />
+                android:text="5,Dec 2076" />
 
 
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal" />
 
-
-            <TextView
-                android:id="@+id/tv_desc"
-                style="@style/TextView.Content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/spacing_normal"
-                android:layout_weight="1"
-                android:minHeight="100dp"
-                android:layout_margin="@dimen/spacing_normal"
-
-              />
-
+        <TextView
+            android:id="@+id/tv_desc"
+            style="@style/TextView.Content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_normal"
+            android:layout_weight="1"
+            />
 
 
     </LinearLayout>

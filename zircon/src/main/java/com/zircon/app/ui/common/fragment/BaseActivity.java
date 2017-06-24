@@ -11,6 +11,8 @@ import com.zircon.app.ui.login.LoginActivity;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.NavigationUtils;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 /**
  * Created by jikoobaruah on 10/04/17.
  */
@@ -27,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void logoutUI() {
         final AlertDialog alertDialog = new AlertDialog.Builder(BaseActivity.this)
                 .setTitle("Logout")
-                .setMessage("Are you sure you wantto logout?")
+                .setMessage("Are you sure you want to logout?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -48,7 +50,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void logout() {
         AccountManager.getInstance().logout();
-        finish();
+        Intent intent = new Intent(this,LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override

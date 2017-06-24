@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/cardview_dark_background"
+    app:cardElevation="@dimen/spacing_large"
+    app:contentPadding="@dimen/spacing_large"
+    >
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextView.Header.White"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Has your problem been successfully resolved?" />
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/spacing_large"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" android:weightSum="2">
+
+            <ImageButton
+                android:id="@+id/btn_cancel"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_cancel_round_red"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                />
+
+            <ImageButton
+                android:id="@+id/btn_done"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_done_round_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
+

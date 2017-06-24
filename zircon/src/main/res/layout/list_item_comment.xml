@@ -31,5 +31,14 @@
         android:layout_marginTop="@dimen/spacing_small"
         android:text="Any update in this?\nRwa please respond" />
 
+    <TextView
+        android:id="@+id/tv_sync"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_comment"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:text="Synced..." />
+
+
 
 </RelativeLayout>

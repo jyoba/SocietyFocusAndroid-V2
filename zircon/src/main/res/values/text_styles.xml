@@ -63,6 +63,22 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="TextView.Content.StatusOpen">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@android:color/holo_red_dark</item>
+    </style>
+
+    <style name="TextView.Content.StatusInProgress">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@android:color/holo_orange_dark</item>
+    </style>
+
+    <style name="TextView.Content.StatusClosed">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@android:color/holo_green_dark</item>
+    </style>
+
+
     <style name="TextView.Header.Clickable">
         <item name="android:clickable">true</item>
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>

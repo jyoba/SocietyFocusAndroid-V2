@@ -1,5 +1,6 @@
 package com.zircon.app.ui.home;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -73,7 +74,7 @@ public class HomeActivity extends BaseDrawerActivity {
         if (AccountManager.getInstance().getloggedInUser() != null) {
             setTitle(AccountManager.getInstance().getloggedInSociety().name);
             NoticeBoardHelper.setupNoticeBoard(findViewById(R.id.cv_nb));
-            Picasso.with(this).load(AccountManager.getInstance().getloggedInSociety().societypic).into((ImageView) findViewById(R.id.society_bg));
+            Picasso.with(this).load(AccountManager.getInstance().getloggedInSociety().societypic).config(Bitmap.Config.RGB_565).into((ImageView) findViewById(R.id.society_bg));
         }
     }
 }

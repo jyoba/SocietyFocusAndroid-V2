@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.zircon.app.R;
 import com.zircon.app.model.Comment;
+import com.zircon.app.model.Complaint;
 import com.zircon.app.utils.Utils;
 
 import java.text.ParseException;
@@ -20,7 +21,13 @@ import java.util.List;
 
 class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder> {
 
+    private ICommentsAdapter callback;
+
     private ArrayList<Comment> comments;
+
+    public CommentsAdapter(ICommentsAdapter callback){
+        this.callback = callback;
+    }
 
     @Override
     public CommentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -88,16 +95,18 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
         private TextView authorTextView;
         private TextView dateTextView;
         private TextView commentTextView;
+        private TextView statusTextView;
 
         public CommentHolder(View itemView) {
             super(itemView);
             authorTextView = (TextView) itemView.findViewById(R.id.tv_author);
             dateTextView = (TextView) itemView.findViewById(R.id.tv_date);
             commentTextView = (TextView) itemView.findViewById(R.id.tv_comment);
+            statusTextView = (TextView) itemView.findViewById(R.id.tv_sync);
         }
 
         public void setup() {
-            Comment comment = comments.get(getAdapterPosition());
+            final Comment comment = comments.get(getAdapterPosition());
             authorTextView.setText(comment.user.getFullName());
 
             try {
@@ -106,9 +115,33 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
+            statusTextView.setClickable(false);
+            statusTextView.setOnClickListener(null);
+            if (comment.status == Comment.Status.SENDING_TO_SERVER){
+                statusTextView.setVisibility(View.VISIBLE);
+                statusTextView.setText("Sending to server...");
+            }else  if (comment.status == Comment.Status.SENDING_TO_SERVER_FAIL) {
+                statusTextView.setVisibility(View.VISIBLE);
+                statusTextView.setText("Sending to server failed. Try again.");
+                statusTextView.setClickable(true);
+                statusTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (callback != null)
+                            callback.onTryAgain(comment,getAdapterPosition());
+                    }
+                });
+            }else{
+                statusTextView.setVisibility(View.GONE);
+                statusTextView.setText("Succesfully sent.");
+            }
             commentTextView.setText(comment.comment);
         }
 
     }
 
+    public interface ICommentsAdapter {
+        void onTryAgain(Comment comment,int position);
+    }
 }

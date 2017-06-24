@@ -100,4 +100,5 @@ public abstract class AbsSearchListAdapter<T,VH extends RecyclerView.ViewHolder>
         notifyItemMoved(fromPosition, toPosition);
     }
 
+
 }
