@@ -1,12 +1,10 @@
 package com.zircon.app.ui.home;
 
-import android.app.Activity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,13 +19,9 @@ import com.zircon.app.utils.HTTP;
 import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.Utils;
 
-import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
@@ -116,7 +110,7 @@ public class NoticeBoardHelper {
                 else
                     noticeViewPager.setCurrentItem(0, true);
             }
-        },3000);
+        }, 3000);
     }
 
 
@@ -143,11 +137,11 @@ public class NoticeBoardHelper {
 
     private static class NoticeAdapter extends PagerAdapter {
 
+        private ArrayList<NoticeBoard> list;
+
         public NoticeAdapter(ArrayList<NoticeBoard> list) {
             this.list = list;
         }
-
-        private ArrayList<NoticeBoard> list;
 
         @Override
         public int getCount() {
@@ -191,7 +185,6 @@ public class NoticeBoardHelper {
         }
 
     }
-
 
 
 }

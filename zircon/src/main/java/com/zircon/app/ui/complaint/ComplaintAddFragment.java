@@ -1,6 +1,7 @@
 package com.zircon.app.ui.complaint;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -10,10 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.zircon.app.R;
 import com.zircon.app.model.Complaint;
 import com.zircon.app.model.response.ComplaintResponse;
+import com.zircon.app.ui.common.fragment.BaseActivity;
+import com.zircon.app.ui.widget.ImageUploadWidget;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.AuthCallbackImpl;
 import com.zircon.app.utils.HTTP;
@@ -37,12 +41,17 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
     private EditText descEditText;
     private String title;
     private String description;
+    private ImageUploadWidget imageUploadWidget1;
+    private ImageUploadWidget imageUploadWidget2;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof IComplaintAdd)
             callback = (IComplaintAdd) context;
+
+        ((BaseActivity) context).registerFragmentForActivityResult(this);
+
     }
 
     @Nullable
@@ -65,6 +74,9 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
         titleEditText = (EditText) view.findViewById(R.id.et_title);
         descEditText = (EditText) view.findViewById(R.id.et_content);
 
+        imageUploadWidget1 = (ImageUploadWidget) view.findViewById(R.id.widget_image_upload1);
+        imageUploadWidget2 = (ImageUploadWidget) view.findViewById(R.id.widget_image_upload2);
+
         if (!TextUtils.isEmpty(title)) {
             titleEditText.setText(title);
         }
@@ -79,10 +91,17 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
                     return;
                 dismiss();
 
+
                 Complaint complaint = new Complaint();
                 complaint.title = title;
                 complaint.description = description;
                 complaint.isSynced = false;
+
+                if (imageUploadWidget1.isImageSynced())
+                    complaint.addImageUrl(imageUploadWidget1.getImageUploadResponse().getBody());
+
+                if (imageUploadWidget2.isImageSynced())
+                    complaint.addImageUrl(imageUploadWidget2.getImageUploadResponse().getBody());
 
                 if (callback != null) {
                     complaint.creationdate = Utils.getNow();
@@ -110,6 +129,8 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
     public void onDetach() {
         super.onDetach();
         callback = null;
+        ((BaseActivity) getContext()).unregisterFragmentForActivityResult(this);
+
     }
 
     private boolean validate() {
@@ -124,7 +145,24 @@ public class ComplaintAddFragment extends BottomSheetDialogFragment {
             return false;
         }
 
+        if (imageUploadWidget1.isImageSet() && !imageUploadWidget1.isImageSynced()) {
+            Toast.makeText(getContext(), "Please sync the images before submitting.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (imageUploadWidget2.isImageSet() && !imageUploadWidget2.isImageSynced()) {
+            Toast.makeText(getContext(), "Please sync the images before submitting.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
         return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        imageUploadWidget1.onActivityResult(requestCode, resultCode, data);
+        imageUploadWidget2.onActivityResult(requestCode, resultCode, data);
     }
 
     public interface IComplaintAdd {

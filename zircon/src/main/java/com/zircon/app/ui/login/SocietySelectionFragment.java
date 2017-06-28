@@ -92,6 +92,10 @@ public class SocietySelectionFragment extends AbsSearchListViewFragment {
         return R.layout.fragment_society_selection;
     }
 
+    public interface ISocietySelectionListener {
+        public void onSocietySelected(String societyName, String societyValue);
+    }
+
     private class SocietyAdapter extends AbsSearchListViewFragment.ListAdapter<Society> {
 
         @Override
@@ -172,15 +176,11 @@ public class SocietySelectionFragment extends AbsSearchListViewFragment {
 
                 societyAddressTextView.setText(society.address);
 
-                societyImgView.setBackgroundColor(Utils.getRandomMaterialColor(getContext(),"300"));
-                Picasso.with(getContext()).load(society.societypic).placeholder(Utils.getTextDrawable(getContext(),society.name)).fit().centerCrop().into(societyImgView);
+                societyImgView.setBackgroundColor(Utils.getRandomMaterialColor(getContext(), "300"));
+                Picasso.with(getContext()).load(society.societypic).placeholder(Utils.getTextDrawable(getContext(), society.name)).fit().centerCrop().into(societyImgView);
                 key = society.societyId;
             }
         }
-    }
-
-    public interface ISocietySelectionListener {
-        public void onSocietySelected(String societyName, String societyValue);
     }
 
 }

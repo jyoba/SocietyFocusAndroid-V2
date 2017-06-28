@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -18,8 +21,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="ca454e4ab6b5092df0a7451acc17d157689e2c9c"
-            />
+            android:value="ca454e4ab6b5092df0a7451acc17d157689e2c9c" />
 
         <activity
             android:name=".ui.login.SplashActivity"
@@ -34,14 +36,14 @@
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_login"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.home.HomeActivity"  />
+        <activity android:name=".ui.home.HomeActivity" />
         <activity android:name=".ui.usr.UsersActivity" />
         <activity android:name=".ui.rwa.RwaActivity" />
         <activity android:name=".ui.notice.NoticesActivity" />
         <activity android:name=".ui.complaint.ComplaintsActivity" />
         <activity android:name=".ui.complaint.ComplaintDetailActivity" />
 
-        <activity android:name=".ui.fb.FbHomeActivity"/>
+        <activity android:name=".ui.fb.FbHomeActivity" />
 
 
         <service android:name=".ui.pushNotification.InstanceIdService">

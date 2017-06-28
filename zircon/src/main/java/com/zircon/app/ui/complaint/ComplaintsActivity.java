@@ -72,7 +72,7 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
                 TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.spacing_normal), getResources().getDisplayMetrics()
         )));
 
-      load();
+        load();
 
 
     }
@@ -105,7 +105,7 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.filter:
                 showFilterDialog();
                 break;
@@ -115,10 +115,10 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
 
     private void showFilterDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ComplaintsActivity.this);
-        View dialogView = LayoutInflater.from(ComplaintsActivity.this).inflate(R.layout.popup_list, null,false);
+        View dialogView = LayoutInflater.from(ComplaintsActivity.this).inflate(R.layout.popup_list, null, false);
 
         RecyclerView rv = (RecyclerView) dialogView.findViewById(R.id.rv_popup_list);
-        rv.setLayoutManager(new LinearLayoutManager(ComplaintsActivity.this,LinearLayoutManager.VERTICAL,true));
+        rv.setLayoutManager(new LinearLayoutManager(ComplaintsActivity.this, LinearLayoutManager.VERTICAL, true));
         FilterAdapter filterAdapter = new FilterAdapter();
         rv.setAdapter(filterAdapter);
 
@@ -127,7 +127,6 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
 
 
         final AlertDialog alertDialog = dialogBuilder.create();
-
 
 
         alertDialog.show();
@@ -139,14 +138,14 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
         complaintsAdapter.addItemAtTop(complaint);
         recyclerView.smoothScrollToPosition(0);
         complaint.creationdate = null;
-        onTryAgain(complaint,0);
+        onTryAgain(complaint, 0);
 
     }
 
     @Override
     protected void load() {
         complaintsAdapter.clear();
-        HTTP.getAPI().getUserComplaints(AccountManager.getInstance().getToken(),filterString).enqueue(new AuthCallbackImpl<ComplaintListResponse>(ComplaintsActivity.this) {
+        HTTP.getAPI().getUserComplaints(AccountManager.getInstance().getToken(), filterString).enqueue(new AuthCallbackImpl<ComplaintListResponse>(ComplaintsActivity.this) {
             @Override
             public void apiSuccess(Response<ComplaintListResponse> response) {
                 Collections.sort(response.body().body, Complaint.getDescendingIdComparator());
@@ -167,23 +166,23 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
             @Override
             public void apiSuccess(Response<ComplaintResponse> response) {
                 isComplaintSyncing = false;
-                complaintsAdapter.notifyItemChanged(position,response.body().body);
+                complaintsAdapter.notifyItemChanged(position, response.body().body);
                 NotificationUtils.notifyComplaintRegistered(response.body().body);
             }
 
             @Override
             public void apiFail(Throwable t) {
                 isComplaintSyncing = false;
-                complaint.isSynced=true;
-                complaint.isSyncFail=true;
-                complaintsAdapter.notifyItemChanged(position,complaint);
+                complaint.isSynced = true;
+                complaint.isSyncFail = true;
+                complaintsAdapter.notifyItemChanged(position, complaint);
             }
         });
     }
 
     private class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterHolder> {
 
-        String[] FILTERS = {"ALL","OPEN","CLOSED","IN PROGRESS","REJECTED"};
+        String[] FILTERS = {"ALL", "OPEN", "CLOSED", "IN PROGRESS", "REJECTED"};
 
 
         @Override
@@ -210,8 +209,8 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
                 super(view);
             }
 
-            void setView(){
-                ((TextView)itemView).setText(FILTERS[getAdapterPosition()]);
+            void setView() {
+                ((TextView) itemView).setText(FILTERS[getAdapterPosition()]);
                 itemView.setClickable(true);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

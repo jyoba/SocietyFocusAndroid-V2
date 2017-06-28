@@ -1,6 +1,7 @@
 package com.zircon.app.utils;
 
 import com.zircon.app.model.Complaint;
+import com.zircon.app.model.request.UploadImage;
 import com.zircon.app.model.response.AddCommentResponse;
 import com.zircon.app.model.response.BasicResponse;
 import com.zircon.app.model.response.CarSearchResponse;
@@ -13,6 +14,7 @@ import com.zircon.app.model.response.MembersResponse;
 import com.zircon.app.model.response.NoticeBoardResponse;
 import com.zircon.app.model.response.PanelResponse;
 import com.zircon.app.model.response.SocietyListResponse;
+import com.zircon.app.model.response.UploadImageResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -33,29 +35,6 @@ public interface API {
     String SERVER_URL = "http://societyfocus.com/";
     String API_PATH_PATTERN = "service/";
 
-    interface ILoginHeaderParams {
-        String SOCIETY = "X-Society";
-        String USERNAME = "X-Username";
-        String PASSWORD = "X-Password";
-        String DEVICE_ID = "X-DeviceID";
-        String DEVICE_IDOld = "X-DeviceIDOld";
-        String ACCESS_TOKEN = "X-AccessToken";
-    }
-
-    interface IPostLoginHeaderParams {
-        String AUTH_TOKEN = "X-Auth-Token";
-
-    }
-
-    interface IAssetParams {
-        String ID = "id";
-    }
-
-    interface IEventParams {
-        String MONTH = "month";
-        String YEAR = "year";
-    }
-
     @GET(API_PATH_PATTERN + "social/fblogin")
     public Call<LoginResponse>
     fblogin(@Header(ILoginHeaderParams.DEVICE_ID) String deviceID,
@@ -72,10 +51,10 @@ public interface API {
           @Header(ILoginHeaderParams.PASSWORD) String password,
           @Header(ILoginHeaderParams.DEVICE_ID) String firbaseId,
           @Header(ILoginHeaderParams.DEVICE_IDOld) String deviceID);
-//
-//    @POST(API_PATH_PATTERN + "upload/image/base64")
-//    public Call<UploadImageResponse> uploadimage(@Body UploadImage uploadImage);
 
+    //
+    @POST(API_PATH_PATTERN + "upload/image/base64")
+    public Call<UploadImageResponse> uploadimage(@Body UploadImage uploadImage);
 
     @GET(API_PATH_PATTERN + "v1/comment/add/complaint_{Complaint_ID}/{MESSAGE}")
     public Call<AddCommentResponse> getAddComment(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken,
@@ -83,9 +62,6 @@ public interface API {
 
     @GET(API_PATH_PATTERN + "user/getalluser")
     public Call<MembersResponse> getAllUsers(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
-//
-//    @GET(API_PATH_PATTERN + "society/asset/getall")
-//    public Call<AssetsResponse> getAllSocietyAssets(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
 
     @GET(API_PATH_PATTERN + "society/panel")
     public Call<PanelResponse> getSocietyPanel(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
@@ -98,13 +74,33 @@ public interface API {
 
     @POST(API_PATH_PATTERN + "v1/complaint/modify")
     public Call<ComplaintResponse> modifyComplaint(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Body Complaint complaint);
-
+//
+//    @GET(API_PATH_PATTERN + "society/asset/getall")
+//    public Call<AssetsResponse> getAllSocietyAssets(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
 
     @GET(API_PATH_PATTERN + "v1/complaint/getusercomplaint")
     public Call<ComplaintListResponse> getUserComplaints(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Query("status") String staus);
 
     @GET(API_PATH_PATTERN + "v1/complaint/get/{id}")
     public Call<ComplaintCommentResponse> getComplaintDetails(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Path("id") String complaintID);
+
+    @GET(API_PATH_PATTERN + "vehicle/getvehilcebynumber/{vehiclenumber}")
+    public Call<CarSearchResponse> searchVehicleNumber(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Path("vehiclenumber") String vehiclenumber);
+
+    @GET(API_PATH_PATTERN + "society/noticeboard/getall")
+    public Call<NoticeBoardResponse> getAllNotices(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
+
+    @GET(API_PATH_PATTERN + "access/updatefiretoken")
+    public Call<BasicResponse> sendFcmToken(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Query("firebasetoken") String firebasetoken);
+
+    interface ILoginHeaderParams {
+        String SOCIETY = "X-Society";
+        String USERNAME = "X-Username";
+        String PASSWORD = "X-Password";
+        String DEVICE_ID = "X-DeviceID";
+        String DEVICE_IDOld = "X-DeviceIDOld";
+        String ACCESS_TOKEN = "X-AccessToken";
+    }
 //
 //    @POST(API_PATH_PATTERN + "user/modifymyuser")
 //    public Call<UserResponse> modifyUser(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Body User user);
@@ -118,14 +114,19 @@ public interface API {
 //    @POST(API_PATH_PATTERN + "society/asset/getassetbyuser")
 //    public Call<AssetbookingByUserResponse> getAssetBooking(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
 
-    @GET(API_PATH_PATTERN + "vehicle/getvehilcebynumber/{vehiclenumber}")
-    public Call<CarSearchResponse> searchVehicleNumber(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Path("vehiclenumber") String vehiclenumber);
+    interface IPostLoginHeaderParams {
+        String AUTH_TOKEN = "X-Auth-Token";
 
-    @GET(API_PATH_PATTERN + "society/noticeboard/getall")
-    public Call<NoticeBoardResponse> getAllNotices(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken);
+    }
 
-    @GET(API_PATH_PATTERN + "access/updatefiretoken")
-    public Call<BasicResponse> sendFcmToken(@Header(IPostLoginHeaderParams.AUTH_TOKEN) String authToken, @Query("firebasetoken") String firebasetoken);
+    interface IAssetParams {
+        String ID = "id";
+    }
+
+    interface IEventParams {
+        String MONTH = "month";
+        String YEAR = "year";
+    }
 
 //
 //    @POST(API_PATH_PATTERN + "society/noticeboard/add")

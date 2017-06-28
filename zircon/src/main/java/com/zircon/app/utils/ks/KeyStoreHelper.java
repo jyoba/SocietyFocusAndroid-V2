@@ -1,8 +1,6 @@
 package com.zircon.app.utils.ks;
 
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 
 import java.security.KeyStore;
 

@@ -18,9 +18,9 @@ public class InstanceIdService extends FirebaseInstanceIdService {
     @Override
     public void onTokenRefresh() {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG,"onTokenRefresh "+refreshedToken);
+        Log.d(TAG, "onTokenRefresh " + refreshedToken);
         if (AccountManager.getInstance().getloggedInUser() != null) {
-            HTTP.getAPI().sendFcmToken(AccountManager.getInstance().getToken() , refreshedToken).enqueue(null);
+            HTTP.getAPI().sendFcmToken(AccountManager.getInstance().getToken(), refreshedToken).enqueue(null);
         }
     }
 }

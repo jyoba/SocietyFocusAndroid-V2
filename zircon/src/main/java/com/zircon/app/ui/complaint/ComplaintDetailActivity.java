@@ -2,16 +2,13 @@ package com.zircon.app.ui.complaint;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +20,6 @@ import com.zircon.app.model.response.AddCommentResponse;
 import com.zircon.app.model.response.ComplaintCommentResponse;
 import com.zircon.app.model.response.ComplaintResponse;
 import com.zircon.app.ui.common.fragment.BaseActivity;
-import com.zircon.app.utils.API;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.AuthCallbackImpl;
 import com.zircon.app.utils.HTTP;
@@ -39,14 +35,10 @@ import retrofit2.Response;
 
 public class ComplaintDetailActivity extends BaseActivity implements CommentsAdapter.ICommentsAdapter {
 
-    private Complaint complaint;
-
-    private CommentsAdapter commentsAdapter;
-
-    private boolean isCommentSyncing = false;
-
     public static final String KEY_COMPLAINT = "complaint";
-
+    private Complaint complaint;
+    private CommentsAdapter commentsAdapter;
+    private boolean isCommentSyncing = false;
     private RecyclerView recyclerView;
 
     @Override
@@ -149,16 +141,16 @@ public class ComplaintDetailActivity extends BaseActivity implements CommentsAda
         addComment(isClose ? "I am closing this complaint" : "I am reopening this complaint");
         complaint.status = isClose ? Complaint.Status.COMPLETED : Complaint.Status.NEW;
         setStatus(true);
-        HTTP.getAPI().modifyComplaint(AccountManager.getInstance().getToken(),complaint).enqueue(new AuthCallbackImpl<ComplaintResponse>(ComplaintDetailActivity.this) {
+        HTTP.getAPI().modifyComplaint(AccountManager.getInstance().getToken(), complaint).enqueue(new AuthCallbackImpl<ComplaintResponse>(ComplaintDetailActivity.this) {
             @Override
             public void apiSuccess(Response<ComplaintResponse> response) {
-                complaint  = response.body().body;
+                complaint = response.body().body;
                 setStatus(false);
             }
 
             @Override
             public void apiFail(Throwable t) {
-                Toast.makeText(ComplaintDetailActivity.this,"Failed to update status",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ComplaintDetailActivity.this, "Failed to update status", Toast.LENGTH_SHORT).show();
                 complaint.status = oldStatus;
                 setStatus(false);
             }
@@ -168,13 +160,13 @@ public class ComplaintDetailActivity extends BaseActivity implements CommentsAda
 
     private void setStatus(boolean isSyncing) {
         TextView statusTextView = (TextView) findViewById(R.id.tv_status);
-        if (isSyncing){
+        if (isSyncing) {
             statusTextView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
             statusTextView.setTextColor(getResources().getColor(android.R.color.holo_blue_bright));
             statusTextView.setText("Syncing...");
             return;
         }
-        DisplayUtils.setComplaintStatus(statusTextView,complaint.status);
+        DisplayUtils.setComplaintStatus(statusTextView, complaint.status);
 
     }
 

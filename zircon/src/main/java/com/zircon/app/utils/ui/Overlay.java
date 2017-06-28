@@ -6,21 +6,15 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Rect;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.zircon.app.R;
@@ -70,13 +64,10 @@ public class Overlay extends RelativeLayout {
         });
 
 
-
-
-
     }
 
     public void drawOverlay() {
-        okButton = (Button) ((Activity)getContext()).findViewById(R.id.btn_ok);
+        okButton = (Button) ((Activity) getContext()).findViewById(R.id.btn_ok);
         okButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,10 +88,10 @@ public class Overlay extends RelativeLayout {
         View v = null;
         for (int i = 0; i < descView.getChildCount(); i++) {
 
-            v= descView.getChildAt(i);
-            if (v instanceof  ViewGroup){
+            v = descView.getChildAt(i);
+            if (v instanceof ViewGroup) {
                 findViewsWithDescription((ViewGroup) v);
-            }else if (v.getContentDescription() != null && v.getContentDescription().length() > 0) {
+            } else if (v.getContentDescription() != null && v.getContentDescription().length() > 0) {
                 cdViews.add(descView.getChildAt(i));
             }
         }
@@ -147,9 +138,9 @@ public class Overlay extends RelativeLayout {
 
         String[] strings = view.getContentDescription().toString().split("\\n");
         float initialY = y - strings.length * px - offsetY;
-        for (int i = 0 ;  i < strings.length; i++){
-            canvas.drawText(strings[i],x, initialY,paint);
-            initialY = initialY+px;
+        for (int i = 0; i < strings.length; i++) {
+            canvas.drawText(strings[i], x, initialY, paint);
+            initialY = initialY + px;
         }
 
 //        canvas.drawLine((myViewRect.right-myViewRect.left)/2,initialY-px+5,(myViewRect.right-myViewRect.left)/2,y-25,paint);

@@ -4,7 +4,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -20,7 +19,7 @@ import java.util.List;
 /**
  * Created by jikoobaruah on 10/02/16.
  */
-public abstract class AbsSearchListViewFragment extends BottomSheetDialogFragment{
+public abstract class AbsSearchListViewFragment extends BottomSheetDialogFragment {
 
     private View mParentView;
     private SearchView mSearchView;
@@ -30,7 +29,7 @@ public abstract class AbsSearchListViewFragment extends BottomSheetDialogFragmen
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mParentView = inflater.inflate(getLayoutResID(),null,false);
+        mParentView = inflater.inflate(getLayoutResID(), null, false);
         return mParentView;
     }
 
@@ -40,14 +39,13 @@ public abstract class AbsSearchListViewFragment extends BottomSheetDialogFragmen
         mSearchView = (SearchView) mParentView.findViewById(R.id.search_view);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query)
-            {
+            public boolean onQueryTextSubmit(String query) {
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                ((ListAdapter)mRecyclerView.getAdapter()).filter(newText);
+                ((ListAdapter) mRecyclerView.getAdapter()).filter(newText);
                 return true;
             }
         });
@@ -70,14 +68,13 @@ public abstract class AbsSearchListViewFragment extends BottomSheetDialogFragmen
 
     protected abstract int getLayoutResID();
 
-    protected abstract class ListAdapter<T> extends RecyclerView.Adapter{
+    protected abstract class ListAdapter<T> extends RecyclerView.Adapter {
 
-        private ArrayList<T> displayItems = new ArrayList<>();
         protected ArrayList<T> masterItems = new ArrayList<>();
-
         protected String query;
+        private ArrayList<T> displayItems = new ArrayList<>();
 
-        public final void filter(String query){
+        public final void filter(String query) {
             this.query = query;
             animateTo(getFilteredList(query));
         }
@@ -86,12 +83,12 @@ public abstract class AbsSearchListViewFragment extends BottomSheetDialogFragmen
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return createViewholder(parent,viewType);
+            return createViewholder(parent, viewType);
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            bindViewholder(holder,position);
+            bindViewholder(holder, position);
         }
 
         protected abstract RecyclerView.ViewHolder createViewholder(ViewGroup parent, int viewType);
@@ -111,7 +108,7 @@ public abstract class AbsSearchListViewFragment extends BottomSheetDialogFragmen
             applyAndAnimateRemovals(newList);
             applyAndAnimateAdditions(newList);
             applyAndAnimateMovedItems(newList);
-            for (int i =0 ; i < displayItems.size(); i++){
+            for (int i = 0; i < displayItems.size(); i++) {
                 notifyItemChanged(i);
             }
         }

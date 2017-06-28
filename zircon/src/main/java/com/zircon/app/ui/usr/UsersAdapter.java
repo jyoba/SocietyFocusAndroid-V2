@@ -2,7 +2,6 @@ package com.zircon.app.ui.usr;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -30,7 +29,7 @@ import java.util.ArrayList;
  * Created by jikoobaruah on 30/04/17.
  */
 
-public class UsersAdapter extends AbsSearchListAdapter<User,UsersAdapter.ViewHolder> {
+public class UsersAdapter extends AbsSearchListAdapter<User, UsersAdapter.ViewHolder> {
 
 
     @Override
@@ -74,7 +73,7 @@ public class UsersAdapter extends AbsSearchListAdapter<User,UsersAdapter.ViewHol
         LinearLayout container;
 
 
-        public ViewHolder( View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
 
             profileImageView = (ImageView) itemView.findViewById(R.id.iv_profile);
@@ -95,9 +94,9 @@ public class UsersAdapter extends AbsSearchListAdapter<User,UsersAdapter.ViewHol
 
         public void setUser(User user) {
 
-            Picasso.with(profileImageView.getContext()).load(user.profilePic).placeholder(Utils.getTextDrawable(profileImageView.getContext(),user.firstname)).fit().into(profileImageView);
+            Picasso.with(profileImageView.getContext()).load(user.profilePic).placeholder(Utils.getTextDrawable(profileImageView.getContext(), user.firstname)).fit().into(profileImageView);
 
-            profileImageView.setBackgroundColor(Utils.getRandomMaterialColor(profileImageView.getContext(),"300"));
+            profileImageView.setBackgroundColor(Utils.getRandomMaterialColor(profileImageView.getContext(), "300"));
 
             String name = user.getFullName();
 

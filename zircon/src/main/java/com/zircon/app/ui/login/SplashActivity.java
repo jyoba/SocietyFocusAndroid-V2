@@ -31,20 +31,20 @@ public class SplashActivity extends AppCompatActivity implements LoginHelper.ILo
         loginHelper = new LoginHelper(this);
         setContentView(R.layout.activity_splash);
 
-        switch (ForceUpdateHelper.checkUpdateStatus(SplashActivity.this)){
-            case ForceUpdateHelper.UpdateType.FORCED_UPDATE :
-                DisplayUtils.showUpdateDialog(SplashActivity.this,true, new DialogInterface.OnClickListener() {
+        switch (ForceUpdateHelper.checkUpdateStatus(SplashActivity.this)) {
+            case ForceUpdateHelper.UpdateType.FORCED_UPDATE:
+                DisplayUtils.showUpdateDialog(SplashActivity.this, true, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         NavigationUtils.quitApp(SplashActivity.this);
                     }
                 });
                 break;
-            case ForceUpdateHelper.UpdateType.OPTIONAL_UPDATE :
+            case ForceUpdateHelper.UpdateType.OPTIONAL_UPDATE:
                 DisplayUtils.showUpdateDialog(SplashActivity.this, false, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                       checkAutoLogin();
+                        checkAutoLogin();
                     }
                 });
                 break;
@@ -55,10 +55,10 @@ public class SplashActivity extends AppCompatActivity implements LoginHelper.ILo
     }
 
     private void checkAutoLogin() {
-        if (AccountUtils.isAutoLogin()){
-            if (AccountUtils.isSocietyLogin()){
+        if (AccountUtils.isAutoLogin()) {
+            if (AccountUtils.isSocietyLogin()) {
                 loginHelper.loginSociety(SplashActivity.this, AccountUtils.getLoginCredentials());
-            }else {
+            } else {
                 String token = AccessToken.getCurrentAccessToken().getToken();
                 if (!TextUtils.isEmpty(token))
                     loginHelper.fblogin(token);
@@ -66,14 +66,14 @@ public class SplashActivity extends AppCompatActivity implements LoginHelper.ILo
                     startTimer();
             }
 
-        }else {
+        } else {
             startTimer();
         }
 
     }
 
     private void startTimer() {
-        CountDownTimer countDownTimer = new CountDownTimer(2000,1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(2000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -81,7 +81,7 @@ public class SplashActivity extends AppCompatActivity implements LoginHelper.ILo
 
             @Override
             public void onFinish() {
-                Intent loginIntent = new Intent(SplashActivity.this,LoginActivity.class);
+                Intent loginIntent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
                 finish();
             }

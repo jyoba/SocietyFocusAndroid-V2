@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:delay="12%"
     android:animation="@anim/fade_translate_in_fixed"
-    android:interpolator="@android:anim/decelerate_interpolator"/>
+    android:delay="12%"
+    android:interpolator="@android:anim/decelerate_interpolator" />

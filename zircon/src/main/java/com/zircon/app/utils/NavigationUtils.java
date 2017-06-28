@@ -32,20 +32,20 @@ import java.util.ArrayList;
 
 public class NavigationUtils {
 
-    public static void navigateToResidentsPage(Context context){
+    public static void navigateToResidentsPage(Context context) {
         Intent intent = new Intent(context, UsersActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 
-    public static void navigateToRWAPage(Context context){
+    public static void navigateToRWAPage(Context context) {
         Intent intent = new Intent(context, RwaActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 
     public static void navigateToDialer(Context context, String phoneNumber) {
-        String uri = "tel:" + phoneNumber.trim() ;
+        String uri = "tel:" + phoneNumber.trim();
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse(uri));
         context.startActivity(intent);
@@ -58,34 +58,33 @@ public class NavigationUtils {
         context.startActivity(intent);
     }
 
-    public static void navigateToUserDetailPage( BaseActivity context, int color,User user) {
-        BottomSheetDialogFragment bottomSheetDialogFragment =  UserDetailFragment.getInstance(user,color);
+    public static void navigateToUserDetailPage(BaseActivity context, int color, User user) {
+        BottomSheetDialogFragment bottomSheetDialogFragment = UserDetailFragment.getInstance(user, color);
         bottomSheetDialogFragment.show(context.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
 
-    public static void navigateToNotices(Context context, ArrayList<NoticeBoard> noticeBoards){
+    public static void navigateToNotices(Context context, ArrayList<NoticeBoard> noticeBoards) {
         Intent intent = new Intent(context, NoticesActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putParcelableArrayListExtra(NoticesActivity.KEY_NOTICES,noticeBoards);
+        intent.putParcelableArrayListExtra(NoticesActivity.KEY_NOTICES, noticeBoards);
         context.startActivity(intent);
     }
 
-    public static void navigateToComplaints(Context context){
+    public static void navigateToComplaints(Context context) {
         Intent intent = new Intent(context, ComplaintsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 
-    public static void navigateToComplaintAdd( BaseActivity context) {
-        BottomSheetDialogFragment bottomSheetDialogFragment =  new ComplaintAddFragment();
-        bottomSheetDialogFragment.show(context.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+    public static void navigateToComplaintAdd(BaseActivity context) {
+        navigateToComplaintAdd(context, "", "");
     }
 
-    public static void navigateToComplaintAdd( BaseActivity context,String title, String complaint) {
-        BottomSheetDialogFragment bottomSheetDialogFragment =  new ComplaintAddFragment();
+    public static void navigateToComplaintAdd(BaseActivity context, String title, String complaint) {
+        BottomSheetDialogFragment bottomSheetDialogFragment = new ComplaintAddFragment();
         Bundle args = new Bundle();
-        args.putString(ComplaintAddFragment.ARG_COMPLAINT,complaint);
-        args.putString(ComplaintAddFragment.ARG_TITLE,title);
+        args.putString(ComplaintAddFragment.ARG_COMPLAINT, complaint);
+        args.putString(ComplaintAddFragment.ARG_TITLE, title);
         bottomSheetDialogFragment.setArguments(args);
         bottomSheetDialogFragment.show(context.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
@@ -93,7 +92,7 @@ public class NavigationUtils {
     public static void navigateToComplaintDetail(BaseActivity context, Complaint complaint) {
         Intent intent = new Intent(context, ComplaintDetailActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(ComplaintDetailActivity.KEY_COMPLAINT,complaint);
+        intent.putExtra(ComplaintDetailActivity.KEY_COMPLAINT, complaint);
         context.startActivity(intent);
     }
 
@@ -118,7 +117,7 @@ public class NavigationUtils {
     public static void navigateToLoginForResult(BaseActivity context) {
         Intent intent = new Intent(context, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        context.startActivityForResult(intent,LoginActivity.AUTH_REQUEST);
+        context.startActivityForResult(intent, LoginActivity.AUTH_REQUEST);
     }
 
     public static void navigateToPlaystore(Context context) {
@@ -132,7 +131,7 @@ public class NavigationUtils {
 
     public static void quitApp(Context context) {
         Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-        homeIntent.addCategory( Intent.CATEGORY_HOME );
+        homeIntent.addCategory(Intent.CATEGORY_HOME);
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(homeIntent);
     }

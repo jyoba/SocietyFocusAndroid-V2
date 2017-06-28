@@ -3,10 +3,7 @@ package com.zircon.app.ui.home;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.zircon.app.R;
@@ -14,7 +11,6 @@ import com.zircon.app.ui.common.fragment.BaseDrawerActivity;
 import com.zircon.app.ui.widget.ToolsWidget;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.NavigationUtils;
-import com.zircon.app.utils.ui.ForceUpdateHelper;
 
 public class HomeActivity extends BaseDrawerActivity {
 

@@ -3,8 +3,6 @@ package com.zircon.app.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -20,8 +18,6 @@ import com.zircon.app.model.response.LoginResponse;
 import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.ui.fb.FbHomeActivity;
 import com.zircon.app.ui.home.HomeActivity;
-import com.zircon.app.utils.AccountUtils;
-import com.zircon.app.utils.ui.Overlay;
 
 public class LoginActivity extends BaseActivity implements SocietySelectionFragment.ISocietySelectionListener, LoginHelper.ILoginHelper {
 
@@ -62,7 +58,7 @@ public class LoginActivity extends BaseActivity implements SocietySelectionFragm
         usernameEditText = (EditText) findViewById(R.id.etUsername);
         societyEditText = (EditText) findViewById(R.id.etSociety);
         loginButton = (Button) findViewById(R.id.btn_login);
-        fbButton = (LoginButton)findViewById(R.id.fb_login);
+        fbButton = (LoginButton) findViewById(R.id.fb_login);
 
         societyEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +70,7 @@ public class LoginActivity extends BaseActivity implements SocietySelectionFragm
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validated()){
+                if (validated()) {
                     login();
                 }
             }
@@ -83,13 +79,11 @@ public class LoginActivity extends BaseActivity implements SocietySelectionFragm
         loginHelper.setupFbLoginButton(fbButton);
 
 
-
         progressBar = (ProgressBar) findViewById(R.id.progress);
 
         loginLayout = (LinearLayout) findViewById(R.id.ll_login_form);
 
 //        overlay = (Overlay) findViewById(R.id.overlay);
-
 
 
     }
@@ -115,17 +109,17 @@ public class LoginActivity extends BaseActivity implements SocietySelectionFragm
         username = usernameEditText.getText().toString();
         password = passwordEditText.getText().toString();
 
-        if(TextUtils.isEmpty(username)){
+        if (TextUtils.isEmpty(username)) {
             usernameEditText.setError("Please enter your email");
-            return  false;
+            return false;
         }
 
-        if(TextUtils.isEmpty(password)){
+        if (TextUtils.isEmpty(password)) {
             passwordEditText.setError("Please enter your password");
-            return  false;
+            return false;
         }
 
-        if(TextUtils.isEmpty(society)){
+        if (TextUtils.isEmpty(society)) {
             societyEditText.setError("Please select your society");
             return false;
         }
@@ -161,13 +155,13 @@ public class LoginActivity extends BaseActivity implements SocietySelectionFragm
 
 
         if (isSocietyLogin) {
-            if (getCallingActivity() != null){
+            if (getCallingActivity() != null) {
                 setResult(RESULT_OK);
-            }else {
+            } else {
                 startActivity(new Intent(this, HomeActivity.class));
             }
             finish();
-        }else {
+        } else {
             startActivity(new Intent(this, FbHomeActivity.class));
         }
 
@@ -177,7 +171,7 @@ public class LoginActivity extends BaseActivity implements SocietySelectionFragm
     public void onLoginFail(boolean isSocietyLogin, Throwable t) {
         progressBar.setVisibility(View.GONE);
         loginLayout.setAlpha(1.0f);
-        Toast.makeText(LoginActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+        Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
     }
 
 

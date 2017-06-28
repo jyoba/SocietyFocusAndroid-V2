@@ -11,32 +11,32 @@ import com.google.gson.annotations.SerializedName;
 
 public class NoticeBoard implements Parcelable {
 
-    public int id;
+    public static final Creator<NoticeBoard> CREATOR = new Creator<NoticeBoard>() {
+        @Override
+        public NoticeBoard createFromParcel(Parcel in) {
+            return new NoticeBoard(in);
+        }
 
+        @Override
+        public NoticeBoard[] newArray(int size) {
+            return new NoticeBoard[size];
+        }
+    };
+    public int id;
     @SerializedName("image_url2")
     public String imageUrl2;
-
     public String title;
-
     @SerializedName("image_url1")
     public String imageUrl1;
-
     public int status;
-
     @SerializedName("modifiedate")
     public String modifieDate;
-
     public String description;
-
     public String isPinned;
-
     public int score;
-
     @SerializedName("creationdate")
     public String creationDate;
-
     public User user;
-
 
     protected NoticeBoard(Parcel in) {
         id = in.readInt();
@@ -51,18 +51,6 @@ public class NoticeBoard implements Parcelable {
         creationDate = in.readString();
         user = in.readParcelable(User.class.getClassLoader());
     }
-
-    public static final Creator<NoticeBoard> CREATOR = new Creator<NoticeBoard>() {
-        @Override
-        public NoticeBoard createFromParcel(Parcel in) {
-            return new NoticeBoard(in);
-        }
-
-        @Override
-        public NoticeBoard[] newArray(int size) {
-            return new NoticeBoard[size];
-        }
-    };
 
     @Override
     public int describeContents() {

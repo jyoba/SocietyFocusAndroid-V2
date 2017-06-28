@@ -14,11 +14,9 @@ import java.util.ArrayList;
 public class BubbleViewPagerIndicator extends LinearLayout {
 
 
+    public static final String TAG = BubbleViewPagerIndicator.class.getSimpleName();
     private static final int DIA = 8;
     private static final int MARGIN = 3;
-
-    public static final String TAG = BubbleViewPagerIndicator.class.getSimpleName();
-
     private volatile ArrayList<View> bubbles;
 
     private int selectedBubblePosition = 0;
@@ -39,14 +37,14 @@ public class BubbleViewPagerIndicator extends LinearLayout {
         bubbles = new ArrayList<View>();
     }
 
-    public void makeBubbles(int resId, int count){
+    public void makeBubbles(int resId, int count) {
         bubbleCount = count;
         bubbles.clear();
         removeAllViews();
         clearDisappearingChildren();
         int bubbleDiameter = (int) (getResources().getDisplayMetrics().density * DIA);
         int bubbleMargin = (int) (getResources().getDisplayMetrics().density * MARGIN);
-        for (int i = 0; i< bubbleCount; i++){
+        for (int i = 0; i < bubbleCount; i++) {
             View view = new View(getContext());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(bubbleDiameter, bubbleDiameter);
             params.setMargins(bubbleMargin, bubbleMargin, bubbleMargin, bubbleMargin);
@@ -57,17 +55,17 @@ public class BubbleViewPagerIndicator extends LinearLayout {
             bubbles.add(view);
             addView(view);
         }
-        if (bubbles.size() > 0){
+        if (bubbles.size() > 0) {
             bubbles.get(0).setEnabled(true);
         }
 
     }
 
-    public void setBubbleActive(int position){
-        for (int i = 0; i< bubbleCount; i++){
-            if (i == position){
+    public void setBubbleActive(int position) {
+        for (int i = 0; i < bubbleCount; i++) {
+            if (i == position) {
                 bubbles.get(i).setEnabled(true);
-            }else{
+            } else {
                 bubbles.get(i).setEnabled(false);
             }
         }

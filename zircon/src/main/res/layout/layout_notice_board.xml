@@ -20,24 +20,23 @@
             >
 
             <TextView
-                android:layout_alignParentLeft="true"
                 android:id="@+id/tv_title"
                 style="@style/TextView.Header.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
 
                 android:text="Title" />
 
             <TextView
-                android:text="5,Dec 2076"
-                android:layout_alignParentRight="true"
                 android:id="@+id/tv_date"
                 style="@style/TextView.Content.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                />
+                android:text="5,Dec 2076" />
         </RelativeLayout>
 
         <LinearLayout

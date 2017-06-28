@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.zircon.app.R;
 import com.zircon.app.model.Comment;
-import com.zircon.app.model.Complaint;
 import com.zircon.app.utils.Utils;
 
 import java.text.ParseException;
@@ -25,7 +24,7 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
 
     private ArrayList<Comment> comments;
 
-    public CommentsAdapter(ICommentsAdapter callback){
+    public CommentsAdapter(ICommentsAdapter callback) {
         this.callback = callback;
     }
 
@@ -41,7 +40,7 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
 
     @Override
     public void onBindViewHolder(CommentHolder holder, int position, List<Object> payloads) {
-        if (payloads != null && payloads.size()>0){
+        if (payloads != null && payloads.size() > 0) {
             comments.get(position).setFromObject((Comment) payloads.get(0));
         }
         holder.setup();
@@ -62,7 +61,7 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
 
     }
 
-    public void addItem(int position,Comment comment) {
+    public void addItem(int position, Comment comment) {
         if (comment == null)
             return;
         if (comments == null)
@@ -89,6 +88,10 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
         notifyItemRangeInserted(start, comments.size());
     }
 
+
+    public interface ICommentsAdapter {
+        void onTryAgain(Comment comment, int position);
+    }
 
     public class CommentHolder extends RecyclerView.ViewHolder {
 
@@ -118,10 +121,10 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
 
             statusTextView.setClickable(false);
             statusTextView.setOnClickListener(null);
-            if (comment.status == Comment.Status.SENDING_TO_SERVER){
+            if (comment.status == Comment.Status.SENDING_TO_SERVER) {
                 statusTextView.setVisibility(View.VISIBLE);
                 statusTextView.setText("Sending to server...");
-            }else  if (comment.status == Comment.Status.SENDING_TO_SERVER_FAIL) {
+            } else if (comment.status == Comment.Status.SENDING_TO_SERVER_FAIL) {
                 statusTextView.setVisibility(View.VISIBLE);
                 statusTextView.setText("Sending to server failed. Try again.");
                 statusTextView.setClickable(true);
@@ -129,19 +132,15 @@ class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentHolder
                     @Override
                     public void onClick(View v) {
                         if (callback != null)
-                            callback.onTryAgain(comment,getAdapterPosition());
+                            callback.onTryAgain(comment, getAdapterPosition());
                     }
                 });
-            }else{
+            } else {
                 statusTextView.setVisibility(View.GONE);
                 statusTextView.setText("Succesfully sent.");
             }
             commentTextView.setText(comment.comment);
         }
 
-    }
-
-    public interface ICommentsAdapter {
-        void onTryAgain(Comment comment,int position);
     }
 }

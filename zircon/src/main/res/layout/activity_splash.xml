@@ -13,12 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        app:srcCompat="@drawable/ic_logo_black"
         app:layout_constraintBottom_toTopOf="@+id/tv_header"
         app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
         app:layout_constraintRight_toRightOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="@+id/constraintLayout"
         app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_logo_black"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1" />
 

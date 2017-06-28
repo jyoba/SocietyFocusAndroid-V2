@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.annotations.SerializedName;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 /**

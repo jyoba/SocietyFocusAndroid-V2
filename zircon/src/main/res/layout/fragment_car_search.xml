@@ -51,12 +51,12 @@
         android:background="@color/grey_300">
 
         <LinearLayout
-            android:visibility="invisible"
             android:id="@+id/ll_progress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="invisible">
 
             <ProgressBar
                 android:id="@+id/pb_search"
@@ -72,12 +72,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="invisible"
             android:id="@+id/ll_no_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="invisible">
 
             <TextView
                 style="@style/TextView.SubHeader.Grey"
@@ -93,9 +93,9 @@
 
             <Button
                 android:id="@+id/btn_complaint"
-                android:text="Raise Complaint"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Raise Complaint" />
 
         </LinearLayout>
 
@@ -233,12 +233,11 @@
 
         <TextView
             android:id="@+id/tv_init"
-            android:layout_gravity="center"
             style="@style/TextView.Header.Grey"
-            android:text="@string/search_car"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/search_car" />
 
 
     </FrameLayout>

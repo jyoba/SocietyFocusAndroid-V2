@@ -40,6 +40,8 @@ class JBhelper implements KeyStoreHelper {
 
     private static final String SHARED_PREFENCE_NAME = "jb_ks";
     private static final String ENCRYPTED_KEY = "ek";
+    private static final String RSA_MODE = "RSA/ECB/PKCS1Padding";
+    private static final String AES_MODE = "AES/ECB/PKCS7Padding";
 
     @Override
     public String encrypt(Context context, KeyStore keyStore, String input) {
@@ -125,9 +127,6 @@ class JBhelper implements KeyStoreHelper {
 
     }
 
-
-    private static final String RSA_MODE = "RSA/ECB/PKCS1Padding";
-
     private byte[] rsaEncrypt(KeyStore keyStore, byte[] secret) throws Exception {
         KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(KEY_ALIAS, null);
         // Encrypt the text
@@ -161,9 +160,6 @@ class JBhelper implements KeyStoreHelper {
         }
         return bytes;
     }
-
-
-    private static final String AES_MODE = "AES/ECB/PKCS7Padding";
 
     private Key getSecretKey(Context context, KeyStore keyStore) throws Exception {
 

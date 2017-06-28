@@ -9,8 +9,6 @@ import com.zircon.app.model.Society;
 import com.zircon.app.model.User;
 import com.zircon.app.utils.ks.KeyStoreUtils;
 
-import java.util.UUID;
-
 /**
  * Created by jikoobaruah on 07/04/17.
  */
@@ -45,19 +43,19 @@ public class AccountUtils {
         editor.apply();
     }
 
-    public static boolean isAutoLogin(){
+    public static boolean isAutoLogin() {
         SharedPreferences pref = App.appInstance.getSharedPreferences(ACCOUNT_PREF_FILE, Context.MODE_PRIVATE);
-        return pref.getBoolean(KEY_IS_AUTO_LOGIN,false);
+        return pref.getBoolean(KEY_IS_AUTO_LOGIN, false);
     }
 
-    public static boolean isSocietyLogin(){
+    public static boolean isSocietyLogin() {
         SharedPreferences pref = App.appInstance.getSharedPreferences(ACCOUNT_PREF_FILE, Context.MODE_PRIVATE);
-        return pref.getBoolean(KEY_IS_SOCIETY_LOGIN,false);
+        return pref.getBoolean(KEY_IS_SOCIETY_LOGIN, false);
     }
 
-    public static LoginCredentials getLoginCredentials(){
+    public static LoginCredentials getLoginCredentials() {
         SharedPreferences pref = App.appInstance.getSharedPreferences(ACCOUNT_PREF_FILE, Context.MODE_PRIVATE);
-        return new LoginCredentials(pref.getString(KEY_SOCIETY,null),pref.getString(KEY_USERNAME,null ),pref.getString(KEY_PASSWORD,null)).getDecrypted(KeyStoreUtils.getInstance(App.appInstance));
+        return new LoginCredentials(pref.getString(KEY_SOCIETY, null), pref.getString(KEY_USERNAME, null), pref.getString(KEY_PASSWORD, null)).getDecrypted(KeyStoreUtils.getInstance(App.appInstance));
     }
 
     public static void saveLoggedInSociety(Society society) {
@@ -79,12 +77,12 @@ public class AccountUtils {
 
     public static User getLoggedInUser() {
         SharedPreferences pref = App.appInstance.getSharedPreferences(ACCOUNT_PREF_FILE, Context.MODE_PRIVATE);
-        return JsonUtils.getObject(pref.getString(KEY_LOGGED_IN_USER,null),User.class);
+        return JsonUtils.getObject(pref.getString(KEY_LOGGED_IN_USER, null), User.class);
     }
 
     public static Society getLoggedInSociety() {
         SharedPreferences pref = App.appInstance.getSharedPreferences(ACCOUNT_PREF_FILE, Context.MODE_PRIVATE);
-        return JsonUtils.getObject(pref.getString(KEY_LOGGED_IN_SOCIETY,null),Society.class);
+        return JsonUtils.getObject(pref.getString(KEY_LOGGED_IN_SOCIETY, null), Society.class);
     }
 
     public static void saveAuthToken(String token) {
@@ -96,7 +94,7 @@ public class AccountUtils {
 
     public static String getToken() {
         SharedPreferences pref = App.appInstance.getSharedPreferences(ACCOUNT_PREF_FILE, Context.MODE_PRIVATE);
-        return pref.getString(KEY_TOKEN,null);
+        return pref.getString(KEY_TOKEN, null);
     }
 
     public static void logout() {

@@ -1,4 +1,3 @@
-
 package com.zircon.app;
 
 import android.app.Application;
@@ -8,8 +7,6 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-
-import java.util.Map;
 
 /**
  * Created by jikoobaruah on 07/04/17.

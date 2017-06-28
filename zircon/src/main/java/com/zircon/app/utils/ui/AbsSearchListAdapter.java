@@ -1,7 +1,6 @@
 package com.zircon.app.utils.ui;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +9,11 @@ import java.util.List;
  * Created by jikoobaruah on 30/04/17.
  */
 
-public abstract class AbsSearchListAdapter<T,VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class AbsSearchListAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
-    private ArrayList<T> displayItems = new ArrayList<>();
     protected ArrayList<T> masterItems = new ArrayList<>();
-
     protected String query;
+    private ArrayList<T> displayItems = new ArrayList<>();
 
     public final void filter(String query) {
         this.query = query;

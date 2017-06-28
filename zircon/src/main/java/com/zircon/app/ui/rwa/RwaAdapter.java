@@ -2,7 +2,6 @@ package com.zircon.app.ui.rwa;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -21,7 +20,6 @@ import com.zircon.app.R;
 import com.zircon.app.model.Panel;
 import com.zircon.app.model.User;
 import com.zircon.app.ui.common.fragment.BaseActivity;
-import com.zircon.app.ui.usr.UserDetailFragment;
 import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.Utils;
 import com.zircon.app.utils.ui.AbsSearchListAdapter;

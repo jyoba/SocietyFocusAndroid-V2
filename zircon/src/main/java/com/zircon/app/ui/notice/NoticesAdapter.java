@@ -1,27 +1,15 @@
 package com.zircon.app.ui.notice;
 
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.zircon.app.R;
 import com.zircon.app.model.NoticeBoard;
-import com.zircon.app.model.User;
-import com.zircon.app.ui.common.fragment.BaseActivity;
-import com.zircon.app.ui.home.NoticeBoardHelper;
-import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.Utils;
 import com.zircon.app.utils.ui.AbsSearchListAdapter;
 
@@ -32,7 +20,7 @@ import java.util.ArrayList;
  * Created by jikoobaruah on 30/04/17.
  */
 
-public class NoticesAdapter extends AbsSearchListAdapter<NoticeBoard,NoticesAdapter.ViewHolder> {
+public class NoticesAdapter extends AbsSearchListAdapter<NoticeBoard, NoticesAdapter.ViewHolder> {
 
 
     @Override
@@ -70,15 +58,16 @@ public class NoticesAdapter extends AbsSearchListAdapter<NoticeBoard,NoticesAdap
         TextView desTextView;
         ImageView picImageView;
 
-        public ViewHolder( View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-             titleTextView = (TextView) itemView.findViewById(R.id.tv_title);
-             dateTextView = (TextView) itemView.findViewById(R.id.tv_date);
-             desTextView = (TextView) itemView.findViewById(R.id.tv_desc);
-             picImageView = (ImageView) itemView.findViewById(R.id.iv_pic);
+            titleTextView = (TextView) itemView.findViewById(R.id.tv_title);
+            dateTextView = (TextView) itemView.findViewById(R.id.tv_date);
+            desTextView = (TextView) itemView.findViewById(R.id.tv_desc);
+            picImageView = (ImageView) itemView.findViewById(R.id.iv_pic);
 
 
         }
+
         public void setNoticeBoard(NoticeBoard noticeBoard) {
 
             titleTextView.setText(noticeBoard.title);

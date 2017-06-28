@@ -109,7 +109,6 @@ dependencies {
         transitive = true;
     }
 
-
 //    compile 'com.google.android.gms:play-services-gcm:10.0.1'
 
     testCompile 'junit:junit:4.12'

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <android.support.design.widget.FloatingActionButton
@@ -9,9 +8,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/grey_500"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:backgroundTint="@color/grey_500"
         app:srcCompat="@drawable/ic_directions_black_36dp" />
 
     <android.support.design.widget.FloatingActionButton
@@ -19,9 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/cyan_500"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:backgroundTint="@color/cyan_500"
         app:srcCompat="@drawable/ic_call_black_36dp" />
 
 
@@ -30,9 +29,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/lime_500"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:backgroundTint="@color/lime_500"
         app:srcCompat="@drawable/ic_email_black_24dp" />
 
     <android.support.design.widget.FloatingActionButton

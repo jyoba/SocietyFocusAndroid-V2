@@ -3,17 +3,13 @@ package com.zircon.app.utils;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.facebook.HttpMethod;
 import com.zircon.app.ui.common.fragment.BaseActivity;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-import okhttp3.internal.http.HttpStream;
-import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.*;
 
 /**
  * Created by jikoobaruah on 20/05/17.
@@ -24,23 +20,23 @@ public abstract class AuthCallbackImpl<T> implements Callback<T> {
     private WeakReference<Context> contextWeakReference;
 
 
-    public AuthCallbackImpl(Context context){
+    public AuthCallbackImpl(Context context) {
         contextWeakReference = new WeakReference<Context>(context);
     }
 
     @Override
     public final void onResponse(Response<T> response) {
-        if (response == null){
+        if (response == null) {
             onFailure(new Throwable("Response is null"));
             return;
         }
 
-        if (response.isSuccess()){
+        if (response.isSuccess()) {
             apiSuccess(response);
             return;
         }
 
-        if (response.code() == 401){
+        if (response.code() == 401) {
             apiAuthError();
             return;
         }
@@ -59,14 +55,14 @@ public abstract class AuthCallbackImpl<T> implements Callback<T> {
             return;
 
         Context context = contextWeakReference.get();
-        Toast.makeText(context,t.getMessage(),Toast.LENGTH_LONG).show();
+        Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
 
         apiFail(t);
 
     }
 
 
-    public void apiAuthError(){
+    public void apiAuthError() {
         if (contextWeakReference == null || contextWeakReference.get() == null)
             return;
 

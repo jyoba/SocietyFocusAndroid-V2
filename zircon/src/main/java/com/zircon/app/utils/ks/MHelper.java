@@ -27,7 +27,6 @@ import javax.crypto.CipherOutputStream;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
@@ -41,7 +40,7 @@ class MHelper implements KeyStoreHelper {
     private static final String ENCRYPTED_KEY = "ek";
 
     private static final String AES_MODE = "AES/GCM/NoPadding";
-
+    private static final String RSA_MODE = "RSA/ECB/PKCS1Padding";
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -49,7 +48,7 @@ class MHelper implements KeyStoreHelper {
 
         try {
             Cipher c = Cipher.getInstance(AES_MODE);
-            c.init(Cipher.ENCRYPT_MODE, getSecretKey(context,keyStore));//, new GCMParameterSpec(128, FIXED_IV.getBytes()));
+            c.init(Cipher.ENCRYPT_MODE, getSecretKey(context, keyStore));//, new GCMParameterSpec(128, FIXED_IV.getBytes()));
             byte[] encodedBytes = c.doFinal(input.getBytes());
             String encryptedBase64Encoded = Base64.encodeToString(encodedBytes, Base64.DEFAULT);
             return encryptedBase64Encoded;
@@ -107,9 +106,6 @@ class MHelper implements KeyStoreHelper {
 
     }
 
-
-    private static final String RSA_MODE = "RSA/ECB/PKCS1Padding";
-
     private byte[] rsaEncrypt(KeyStore keyStore, byte[] secret) throws Exception {
         KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(KEY_ALIAS, null);
         // Encrypt the text
@@ -143,7 +139,6 @@ class MHelper implements KeyStoreHelper {
         }
         return bytes;
     }
-
 
 
     private Key getSecretKey(Context context, KeyStore keyStore) throws Exception {

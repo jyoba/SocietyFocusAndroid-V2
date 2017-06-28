@@ -21,8 +21,9 @@ import retrofit2.Retrofit;
 public class HTTP {
 
     private static HTTP mInstance;
+    private API mApi;
 
-    private HTTP(){
+    private HTTP() {
 
         File cache = new File(App.appInstance.getCacheDir().getPath() + "/HTTP");
         if (!cache.exists())
@@ -38,7 +39,8 @@ public class HTTP {
                 .cache(new Cache(cache, 1 * 1024 * 1024)) // 1 MB
                 .addInterceptor(new Interceptor() {
 
-                    @Override public Response intercept(Interceptor.Chain chain) throws IOException {
+                    @Override
+                    public Response intercept(Interceptor.Chain chain) throws IOException {
                         Request request = chain.request();
                         if (NetworkUtils.isNetworkAvailable()) {
                             request = request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build();
@@ -49,7 +51,7 @@ public class HTTP {
                     }
                 });
 
-        if (BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             clientBuilder.addInterceptor(logging);
         }
 
@@ -66,10 +68,8 @@ public class HTTP {
 
     }
 
-    private API mApi;
-
-    public static API getAPI(){
-        if (mInstance ==null)
+    public static API getAPI() {
+        if (mInstance == null)
             mInstance = new HTTP();
 
         return mInstance.mApi;

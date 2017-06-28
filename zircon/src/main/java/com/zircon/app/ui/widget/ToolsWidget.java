@@ -2,12 +2,15 @@ package com.zircon.app.ui.widget;
 
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 
 import com.zircon.app.R;
+import com.zircon.app.utils.AccountManager;
+import com.zircon.app.utils.NavigationUtils;
 
 /**
  * Created by jikoobaruah on 08/04/17.
@@ -15,14 +18,15 @@ import com.zircon.app.R;
 
 public class ToolsWidget {
 
-    public static void setupToolsWidget(Activity activity){
+    public static void setupToolsWidget(final Activity activity) {
 
         final FloatingActionButton fabNavigate = (FloatingActionButton) activity.findViewById(R.id.fabNav);
         fabNavigate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse(String.format("https://www.google.com/maps/dir/?api=1&destination=%d,%d", AccountManager.getInstance().getloggedInSociety().location.latitude, AccountManager.getInstance().getloggedInSociety().location.longitude)));
+                activity.startActivity(intent);
 
             }
         });
@@ -31,9 +35,7 @@ public class ToolsWidget {
         fabCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
+                NavigationUtils.navigateToDialer(view.getContext(), AccountManager.getInstance().getloggedInSociety().contactDetail);
             }
         });
 
@@ -41,9 +43,7 @@ public class ToolsWidget {
         fabMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
+                NavigationUtils.navigateToEmail(view.getContext(), AccountManager.getInstance().getloggedInSociety().contactDetail);
             }
         });
 
@@ -65,8 +65,6 @@ public class ToolsWidget {
 
 
     }
-
-
 
 
 }

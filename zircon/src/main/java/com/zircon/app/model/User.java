@@ -13,21 +13,28 @@ import java.util.ArrayList;
  */
 public class User implements Parcelable {
 
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
     public String userid;
     public String firstname;
     public String lastname;
     public String occupation;
     public String email;
     public String description;
-
     @SerializedName("contact_no")
     public String contactNumber;
-
     @SerializedName("profile_pic")
     public String profilePic;
-
     public ArrayList<UserRole> userRoles;
-
     public String address;
 
     protected User(Parcel in) {
@@ -41,18 +48,6 @@ public class User implements Parcelable {
         profilePic = in.readString();
         address = in.readString();
     }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 
     @Override
     public int describeContents() {
@@ -73,11 +68,11 @@ public class User implements Parcelable {
     }
 
     public String getFullName() {
-        return  (this.firstname + " " + (this.lastname != null ? this.lastname : "")).toUpperCase();
+        return (this.firstname + " " + (this.lastname != null ? this.lastname : "")).toUpperCase();
     }
 
     public String getOccupation() {
-        return TextUtils.isEmpty(occupation)? "Resident" :occupation;
+        return TextUtils.isEmpty(occupation) ? "Resident" : occupation;
     }
 
     public static class UserRole {

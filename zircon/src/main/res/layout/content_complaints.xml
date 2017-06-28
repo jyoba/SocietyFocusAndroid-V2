@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="?actionBarSize"
     android:background="@color/grey_300"
-    android:padding="@dimen/spacing_normal"
+    android:paddingBottom="@dimen/spacing_normal"
+    android:paddingTop="@dimen/spacing_normal"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

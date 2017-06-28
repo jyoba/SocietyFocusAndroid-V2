@@ -21,9 +21,9 @@ import android.util.TypedValue;
  * A Drawable object that draws text.
  * A TextDrawable accepts most of the same parameters that can be applied to
  * {@link android.widget.TextView} for displaying and formatting text.
- *
+ * <p>
  * Optionally, a {@link Path} may be supplied on which to draw the text.
- *
+ * <p>
  * A TextDrawable has an intrinsic size equal to that required to draw all
  * the text it has been supplied, when possible.  In cases where a {@link Path}
  * has been supplied, the caller must explicitly call
@@ -36,7 +36,16 @@ public class TextDrawable extends Drawable {
     private static final int SANS = 1;
     private static final int SERIF = 2;
     private static final int MONOSPACE = 3;
-
+    /* Attribute lists to pull default values from the current theme */
+    private static final int[] themeAttributes = {
+            android.R.attr.textAppearance
+    };
+    private static final int[] appearanceAttributes = {
+            android.R.attr.textSize,
+            android.R.attr.typeface,
+            android.R.attr.textStyle,
+            android.R.attr.textColor
+    };
     /* Resources for scaling values to the given device */
     private Resources mResources;
     /* Paint to hold most drawing primitives for the text */
@@ -53,17 +62,6 @@ public class TextDrawable extends Drawable {
     private Rect mTextBounds;
     /* Text string to draw */
     private CharSequence mText = "";
-
-    /* Attribute lists to pull default values from the current theme */
-    private static final int[] themeAttributes = {
-            android.R.attr.textAppearance
-    };
-    private static final int[] appearanceAttributes = {
-            android.R.attr.textSize,
-            android.R.attr.typeface,
-            android.R.attr.textStyle,
-            android.R.attr.textColor
-    };
 
 
     public TextDrawable(Context context) {
@@ -92,7 +90,7 @@ public class TextDrawable extends Drawable {
             ap = context.obtainStyledAttributes(appearanceId, appearanceAttributes);
         }
         if (ap != null) {
-            for (int i=0; i < ap.getIndexCount(); i++) {
+            for (int i = 0; i < ap.getIndexCount(); i++) {
                 int attr = ap.getIndex(i);
                 switch (attr) {
                     case 0: //Text Size
@@ -136,9 +134,16 @@ public class TextDrawable extends Drawable {
         setTypeface(tf, styleIndex);
     }
 
+    /**
+     * Return the text currently being displayed
+     */
+    public CharSequence getText() {
+        return mText;
+    }
 
     /**
      * Set the text that will be displayed
+     *
      * @param text Text to display
      */
     public void setText(CharSequence text) {
@@ -150,13 +155,6 @@ public class TextDrawable extends Drawable {
     }
 
     /**
-     * Return the text currently being displayed
-     */
-    public CharSequence getText() {
-        return mText;
-    }
-
-    /**
      * Return the current text size, in pixels
      */
     public float getTextSize() {
@@ -165,6 +163,7 @@ public class TextDrawable extends Drawable {
 
     /**
      * Set the text size.  The value will be interpreted in "sp" units
+     *
      * @param size Text size value, in sp
      */
     public void setTextSize(float size) {
@@ -173,6 +172,7 @@ public class TextDrawable extends Drawable {
 
     /**
      * Set the text size, using the supplied complex units
+     *
      * @param unit Units for the text size, such as dp or sp
      * @param size Text size value
      */
@@ -202,6 +202,7 @@ public class TextDrawable extends Drawable {
 
     /**
      * Set the horizontal stretch factor of the text
+     *
      * @param size Text scale factor
      */
     public void setTextScaleX(float size) {
@@ -222,11 +223,12 @@ public class TextDrawable extends Drawable {
      * Set the text alignment.  The alignment itself is based on the text layout direction.
      * For LTR text NORMAL is left aligned and OPPOSITE is right aligned.
      * For RTL text, those alignments are reversed.
-     * @param align Text alignment value.  Should be set to one of:
      *
-     *   {@link Layout.Alignment#ALIGN_NORMAL},
-     *   {@link Layout.Alignment#ALIGN_NORMAL},
-     *   {@link Layout.Alignment#ALIGN_OPPOSITE}.
+     * @param align Text alignment value.  Should be set to one of:
+     *              <p>
+     *              {@link Layout.Alignment#ALIGN_NORMAL},
+     *              {@link Layout.Alignment#ALIGN_NORMAL},
+     *              {@link Layout.Alignment#ALIGN_OPPOSITE}.
      */
     public void setTextAlign(Layout.Alignment align) {
         if (mTextAlignment != align) {
@@ -236,26 +238,10 @@ public class TextDrawable extends Drawable {
     }
 
     /**
-     * Sets the typeface and style in which the text should be displayed.
-     * Note that not all Typeface families actually have bold and italic
-     * variants, so you may need to use
-     * {@link #setTypeface(Typeface, int)} to get the appearance
-     * that you actually want.
-     */
-    public void setTypeface(Typeface tf) {
-        if (mTextPaint.getTypeface() != tf) {
-            mTextPaint.setTypeface(tf);
-
-            measureContent();
-        }
-    }
-
-    /**
      * Sets the typeface and style in which the text should be displayed,
      * and turns on the fake bold and italic bits in the Paint if the
      * Typeface that you provided does not have all the bits in the
      * style that you specified.
-     *
      */
     public void setTypeface(Typeface tf, int style) {
         if (style > 0) {
@@ -287,7 +273,23 @@ public class TextDrawable extends Drawable {
     }
 
     /**
+     * Sets the typeface and style in which the text should be displayed.
+     * Note that not all Typeface families actually have bold and italic
+     * variants, so you may need to use
+     * {@link #setTypeface(Typeface, int)} to get the appearance
+     * that you actually want.
+     */
+    public void setTypeface(Typeface tf) {
+        if (mTextPaint.getTypeface() != tf) {
+            mTextPaint.setTypeface(tf);
+
+            measureContent();
+        }
+    }
+
+    /**
      * Set a single text color for all states
+     *
      * @param color Color value such as {@link Color#WHITE} or {@link Color#argb(int, int, int, int)}
      */
     public void setTextColor(int color) {
@@ -296,6 +298,7 @@ public class TextDrawable extends Drawable {
 
     /**
      * Set the text color as a state list
+     *
      * @param colorStateList ColorStateList of text colors, such as inflated from an R.color resource
      */
     public void setTextColor(ColorStateList colorStateList) {
@@ -308,7 +311,7 @@ public class TextDrawable extends Drawable {
      * TextDrawable cannot properly measure the bounds this drawable will need.
      * You must call {@link #setBounds(int, int, int, int) setBounds()} before
      * applying this TextDrawable to any View.
-     *
+     * <p>
      * Calling this method with <code>null</code> will remove any Path currently attached.
      */
     public void setTextPath(Path path) {
@@ -331,8 +334,8 @@ public class TextDrawable extends Drawable {
             mTextBounds.setEmpty();
         } else {
             //Measure text bounds
-            double desired = Math.ceil( Layout.getDesiredWidth(mText, mTextPaint) );
-            mTextLayout = new StaticLayout(mText, mTextPaint, (int)desired,
+            double desired = Math.ceil(Layout.getDesiredWidth(mText, mTextPaint));
+            mTextLayout = new StaticLayout(mText, mTextPaint, (int) desired,
                     mTextAlignment, 1.0f, 0.0f, false);
             mTextBounds.set(0, 0, mTextLayout.getWidth(), mTextLayout.getHeight());
         }
@@ -348,7 +351,7 @@ public class TextDrawable extends Drawable {
         int newColor = mTextColors.getColorForState(stateSet, Color.WHITE);
         if (mTextPaint.getColor() != newColor) {
             mTextPaint.setColor(newColor);
-            return  true;
+            return true;
         }
 
         return false;

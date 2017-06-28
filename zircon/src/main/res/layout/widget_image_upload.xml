@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zircon.app.utils.ui.AspectRatioCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardView.Light"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:foregroundGravity="center"
+    app:cardBackgroundColor="@color/grey_300"
+    app:ratio="1">
+
+
+    <ImageView
+        android:id="@+id/iv_complaint_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_change_sync"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white_transparent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ib_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="?selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/ic_highlight_off_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/ib_sync"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="?selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/ic_check_circle_black_24dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white_transparent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ib_plus"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="?selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
+
+
+</com.zircon.app.utils.ui.AspectRatioCardView>

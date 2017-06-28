@@ -7,7 +7,6 @@
     tools:context="com.zircon.app.ui.home.HomeActivity">
 
 
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -15,7 +14,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/AppTheme.AppBarOverlay"
-        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     <include layout="@layout/content_fb_home" />
 

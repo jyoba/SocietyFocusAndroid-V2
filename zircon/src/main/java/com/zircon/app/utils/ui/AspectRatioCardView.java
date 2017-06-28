@@ -27,6 +27,7 @@ public class AspectRatioCardView extends CardView {
 
         processAttrs(attrs);
     }
+
     public AspectRatioCardView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         processAttrs(attrs);
@@ -46,13 +47,12 @@ public class AspectRatioCardView extends CardView {
     }
 
 
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         int width = getMeasuredWidth();
-        float height = width*aspectRatio;
-        setMeasuredDimension(width, (int)height);
+        float height = width * aspectRatio;
+        setMeasuredDimension(width, (int) height);
     }
 }

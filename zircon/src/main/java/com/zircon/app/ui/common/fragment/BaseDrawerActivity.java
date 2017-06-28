@@ -19,7 +19,7 @@ import com.zircon.app.utils.Utils;
  * Created by jikoobaruah on 10/04/17.
  */
 
-public abstract class BaseDrawerActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener  {
+public abstract class BaseDrawerActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
 
@@ -77,12 +77,12 @@ public abstract class BaseDrawerActivity extends BaseActivity implements Navigat
             return true;
         }
 
-        switch (id){
+        switch (id) {
             case R.id.nav_home:
                 NavigationUtils.navigateToHome(BaseDrawerActivity.this);
                 break;
             case R.id.nav_notice:
-                NavigationUtils.navigateToNotices(BaseDrawerActivity.this,null);
+                NavigationUtils.navigateToNotices(BaseDrawerActivity.this, null);
                 break;
             case R.id.nav_residents:
                 NavigationUtils.navigateToResidentsPage(BaseDrawerActivity.this);

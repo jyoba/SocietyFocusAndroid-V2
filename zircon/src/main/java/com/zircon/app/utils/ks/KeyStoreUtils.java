@@ -17,20 +17,10 @@ public class KeyStoreUtils {
 
 
     private static KeyStoreUtils instance;
-
-    public static final KeyStoreUtils getInstance(Context context) {
-        if (instance == null)
-            instance = new KeyStoreUtils(context);
-        return instance;
-    }
-
     private KeyStore keyStore;
-
     private boolean isKeyStoreInit = false;
     private boolean isKeyGenerated = true;
-
     private KeyStoreHelper helper;
-
 
     private KeyStoreUtils(Context context) {
 
@@ -55,6 +45,11 @@ public class KeyStoreUtils {
         }
     }
 
+    public static final KeyStoreUtils getInstance(Context context) {
+        if (instance == null)
+            instance = new KeyStoreUtils(context);
+        return instance;
+    }
 
     public String encrypt(Context context, String input) {
         return helper.encrypt(context, keyStore, input);

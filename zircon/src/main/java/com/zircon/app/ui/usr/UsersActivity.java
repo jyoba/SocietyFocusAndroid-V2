@@ -12,22 +12,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
 import com.zircon.app.R;
 import com.zircon.app.model.response.MembersResponse;
 import com.zircon.app.ui.common.fragment.BaseDrawerActivity;
-import com.zircon.app.ui.widget.ToolsWidget;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.AuthCallbackImpl;
 import com.zircon.app.utils.HTTP;
 import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.ui.VerticalSeparator;
 
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UsersActivity extends BaseDrawerActivity {
@@ -52,7 +47,7 @@ public class UsersActivity extends BaseDrawerActivity {
 
         usersAdapter = new UsersAdapter();
         recyclerView = (RecyclerView) findViewById(R.id.rv_user);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(usersAdapter);
         recyclerView.addItemDecoration(new VerticalSeparator(2));
 
@@ -64,10 +59,10 @@ public class UsersActivity extends BaseDrawerActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                String phoneNumber = ((UsersAdapter.ViewHolder)viewHolder).phoneTextView.getText().toString();
-                String email = ((UsersAdapter.ViewHolder)viewHolder).emailTextView.getText().toString();
+                String phoneNumber = ((UsersAdapter.ViewHolder) viewHolder).phoneTextView.getText().toString();
+                String email = ((UsersAdapter.ViewHolder) viewHolder).emailTextView.getText().toString();
 
-                switch (swipeDir){
+                switch (swipeDir) {
                     case ItemTouchHelper.RIGHT:
                         NavigationUtils.navigateToDialer(UsersActivity.this, phoneNumber);
                         usersAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
@@ -87,25 +82,25 @@ public class UsersActivity extends BaseDrawerActivity {
                 Paint p = new Paint();
                 View itemView = viewHolder.itemView;
 
-                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
 
                     float height = (float) itemView.getBottom() - (float) itemView.getTop();
                     float width = height / 3;
 
-                    if(dX > 0){
+                    if (dX > 0) {
                         p.setColor(Color.DKGRAY);
-                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
-                        c.drawRect(background,p);
+                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX, (float) itemView.getBottom());
+                        c.drawRect(background, p);
                         icon = BitmapFactory.decodeResource(getResources(), android.R.drawable.sym_action_call);
-                        RectF icon_dest = new RectF((float) itemView.getLeft() + width ,(float) itemView.getTop() + width,(float) itemView.getLeft()+ 2*width,(float)itemView.getBottom() - width);
-                        c.drawBitmap(icon,null,icon_dest,p);
+                        RectF icon_dest = new RectF((float) itemView.getLeft() + width, (float) itemView.getTop() + width, (float) itemView.getLeft() + 2 * width, (float) itemView.getBottom() - width);
+                        c.drawBitmap(icon, null, icon_dest, p);
                     } else {
                         p.setColor(Color.GREEN);
-                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),(float) itemView.getRight(), (float) itemView.getBottom());
-                        c.drawRect(background,p);
+                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
+                        c.drawRect(background, p);
                         icon = BitmapFactory.decodeResource(getResources(), android.R.drawable.sym_action_email);
-                        RectF icon_dest = new RectF((float) itemView.getRight() - 2*width ,(float) itemView.getTop() + width,(float) itemView.getRight() - width,(float)itemView.getBottom() - width);
-                        c.drawBitmap(icon,null,icon_dest,p);
+                        RectF icon_dest = new RectF((float) itemView.getRight() - 2 * width, (float) itemView.getTop() + width, (float) itemView.getRight() - width, (float) itemView.getBottom() - width);
+                        c.drawBitmap(icon, null, icon_dest, p);
                     }
                 }
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);

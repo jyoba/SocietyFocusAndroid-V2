@@ -2,28 +2,13 @@ package com.zircon.app.utils;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.text.TextUtils;
-import android.util.Log;
 
-import com.google.firebase.messaging.RemoteMessage;
 import com.zircon.app.App;
 import com.zircon.app.R;
 import com.zircon.app.model.Complaint;
-import com.zircon.app.model.response.NotificationResponse;
 import com.zircon.app.ui.complaint.ComplaintsActivity;
-import com.zircon.app.ui.login.SplashActivity;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Random;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 

@@ -11,10 +11,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zircon.app.App;
 import com.zircon.app.R;
 import com.zircon.app.model.Complaint;
-import com.zircon.app.ui.complaint.ComplaintDetailActivity;
 import com.zircon.app.utils.NavigationUtils;
 
 /**
@@ -33,7 +31,7 @@ public class DisplayUtils {
         });
         builder.setNegativeButton("No, thanks", dismissClickListener);
 
-        if (isForced){
+        if (isForced) {
             builder.setTitle("Update required");
         } else {
             builder.setTitle("Update available");
@@ -47,12 +45,12 @@ public class DisplayUtils {
     }
 
 
-    public static void showComingSoon(Context context){
-        Toast.makeText(context,context.getString(R.string.msg_coming_soon),Toast.LENGTH_LONG).show();
+    public static void showComingSoon(Context context) {
+        Toast.makeText(context, context.getString(R.string.msg_coming_soon), Toast.LENGTH_LONG).show();
     }
 
-    public static void showOnlySocietyFeature(Context context){
-        Toast.makeText(context,context.getString(R.string.msg_only_society_feature),Toast.LENGTH_LONG).show();
+    public static void showOnlySocietyFeature(Context context) {
+        Toast.makeText(context, context.getString(R.string.msg_only_society_feature), Toast.LENGTH_LONG).show();
     }
 
     public static int getScreenWidth(Activity activity) {
@@ -64,7 +62,7 @@ public class DisplayUtils {
     public static void showYesNoDialog(Context context, String text, final View.OnClickListener yesClickListener, final View.OnClickListener noClickListener) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        View dialogView = LayoutInflater.from(context).inflate(R.layout.popup_yes_no, null,false);
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.popup_yes_no, null, false);
         dialogBuilder.setView(dialogView);
 
         TextView textView = (TextView) dialogView.findViewById(R.id.tv_title);
@@ -87,11 +85,10 @@ public class DisplayUtils {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
-                if (yesClickListener!=null)
+                if (yesClickListener != null)
                     yesClickListener.onClick(v);
             }
         });
-
 
 
         alertDialog.show();

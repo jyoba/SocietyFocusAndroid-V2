@@ -7,18 +7,7 @@ import android.os.Parcelable;
  * Created by jikoobaruah on 05/05/17.
  */
 
-public class Comment implements Parcelable{
-
-    public Comment(){}
-
-    protected Comment(Parcel in) {
-        commentid = in.readString();
-        user = in.readParcelable(User.class.getClassLoader());
-        comment = in.readString();
-        complaintid = in.readString();
-        creationdate = in.readString();
-        status = in.readInt();
-    }
+public class Comment implements Parcelable {
 
     public static final Creator<Comment> CREATOR = new Creator<Comment>() {
         @Override
@@ -31,6 +20,23 @@ public class Comment implements Parcelable{
             return new Comment[size];
         }
     };
+    public String commentid;
+    public User user;
+    public String comment;
+    public String complaintid;
+    public String creationdate;
+    public int status = Status.FROM_SERVER;
+
+    public Comment() {
+    }
+    protected Comment(Parcel in) {
+        commentid = in.readString();
+        user = in.readParcelable(User.class.getClassLoader());
+        comment = in.readString();
+        complaintid = in.readString();
+        creationdate = in.readString();
+        status = in.readInt();
+    }
 
     @Override
     public int describeContents() {
@@ -57,17 +63,9 @@ public class Comment implements Parcelable{
         this.status = comment.status;
 
     }
-
-    public interface Status{
+    public interface Status {
         int FROM_SERVER = 0;
         int SENDING_TO_SERVER = 1;
         int SENDING_TO_SERVER_FAIL = 2;
     }
-
-    public String commentid;
-    public User user;
-    public String comment;
-    public String complaintid;
-    public String creationdate;
-    public int status = Status.FROM_SERVER;
 }

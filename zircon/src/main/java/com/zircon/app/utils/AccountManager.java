@@ -10,13 +10,11 @@ import com.zircon.app.model.User;
 public class AccountManager {
 
     private static AccountManager instance;
-
-    private AccountManager() {
-    }
-
     private User user;
     private Society society;
     private String token;
+    private AccountManager() {
+    }
 
     public static AccountManager getInstance() {
         if (instance == null)

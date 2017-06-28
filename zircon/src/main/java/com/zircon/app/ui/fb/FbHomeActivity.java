@@ -2,17 +2,13 @@ package com.zircon.app.ui.fb;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
 import com.zircon.app.R;
 import com.zircon.app.ui.common.fragment.BaseDrawerActivity;
 import com.zircon.app.ui.home.NoticeBoardHelper;
-import com.zircon.app.ui.widget.ToolsWidget;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.NavigationUtils;
 import com.zircon.app.utils.ui.DisplayUtils;
-import com.zircon.app.utils.ui.ForceUpdateHelper;
 
 public class FbHomeActivity extends BaseDrawerActivity {
 

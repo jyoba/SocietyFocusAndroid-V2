@@ -7,9 +7,9 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
-        android:layoutAnimation="@anim/layout_anim_in"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutAnimation="@anim/layout_anim_in"
         android:orientation="vertical"
         android:paddingBottom="@dimen/spacing_normal"
         android:paddingTop="@dimen/spacing_normal">
@@ -165,23 +165,23 @@
 
 
         <!--<com.zircon.app.utils.ui.AspectRatioCardView-->
-            <!--style="@style/CardView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="@dimen/spacing_normal"-->
-            <!--app:cardBackgroundColor="@color/orange_500"-->
-            <!--app:contentPaddingLeft="@dimen/spacing_normal"-->
-            <!--app:contentPaddingRight="@dimen/spacing_normal"-->
-            <!--app:ratio="0.2">-->
+        <!--style="@style/CardView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/spacing_normal"-->
+        <!--app:cardBackgroundColor="@color/orange_500"-->
+        <!--app:contentPaddingLeft="@dimen/spacing_normal"-->
+        <!--app:contentPaddingRight="@dimen/spacing_normal"-->
+        <!--app:ratio="0.2">-->
 
-            <!--<TextView-->
-                <!--style="@style/TextView.Header.Clickable"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:drawableLeft="@drawable/ic_book_white_transparent_72dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/label_society_assets" />-->
+        <!--<TextView-->
+        <!--style="@style/TextView.Header.Clickable"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:drawableLeft="@drawable/ic_book_white_transparent_72dp"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/label_society_assets" />-->
         <!--</com.zircon.app.utils.ui.AspectRatioCardView>-->
 
     </LinearLayout>

@@ -10,29 +10,27 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:padding="@dimen/spacing_xxsmall"
-        android:layout_marginTop="@dimen/spacing_small"
         android:id="@+id/iv_profile"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        app:civ_border_width="2dp"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:padding="@dimen/spacing_xxsmall"
         app:civ_border_color="@android:color/white"
-         />
+        app:civ_border_width="2dp" />
 
     <TextView
-        style="@style/TextView.Header"
         android:id="@+id/tv_name"
+        style="@style/TextView.Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_small"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        style="@style/TextView.SubHeader"
-        android:layout_marginTop="@dimen/spacing_xsmall"
         android:id="@+id/tv_email"
+        style="@style/TextView.SubHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:layout_marginTop="@dimen/spacing_xsmall" />
 
 </LinearLayout>

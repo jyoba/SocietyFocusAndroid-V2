@@ -10,17 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_normal"
-       >
+        android:padding="@dimen/spacing_normal">
 
 
         <android.support.v7.widget.RecyclerView
-            android:layout_marginTop="?actionBarSize"
             android:id="@+id/rv_notice"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-
+            android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize" />
 
 
     </LinearLayout>

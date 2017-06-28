@@ -10,8 +10,7 @@
         android:id="@+id/society_img"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="center"
-        />
+        android:layout_gravity="center" />
 
     <LinearLayout
         android:layout_width="match_parent"

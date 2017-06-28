@@ -1,8 +1,5 @@
 package com.zircon.app.model;
 
-import android.widget.EditText;
-
-import com.zircon.app.App;
 import com.zircon.app.utils.ks.KeyStoreUtils;
 
 /**
