@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_payment_white_transparent_72dp"
+                app:drawableLeftCompat="@drawable/ic_payment_white_transparent_72dp"
                 android:gravity="center"
                 android:text="@string/label_pay_rwa_fees" />
         </com.zircon.app.utils.ui.AspectRatioCardView>
@@ -55,13 +55,13 @@
                 app:cardBackgroundColor="@color/colorPrimaryDark"
                 app:contentPadding="@dimen/spacing_normal">
 
-                <TextView
+                <com.zircon.app.utils.ui.VectorDrawableTextView
                     android:id="@+id/tv_residents"
                     style="@style/TextView.Header.Clickable"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:drawableTop="@drawable/ic_group_white_transparent_72dp"
+                    app:drawableTopCompat="@drawable/ic_group_white_transparent_72dp"
                     android:gravity="center"
                     android:text="@string/label_residents" />
 
@@ -75,13 +75,13 @@
                 app:cardBackgroundColor="@color/colorAccent"
                 app:contentPadding="@dimen/spacing_normal">
 
-                <TextView
+                <com.zircon.app.utils.ui.VectorDrawableTextView
                     android:id="@+id/tv_rwa"
                     style="@style/TextView.Header.Clickable"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:drawableTop="@drawable/ic_group_work_white_transparent_72dp"
+                    app:drawableTopCompat="@drawable/ic_group_work_white_transparent_72dp"
                     android:gravity="center"
                     android:text="@string/label_rwa" />
 
@@ -108,13 +108,13 @@
                 app:cardBackgroundColor="@color/cyan_500"
                 app:contentPadding="@dimen/spacing_normal">
 
-                <TextView
+                <com.zircon.app.utils.ui.VectorDrawableTextView
                     android:id="@+id/tv_complaints"
                     style="@style/TextView.Header.Clickable"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:drawableTop="@drawable/ic_bug_report_white_transparent_72dp"
+                    app:drawableTopCompat="@drawable/ic_bug_report_white_transparent_72dp"
                     android:gravity="center"
                     android:text="@string/label_complaint" />
 
@@ -128,12 +128,12 @@
                 app:cardBackgroundColor="@color/orange_500"
                 app:contentPadding="@dimen/spacing_normal">
 
-                <TextView
+                <com.zircon.app.utils.ui.VectorDrawableTextView
                     style="@style/TextView.Header.Clickable"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:drawableTop="@drawable/ic_business_center_white_transparent_72dp"
+                    app:drawableTopCompat="@drawable/ic_business_center_white_transparent_72dp"
                     android:gravity="center"
                     android:text="@string/label_services" />
 
@@ -152,13 +152,13 @@
             app:contentPaddingRight="@dimen/spacing_normal"
             app:ratio="0.2">
 
-            <TextView
+            <com.zircon.app.utils.ui.VectorDrawableTextView
                 android:id="@+id/tv_car_search"
                 style="@style/TextView.Header.Clickable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_car_white_transparent_72dp"
+                app:drawableLeftCompat="@drawable/ic_car_white_transparent_72dp"
                 android:gravity="center"
                 android:text="@string/label_car_search" />
         </com.zircon.app.utils.ui.AspectRatioCardView>

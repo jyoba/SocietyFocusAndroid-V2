@@ -13,4 +13,12 @@
         <attr name="finalHeight" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="VectorDrawableTextView">
+        <attr name="drawableLeftCompat" format="reference"/>
+        <attr name="drawableRightCompat" format="reference"/>
+        <attr name="drawableTopCompat" format="reference"/>
+        <attr name="drawableBottomCompat" format="reference"/>
+    </declare-styleable>
+
+
 </resources>
