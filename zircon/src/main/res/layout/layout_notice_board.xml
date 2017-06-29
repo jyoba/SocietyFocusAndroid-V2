@@ -11,22 +11,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="@color/white_transparent"
             android:padding="@dimen/spacing_xsmall"
-
+            android:gravity="center_vertical"
             >
 
             <TextView
                 android:id="@+id/tv_title"
                 style="@style/TextView.Header.White"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-
                 android:text="Title" />
 
             <TextView
@@ -34,10 +33,8 @@
                 style="@style/TextView.Content.White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:text="5,Dec 2076" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

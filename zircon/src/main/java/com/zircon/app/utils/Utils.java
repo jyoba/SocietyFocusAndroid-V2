@@ -47,7 +47,7 @@ public class Utils {
     public static String parseServerDate(String serverDate) throws ParseException {
         //2017-03-20T10:23:00 +0000
         Date date = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss z").parse(serverDate);
-        return new SimpleDateFormat("dd MMM,yyyy").format(date);
+        return toRelative(date,new Date(),1);//new SimpleDateFormat("dd MMM,yyyy").format(date);
     }
 
     public static String getNow() {
