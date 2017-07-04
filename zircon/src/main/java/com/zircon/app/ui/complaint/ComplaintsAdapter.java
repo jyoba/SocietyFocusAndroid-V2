@@ -73,6 +73,7 @@ public class ComplaintsAdapter extends AbsSearchListAdapter<Complaint, Complaint
 
     public void clear() {
         masterItems.clear();
+        displayItems.clear();
         notifyDataSetChanged();
     }
 
@@ -155,10 +156,10 @@ public class ComplaintsAdapter extends AbsSearchListAdapter<Complaint, Complaint
             final Complaint item = getItem(getAdapterPosition());
 
 
-            if (item.imgUrls == null )
-            for (int i = 0; i < getAdapterPosition() % 4; i++) {
-                item.addImageUrl("https://cdn.pixabay.com/photo/2013/07/12/19/22/iris-154659_1280.png");
-            }
+//            if (item.imgUrls == null )
+//            for (int i = 0; i < getAdapterPosition() % 4; i++) {
+//                item.addImageUrl("https://cdn.pixabay.com/photo/2013/07/12/19/22/iris-154659_1280.png");
+//            }
 
             adapter.clear();
             if (item.imgUrls != null && item.imgUrls.size() > 0) {

@@ -25,7 +25,7 @@ public class ToolsWidget {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                        Uri.parse(String.format("https://www.google.com/maps/dir/?api=1&destination=%d,%d", AccountManager.getInstance().getloggedInSociety().location.latitude, AccountManager.getInstance().getloggedInSociety().location.longitude)));
+                        Uri.parse(String.format("https://www.google.com/maps/dir/?api=1&destination=%f,%f", AccountManager.getInstance().getloggedInSociety().location.latitude, AccountManager.getInstance().getloggedInSociety().location.longitude)));
                 activity.startActivity(intent);
 
             }

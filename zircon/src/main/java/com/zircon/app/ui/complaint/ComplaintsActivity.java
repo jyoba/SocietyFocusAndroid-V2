@@ -72,9 +72,13 @@ public class ComplaintsActivity extends BaseDrawerActivity implements ComplaintA
                 TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.spacing_normal), getResources().getDisplayMetrics()
         )));
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         load();
-
-
     }
 
     private void showComplaintDialog() {

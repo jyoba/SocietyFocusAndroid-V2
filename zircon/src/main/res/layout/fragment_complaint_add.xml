@@ -84,6 +84,7 @@
             <com.zircon.app.ui.widget.ImageUploadWidget
                 android:id="@+id/widget_image_upload1"
                 android:layout_width="0dp"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/spacing_normal"
                 android:layout_weight="1" />
@@ -91,6 +92,7 @@
             <com.zircon.app.ui.widget.ImageUploadWidget
                 android:id="@+id/widget_image_upload2"
                 android:layout_width="0dp"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 

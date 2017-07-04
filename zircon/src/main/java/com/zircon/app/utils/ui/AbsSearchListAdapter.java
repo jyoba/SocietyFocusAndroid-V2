@@ -13,7 +13,7 @@ public abstract class AbsSearchListAdapter<T, VH extends RecyclerView.ViewHolder
 
     protected ArrayList<T> masterItems = new ArrayList<>();
     protected String query;
-    private ArrayList<T> displayItems = new ArrayList<>();
+    protected ArrayList<T> displayItems = new ArrayList<>();
 
     public final void filter(String query) {
         this.query = query;

@@ -34,7 +34,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="?selectableItemBackgroundBorderless"
-                app:srcCompat="@drawable/ic_cancel_round_red" />
+                app:srcCompat="@drawable/ic_cancel_red_circle_36dp" />
 
             <ImageButton
                 android:id="@+id/btn_done"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="?selectableItemBackgroundBorderless"
-                app:srcCompat="@drawable/ic_done_round_green" />
+                app:srcCompat="@drawable/ic_done_circle_green_36dp" />
 
         </LinearLayout>
 
