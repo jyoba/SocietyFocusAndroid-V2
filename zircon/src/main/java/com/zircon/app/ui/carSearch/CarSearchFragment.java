@@ -1,6 +1,8 @@
 package com.zircon.app.ui.carSearch;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.CardView;
@@ -8,6 +10,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -55,9 +58,8 @@ public class CarSearchFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.fragment_car_search, null, false);
-        v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
+        View v = LayoutInflater.from(getContext()).inflate(R.layout.fragment_car_search, container, false);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         return v;
     }
@@ -119,7 +121,10 @@ public class CarSearchFragment extends DialogFragment {
                         progressLayout.setVisibility(View.INVISIBLE);
                         noResultsLayout.setVisibility(View.INVISIBLE);
                         resultView.setVisibility(View.VISIBLE);
-                        setupResultView(response.body().body);
+                        if (response.body().body != null)
+                            setupResultView(response.body().body);
+                        else
+                            apiFail(null);
                     }
 
                     @Override
@@ -133,6 +138,12 @@ public class CarSearchFragment extends DialogFragment {
 
             }
         });
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return super.onCreateDialog(savedInstanceState);
     }
 
     private void setupResultView(final CarSearch body) {

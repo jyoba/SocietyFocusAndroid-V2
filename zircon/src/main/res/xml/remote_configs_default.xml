@@ -12,4 +12,9 @@
         <key>force_update_store_url</key>
         <value>https://play.google.com/store/apps/details?id=com.zircon.app</value>
     </entry>
+    <entry>
+        <key>emergency</key>
+        <value>police|100,fire|108</value>
+    </entry>
+
 </defaultsMap>

@@ -38,6 +38,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ui.home.HomeActivity" />
         <activity android:name=".ui.usr.UsersActivity" />
+        <activity android:name=".ui.usr.UserDetailActivity" />
         <activity android:name=".ui.rwa.RwaActivity" />
         <activity android:name=".ui.notice.NoticesActivity" />
         <activity android:name=".ui.complaint.ComplaintsActivity" />

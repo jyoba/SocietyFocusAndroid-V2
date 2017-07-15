@@ -100,39 +100,27 @@ public class NoticeBoardHelper {
         });
     }
 
+    private static Runnable autoScrollRunnable;
+
     private static void startAutoScroll(final ViewPager noticeViewPager) {
 
-        noticeViewPager.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (noticeViewPager.getCurrentItem() < (noticeViewPager.getChildCount() - 1))
-                    noticeViewPager.setCurrentItem(noticeViewPager.getCurrentItem() + 1, true);
-                else
-                    noticeViewPager.setCurrentItem(0, true);
-            }
-        }, 3000);
+        if (autoScrollRunnable == null){
+            autoScrollRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (noticeViewPager.getCurrentItem() < (noticeViewPager.getChildCount() - 1))
+                        noticeViewPager.setCurrentItem(noticeViewPager.getCurrentItem() + 1, true);
+                    else
+                        noticeViewPager.setCurrentItem(0, true);
+                }
+            };
+        }
+
+        noticeViewPager.removeCallbacks(autoScrollRunnable);
+
+        noticeViewPager.postDelayed(autoScrollRunnable, 3000);
     }
 
-
-//    private class AutoScrollTask extends TimerTask {
-//
-//        @Override
-//        public void run() {
-//
-//                ((Activity)pager.get().getContext()).runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (pager.get().getCurrentItem() < (pager.get().getChildCount() - 1))
-//                            pager.get().setCurrentItem(pager.get().getCurrentItem() + 1, true);
-//                        else
-//                            pager.get().setCurrentItem(0, true);
-//                    }
-//                });
-//
-//
-//
-//        }
-//    }
 
 
     private static class NoticeAdapter extends PagerAdapter {

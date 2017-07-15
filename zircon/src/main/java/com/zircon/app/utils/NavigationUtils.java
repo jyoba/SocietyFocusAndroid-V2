@@ -1,5 +1,6 @@
 package com.zircon.app.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
 import com.zircon.app.model.Complaint;
 import com.zircon.app.model.NoticeBoard;
@@ -17,10 +19,12 @@ import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.ui.complaint.ComplaintAddFragment;
 import com.zircon.app.ui.complaint.ComplaintDetailActivity;
 import com.zircon.app.ui.complaint.ComplaintsActivity;
+import com.zircon.app.ui.emergency.EmergencyFragment;
 import com.zircon.app.ui.home.HomeActivity;
 import com.zircon.app.ui.login.LoginActivity;
 import com.zircon.app.ui.notice.NoticesActivity;
 import com.zircon.app.ui.rwa.RwaActivity;
+import com.zircon.app.ui.usr.UserDetailActivity;
 import com.zircon.app.ui.usr.UserDetailFragment;
 import com.zircon.app.ui.usr.UsersActivity;
 
@@ -58,9 +62,16 @@ public class NavigationUtils {
         context.startActivity(intent);
     }
 
+//    public static void navigateToUserDetailPage(BaseActivity context, int color, User user) {
+//        BottomSheetDialogFragment bottomSheetDialogFragment = UserDetailFragment.getInstance(user, color);
+//        bottomSheetDialogFragment.show(context.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+//    }
+
     public static void navigateToUserDetailPage(BaseActivity context, int color, User user) {
-        BottomSheetDialogFragment bottomSheetDialogFragment = UserDetailFragment.getInstance(user, color);
-        bottomSheetDialogFragment.show(context.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+        Intent intent = new Intent(context, UserDetailActivity.class);
+        intent.putExtra(UserDetailActivity.KEY_USER, user);
+        intent.putExtra(UserDetailActivity.KEY_COLOR, color);
+        context.startActivity(intent);
     }
 
     public static void navigateToNotices(Context context, ArrayList<NoticeBoard> noticeBoards) {
@@ -134,5 +145,10 @@ public class NavigationUtils {
         homeIntent.addCategory(Intent.CATEGORY_HOME);
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(homeIntent);
+    }
+
+    public static void navigateToEmergency(BaseActivity context) {
+        BottomSheetDialogFragment bottomSheetDialogFragment = (BottomSheetDialogFragment) Fragment.instantiate(context,EmergencyFragment.class.getName());
+        bottomSheetDialogFragment.show(context.getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
 }

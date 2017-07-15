@@ -7,6 +7,7 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.zircon.app.model.Emergency;
 
 /**
  * Created by jikoobaruah on 07/04/17.

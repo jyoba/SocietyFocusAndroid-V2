@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.OvershootInterpolator;
 
 import com.zircon.app.R;
+import com.zircon.app.ui.common.fragment.BaseActivity;
 import com.zircon.app.utils.AccountManager;
 import com.zircon.app.utils.NavigationUtils;
 
@@ -47,18 +48,29 @@ public class ToolsWidget {
             }
         });
 
+        final FloatingActionButton fabEmergency = (FloatingActionButton) activity.findViewById(R.id.fabEmergency);
+        fabEmergency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavigationUtils.navigateToEmergency((BaseActivity) view.getContext());
+            }
+        });
+
         final FloatingActionButton fabMenu = (FloatingActionButton) activity.findViewById(R.id.fabMenu);
         fabMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (fabCall.getX() == fabMenu.getX() && fabCall.getY() == fabMenu.getY()) {
-                    fabNavigate.animate().y(fabNavigate.getY() - fabNavigate.getMeasuredHeight() - 30).x(fabNavigate.getX() - fabNavigate.getMeasuredWidth() - 30).setInterpolator(new OvershootInterpolator());
-                    fabCall.animate().y(fabNavigate.getY() - fabNavigate.getMeasuredHeight() - 30).setInterpolator(new OvershootInterpolator());
-                    fabMessage.animate().x(fabNavigate.getX() - fabNavigate.getMeasuredWidth() - 30).setInterpolator(new OvershootInterpolator());
+                    fabCall     .animate().y(fabNavigate.getY() - fabNavigate.getMeasuredHeight() - 30).setInterpolator(new OvershootInterpolator());
+                    fabNavigate .animate().y(fabNavigate.getY() - fabNavigate.getMeasuredHeight() + 30 ).x(fabNavigate.getX() - fabNavigate.getMeasuredWidth() - 30).setInterpolator(new OvershootInterpolator());
+                    fabMessage  .animate().y(fabNavigate.getY() + fabNavigate.getMeasuredHeight() - 30 ).x(fabNavigate.getX() - fabNavigate.getMeasuredWidth() - 30).setInterpolator(new OvershootInterpolator());
+                    fabEmergency.animate().y(fabEmergency.getY() + fabEmergency.getMeasuredHeight() + 30).setInterpolator(new OvershootInterpolator());
+
                 } else {
                     fabNavigate.animate().y(fabMenu.getY()).x(fabMenu.getX());
                     fabCall.animate().y(fabMenu.getY()).x(fabMenu.getX());
                     fabMessage.animate().y(fabMenu.getY()).x(fabMenu.getX());
+                    fabEmergency.animate().y(fabMenu.getY()).x(fabMenu.getX());
                 }
             }
         });

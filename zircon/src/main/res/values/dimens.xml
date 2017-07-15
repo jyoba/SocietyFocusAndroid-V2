@@ -19,6 +19,7 @@
     <dimen name="spacing_large">16dp</dimen>
 
 
+    // for collapsing image in user details
     <dimen name="image_width">120dp</dimen>
     <dimen name="image_final_width">32dp</dimen>
 </resources>
